@@ -73,9 +73,9 @@ public final class Constants
         public static final double k_MaxAutoSpeed = Units.feetToMeters(16.43); //m/s
         public static final double k_MaxAcceleration = Units.feetToMeters(.0000000000001); //m/s/s
         
-        public static final double kXYjoystickCoefficient = .5;
-        public static final double kMaxAngularSpeed = .0000000000001;
-        public static final double kRotCoefficient = .25;
+        public static final double k_XYjoystickCoefficient = .5;
+        public static final double k_MaxAngularSpeed = .0000000000001;
+        public static final double k_RotCoefficient = .25;
 
         public static final double k_driveEncoderTicksPerRotation = 2048; 
         public static final double k_gearRatio = 6.75;
@@ -142,6 +142,13 @@ public final class Constants
         public static final double k_steerDeadband = 0.02; // Deadband on the motor controller
         public static final double k_ToleranceInDegrees = .1; //TODO Figure out real value
     }
-
+    
+    public static final class PneumaticsConstants 
+    {
+        public static int k_left1ID = 0; 
+        public static int k_left2ID = 1;
+        public static int k_right1ID = 2;
+        public static int k_right2ID = 3;
+    }
 
 }

@@ -22,7 +22,7 @@ import frc.robot.Constants.SwerveDriveModuleConstants;
 
 public class DriveSubsystem extends SubsystemBase
 {
-  PigeonIMU m_imu = new PigeonIMU(CANBusIDs.k_pigeonID); 
+  PigeonIMU m_imu = new PigeonIMU(CANBusIDs.k_pigeonID);
   private Pose2d m_robotPose = new Pose2d();
 
 
