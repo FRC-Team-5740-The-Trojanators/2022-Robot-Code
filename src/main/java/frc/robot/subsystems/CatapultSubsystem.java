@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -15,11 +16,17 @@ public class CatapultSubsystem extends SubsystemBase {
   private final Solenoid m_Left2 = new Solenoid(PneumaticsModuleType.CTREPCM, PneumaticsConstants.k_left2ID);
   private final Solenoid m_Right1 = new Solenoid(PneumaticsModuleType.CTREPCM, PneumaticsConstants.k_right1ID);
   private final Solenoid m_Right2 = new Solenoid(PneumaticsModuleType.CTREPCM, PneumaticsConstants.k_right2ID);
+
+  private final AnalogInput m_analogInput = new AnalogInput(PneumaticsConstants.k_analogInputID);
+
+  //(250*(averageVolts/5.0))-25; - this is the equation for analong pressure reading
+
   public CatapultSubsystem() {}
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  m_analogInput.getVoltage();
   }
 
   public void shootCatapult()

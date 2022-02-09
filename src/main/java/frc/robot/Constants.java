@@ -119,6 +119,8 @@ public final class Constants
         public static final int k_RightRear_SteeringMotor = 8; 
 
         public static final int k_pigeonID = 13;
+        public static final int k_intakeMotors = 14;
+        public static final int k_holdMotor = 15;
     }
 
     public static final class DriveModulePIDValues
@@ -149,6 +151,19 @@ public final class Constants
         public static int k_left2ID = 1;
         public static int k_right1ID = 2;
         public static int k_right2ID = 3;
+
+        public static int k_analogInputID = 0;
+    }
+
+    public static final class IntakeSubsystemConstants
+    {
+        public static final double k_intakeMotorSpeed = -0.6;
+        public static final double k_intakeReverseMotorSpeed = 0.6;
+        public static final double k_intakeStopMotorSpeed = 0.0;
+        
+        public static final double k_holdMotorSpeed = -0.6;
+        public static final double k_holdReverseMotorSpeed = 0.6;
+        public static final double k_holdStopMotorSpeed = 0.0;
     }
 
 }
