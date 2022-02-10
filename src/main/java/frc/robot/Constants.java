@@ -121,6 +121,8 @@ public final class Constants
         public static final int k_pigeonID = 13;
         public static final int k_intakeMotors = 14;
         public static final int k_holdMotor = 15;
+        
+        public static final int k_climbMotor = 16;
     }
 
     public static final class DriveModulePIDValues
@@ -152,7 +154,18 @@ public final class Constants
         public static int k_right1ID = 2;
         public static int k_right2ID = 3;
 
+        public static int k_intakeForwardID = 4;
+        public static int k_intakeReverseID = 5;
+        
+        public static int k_climbForwardID = 6;
+        public static int k_climbReverseID = 7;
+    }
+    
+    public static final class RioInputs
+    {
         public static int k_analogInputID = 0;
+        public static int k_topLimitSwitchID = 0;
+        public static int k_bottomLimitSwitchID = 1;
     }
 
     public static final class IntakeSubsystemConstants

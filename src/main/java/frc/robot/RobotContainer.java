@@ -8,10 +8,16 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.HIDConstants;
 import frc.robot.commands.AutonomousDrive;
+import frc.robot.commands.IntakeReverseCommand;
+import frc.robot.commands.IntakeRunCommand;
 import frc.robot.commands.SwerveDriveCommand;
+import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -23,13 +29,18 @@ public class RobotContainer
 {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_driveSubsystem = new DriveSubsystem(false);
+  private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
+  private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
 
   XboxController m_driverController = new XboxController(HIDConstants.k_DriverControllerPort);
   XboxController m_operatorController = new XboxController(HIDConstants.k_OperatorControllerPort);
 
   private final SwerveDriveCommand m_driveCommand = new SwerveDriveCommand(m_driveSubsystem, m_driverController);
   private final AutonomousDrive m_autonomousDrive = new AutonomousDrive(m_driveSubsystem);
+  private final IntakeRunCommand m_intakeRunCommand = new IntakeRunCommand(m_intakeSubsystem);
+  private final IntakeReverseCommand m_intakeReverseCommand = new IntakeReverseCommand(m_intakeSubsystem);
 
+  public static JoystickButton intakeFlip, intakeRun, intakeReverse, climbAngle;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() 
   {
@@ -46,7 +57,18 @@ public class RobotContainer
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() 
+  {
+    intakeFlip = new JoystickButton(m_driverController , HIDConstants.kA);
+    intakeRun = new JoystickButton(m_driverController , HIDConstants.kLB);
+    intakeReverse = new JoystickButton(m_driverController, HIDConstants.kStart);
+  
+    intakeFlip.toggleWhenPressed(new StartEndCommand(m_intakeSubsystem::retractIntake, m_intakeSubsystem::extendIntake, m_intakeSubsystem));
+    intakeRun.whileHeld(m_intakeRunCommand);
+    intakeReverse.whileHeld(m_intakeReverseCommand);
+
+    climbAngle.toggleWhenPressed(new StartEndCommand(m_climbSubsystem::straightClimb, m_climbSubsystem::angleClimb, m_climbSubsystem));
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

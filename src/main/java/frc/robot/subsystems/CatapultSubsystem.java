@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.PneumaticsConstants;
+import frc.robot.Constants.RioInputs;
 
 public class CatapultSubsystem extends SubsystemBase {
   /** Creates a new CatapultSubsystem. */
@@ -17,7 +18,7 @@ public class CatapultSubsystem extends SubsystemBase {
   private final Solenoid m_Right1 = new Solenoid(PneumaticsModuleType.CTREPCM, PneumaticsConstants.k_right1ID);
   private final Solenoid m_Right2 = new Solenoid(PneumaticsModuleType.CTREPCM, PneumaticsConstants.k_right2ID);
 
-  private final AnalogInput m_analogInput = new AnalogInput(PneumaticsConstants.k_analogInputID);
+  private final AnalogInput m_analogInput = new AnalogInput(RioInputs.k_analogInputID);
 
   //(250*(averageVolts/5.0))-25; - this is the equation for analong pressure reading
 
