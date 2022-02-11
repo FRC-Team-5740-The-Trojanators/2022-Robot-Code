@@ -8,12 +8,16 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CANBusIDs;
@@ -25,7 +29,9 @@ public class DriveSubsystem extends SubsystemBase
   public PigeonIMU m_imu = new PigeonIMU(CANBusIDs.k_pigeonID);
   private Pose2d m_robotPose = new Pose2d();
 
-  
+  private UsbCamera m_UsbCamera = CameraServer.startAutomaticCapture();
+  NetworkTableEntry cameraEntry = NetworkTableInstance.getDefault().getTable("").getEntry("Camera");
+  NetworkTableEntry limelight = NetworkTableInstance.getDefault().getTable("").getEntry("limelight"); //TODO Make sure we can access camera 
 
   private SwerveModuleState[] m_states = new SwerveModuleState[]
   {

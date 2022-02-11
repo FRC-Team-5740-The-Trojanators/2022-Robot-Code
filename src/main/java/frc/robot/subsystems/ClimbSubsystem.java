@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CANBusIDs;
@@ -24,9 +25,10 @@ public class ClimbSubsystem extends SubsystemBase {
   /** Creates a new Climb. */
   private final DoubleSolenoid m_climbSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, PneumaticsConstants.k_climbForwardID, PneumaticsConstants.k_climbReverseID);
   private final TalonFX m_climbMotor = new TalonFX(CANBusIDs.k_climbMotor);
-
-  private final DigitalInput toplimitSwitch = new DigitalInput(RioInputs.k_topLimitSwitchID);
-  //private final DigitalInput bottomlimitSwitch = new DigitalInput(RioInputs.k_bottomLimitSwitchID);
+ 
+  private final Servo m_servoMotor = new Servo(RioInputs.k_servoMotor);
+  private final DigitalInput topLimitSwitch = new DigitalInput(RioInputs.k_topLimitSwitchID);
+  private final DigitalInput bottomLimitSwitch = new DigitalInput(RioInputs.k_bottomLimitSwitchID);
 
   public ClimbSubsystem() 
   {
@@ -46,13 +48,18 @@ public class ClimbSubsystem extends SubsystemBase {
   }
 
   public void setPower(double power)
-   {
+  {
     m_climbMotor.set(ControlMode.PercentOutput, power);
   }
 
-  public boolean limitSwitchBoolean()
+  public boolean topLimitSwitchBoolean()
   {
-    return toplimitSwitch.get();  //true means the limit switch has been tripped
+    return topLimitSwitch.get();  //true means the limit switch has been tripped
+  }
+
+  public boolean bottomLimitSwitchBoolean()
+  {
+    return bottomLimitSwitch.get();  //true means the limit switch has been tripped
   }
 
   public double getJoystickWithDeadBand(double stickValue)
@@ -87,5 +94,10 @@ public class ClimbSubsystem extends SubsystemBase {
   public void stopClimb()
   {
     m_climbSolenoid.set(Value.kOff);
+  }
+
+  public void setServoMotor(double servoPower)
+  {
+    m_servoMotor.set(servoPower);
   }
 }

@@ -58,9 +58,6 @@ public final class Constants
             rightRear,
         };
 
-        // Distance between centers of right and left wheels on robot; unit is meters
-        public static final double k_TrackWidth = 0.00000000001; //TODO Measure Track Width
-
         // Distance between front and back wheels on robot; unit is meters
         public static final double k_WheelBase = 0.000000000001; //TODO Measure Wheel Base
 
@@ -69,7 +66,7 @@ public final class Constants
         public static final double k_wheelDiameter = 0.1016; //meters
 
         /*TODO for all of these change when robot is characterized*/
-        public static final double k_MaxTeleSpeed = Units.feetToMeters(16.43); //m/s TODO find through characterization
+        public static final double k_MaxTeleSpeed = Units.feetToMeters(16.43); //m/s 
         public static final double k_MaxAutoSpeed = Units.feetToMeters(16.43); //m/s
         public static final double k_MaxAcceleration = Units.feetToMeters(.0000000000001); //m/s/s
         
@@ -90,10 +87,10 @@ public final class Constants
     
         public static final SwerveDriveKinematics kinematics =
         new SwerveDriveKinematics(
-            new Translation2d(k_WheelBase / 2, k_TrackWidth / 2),    // Left Front
-            new Translation2d(k_WheelBase / 2, -k_TrackWidth / 2),   // Right Front
-            new Translation2d(-k_WheelBase / 2, k_TrackWidth / 2),   // Left Rear
-            new Translation2d(-k_WheelBase / 2, -k_TrackWidth / 2)); // Right Rear
+            new Translation2d(k_WheelBase / 2, k_WheelBase / 2),    // Left Front
+            new Translation2d(k_WheelBase / 2, -k_WheelBase / 2),   // Right Front
+            new Translation2d(-k_WheelBase / 2, k_WheelBase / 2),   // Left Rear
+            new Translation2d(-k_WheelBase / 2, -k_WheelBase / 2)); // Right Rear
 
     }
 
@@ -163,9 +160,10 @@ public final class Constants
     
     public static final class RioInputs
     {
-        public static int k_analogInputID = 0;
-        public static int k_topLimitSwitchID = 0;
-        public static int k_bottomLimitSwitchID = 1;
+        public static int k_analogInputID = 0; //Analog Input
+        public static int k_topLimitSwitchID = 0; //Digital Input
+        public static int k_bottomLimitSwitchID = 1; //Digital Input
+        public static int k_servoMotor = 0; //PWM output 
     }
 
     public static final class IntakeSubsystemConstants

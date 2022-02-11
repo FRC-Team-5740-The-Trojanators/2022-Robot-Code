@@ -42,12 +42,12 @@ public class ClimbCommand extends CommandBase {
 
     final var ySpeed = -yspeedLimiter.calculate(m_climb.getJoystickWithDeadBand(m_controller.getLeftY()));
     
-    if (m_climb.limitSwitchBoolean() != true) 
+    if (m_climb.topLimitSwitchBoolean() != true && m_climb.bottomLimitSwitchBoolean() != true) 
     {
       m_climb.setPower(ySpeed);
     } else 
     {
-      m_climb.setPower(0);
+      m_climb.setPower(power);
       m_isFinished = true;
     }
   }
@@ -56,14 +56,14 @@ public class ClimbCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) 
   {
-    m_climb.setPower(0);
+    m_climb.setPower(power);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() 
   {
-    m_climb.setPower(0);
+    m_climb.setPower(power);
     return m_isFinished;
   }
 }

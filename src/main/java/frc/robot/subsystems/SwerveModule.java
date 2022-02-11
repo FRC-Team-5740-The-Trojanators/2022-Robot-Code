@@ -36,7 +36,6 @@ public class SwerveModule
     private Rotation2d m_offset;
 
     private CANCoder m_moduleSteeringEncoder;
-    //TODO make a m_driveEncoder
 
     /**
      * Constructs a SwerveModule.
@@ -86,8 +85,7 @@ public class SwerveModule
         driveTalonConfig.slot0.kI = DriveModulePIDValues.k_driveI;
         driveTalonConfig.slot0.kD = DriveModulePIDValues.k_driveD;
         driveTalonConfig.slot0.kF = DriveModulePIDValues.k_driveFF;
-       // driveTalonConfig.neutralDeadband = DriveModulePIDValues.k_ToleranceInTicks //TODO ???
-        //TODO config conversion factor?
+      
         m_driveMotor.configAllSettings(driveTalonConfig);
     }
 
