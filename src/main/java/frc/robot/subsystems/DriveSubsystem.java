@@ -31,7 +31,8 @@ public class DriveSubsystem extends SubsystemBase
 
   private UsbCamera m_UsbCamera = CameraServer.startAutomaticCapture();
   NetworkTableEntry cameraEntry = NetworkTableInstance.getDefault().getTable("").getEntry("Camera");
-  NetworkTableEntry limelight = NetworkTableInstance.getDefault().getTable("").getEntry("limelight"); //TODO Make sure we can access camera 
+  NetworkTableEntry limelight = NetworkTableInstance.getDefault().getTable("").getEntry("limelight"); 
+  boolean cam = NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(1);
 
   private SwerveModuleState[] m_states = new SwerveModuleState[]
   {
