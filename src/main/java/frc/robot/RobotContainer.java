@@ -8,9 +8,12 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.HIDConstants;
 import frc.robot.commands.AutonomousDrive;
+import frc.robot.commands.CatapultCommand;
+import frc.robot.commands.HoldIntakeCommand;
 import frc.robot.commands.IntakeReverseCommand;
 import frc.robot.commands.IntakeRunCommand;
 import frc.robot.commands.SwerveDriveCommand;
+import frc.robot.subsystems.CatapultSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -31,6 +34,7 @@ public class RobotContainer
   private final DriveSubsystem m_driveSubsystem = new DriveSubsystem(false);
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
+  private final CatapultSubsystem m_catapultSubsystem = new CatapultSubsystem();
 
   XboxController m_driverController = new XboxController(HIDConstants.k_DriverControllerPort);
   XboxController m_operatorController = new XboxController(HIDConstants.k_OperatorControllerPort);
@@ -39,8 +43,10 @@ public class RobotContainer
   private final AutonomousDrive m_autonomousDrive = new AutonomousDrive(m_driveSubsystem);
   private final IntakeRunCommand m_intakeRunCommand = new IntakeRunCommand(m_intakeSubsystem);
   private final IntakeReverseCommand m_intakeReverseCommand = new IntakeReverseCommand(m_intakeSubsystem);
+  private final HoldIntakeCommand m_holdIntakeCommand = new HoldIntakeCommand(m_intakeSubsystem);
+  private final CatapultCommand m_catapultCommand = new CatapultCommand(m_catapultSubsystem);
 
-  public static JoystickButton intakeFlip, intakeRun, intakeReverse, climbAngle;
+  public static JoystickButton intakeFlip, intakeRun, intakeReverse, climbAngle, holdIntake, launchCatapult;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() 
   {

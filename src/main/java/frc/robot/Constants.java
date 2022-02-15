@@ -177,4 +177,10 @@ public final class Constants
         public static final double k_holdStopMotorSpeed = 0.0;
     }
 
+    public static final class ClimbSubsystemConstants
+    {
+        public static final double k_servoAngledPosition = .5;
+        public static final double k_servoStraightPosition = 0;
+    }
+
 }

@@ -100,4 +100,16 @@ public class ClimbSubsystem extends SubsystemBase {
   {
     m_servoMotor.set(servoPower);
   }
+
+  public boolean getClimbAngle()
+  {
+    if( m_climbSolenoid.get() == Value.kForward)
+    {
+      return true;
+    }
+    else
+    {
+    return false;
+    }
+  }
 }

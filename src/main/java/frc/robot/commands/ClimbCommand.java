@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.ClimbSubsystemConstants;
 import frc.robot.Constants.SwerveDriveModuleConstants;
 import frc.robot.subsystems.ClimbSubsystem;
 
@@ -45,10 +46,20 @@ public class ClimbCommand extends CommandBase {
     if (m_climb.topLimitSwitchBoolean() != true && m_climb.bottomLimitSwitchBoolean() != true) 
     {
       m_climb.setPower(ySpeed);
-    } else 
+    } 
+    else 
     {
       m_climb.setPower(power);
       m_isFinished = true;
+    }
+
+    if(m_climb.getClimbAngle())
+    {
+      m_climb.setServoMotor(ClimbSubsystemConstants.k_servoAngledPosition);
+    }
+    else
+    {
+      m_climb.setServoMotor(ClimbSubsystemConstants.k_servoStraightPosition);
     }
   }
 

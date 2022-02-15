@@ -75,14 +75,17 @@ public class SwervePath {
             while ((line = br.readLine()) != null) {
                 String[] point = line.split(",");
 
-                double pos = Double.parseDouble(point[0]);
-                double vel = Double.parseDouble(point[1]);
-                double acc = Double.parseDouble(point[2]);
-                double heading = Double.parseDouble(point[3]);
-                double rotation = Double.parseDouble(point[4]);
-                double time = Double.parseDouble(point[5]);
-                double x = Double.parseDouble(point[6]);
-                double y = Double.parseDouble(point[7]);
+                double time = Double.parseDouble(point[0]);
+                double pos = Double.parseDouble(point[1]);
+                double vel = Double.parseDouble(point[2]);
+                double acc = Double.parseDouble(point[3]);
+                double heading = Double.parseDouble(point[4]);
+                double rotation = Double.parseDouble(point[5]);
+                double radPerMeter = Double.parseDouble(point[6]);
+                double radiusPerMeter = Double.parseDouble(point[7]);
+                double angularVelocityDegreesPerSec = Double.parseDouble(point[8]);
+                double angularAccelerationDegreesPerSecSq = Double.parseDouble(point[9]);
+
 
 
                 traj.states.add(new State(pos, Rotation2d.fromDegrees(heading), vel, acc, Rotation2d.fromDegrees(rotation), time));
