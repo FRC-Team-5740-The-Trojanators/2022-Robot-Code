@@ -13,6 +13,7 @@ import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.HoldIntakeCommand;
 import frc.robot.commands.IntakeReverseCommand;
 import frc.robot.commands.IntakeRunCommand;
+import frc.robot.commands.MoveServoCommand;
 import frc.robot.commands.SwerveDriveCommand;
 import frc.robot.subsystems.CatapultSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
@@ -47,6 +48,7 @@ public class RobotContainer
   private final HoldIntakeCommand m_holdIntakeCommand = new HoldIntakeCommand(m_intakeSubsystem);
   private final CatapultCommand m_catapultCommand = new CatapultCommand(m_catapultSubsystem);
   private final ClimbCommand m_climbCommand = new ClimbCommand(m_climbSubsystem, m_operatorController);
+  private final MoveServoCommand m_moveServoCommand = new MoveServoCommand(m_climbSubsystem);
 
   public static JoystickButton intakeFlip, intakeRun, intakeReverse, climbAngle, intakeHold, launchCatapult, moveServo;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -84,6 +86,7 @@ public class RobotContainer
     intakeReverse.whileHeld(m_intakeReverseCommand);
 
     climbAngle.toggleWhenPressed(new StartEndCommand(m_climbSubsystem::straightClimb, m_climbSubsystem::angleClimb, m_climbSubsystem));
+    moveServo.toggleWhenPressed(m_moveServoCommand);
   }
 
   /**
