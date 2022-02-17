@@ -7,6 +7,8 @@ package frc.robot.commands;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 import lib.swerve.SwervePath;
@@ -28,8 +30,17 @@ public class AutonomousDrive extends CommandBase {
     addRequirements(driveSubsystem);
     m_driveSubsystem = driveSubsystem;
 
+    SendableChooser<String> auto = new SendableChooser<String>();
+      auto.addOption("default taxi 0", "default taxi 0");
+      auto.addOption("Position 1", "Position 1");
+      auto.addOption("Position 2", "Position 2");
+      auto.addOption("Position 3", "Position 3");
+      auto.addOption("Position 4", "Position 4");
+
+    Shuffleboard.getTab("user tab").add(auto);
+
     this.timer = new Timer();
-    this.path = SwervePath.fromCSV("figureEight");    
+    this.path = SwervePath.fromCSV(auto.getSelected());    
     this.ignoreHeading = false;
   }
 

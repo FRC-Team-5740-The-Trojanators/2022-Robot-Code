@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.HIDConstants;
 import frc.robot.commands.AutonomousDrive;
 import frc.robot.commands.CatapultCommand;
+import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.HoldIntakeCommand;
 import frc.robot.commands.IntakeReverseCommand;
 import frc.robot.commands.IntakeRunCommand;
@@ -45,15 +46,16 @@ public class RobotContainer
   private final IntakeReverseCommand m_intakeReverseCommand = new IntakeReverseCommand(m_intakeSubsystem);
   private final HoldIntakeCommand m_holdIntakeCommand = new HoldIntakeCommand(m_intakeSubsystem);
   private final CatapultCommand m_catapultCommand = new CatapultCommand(m_catapultSubsystem);
+  private final ClimbCommand m_climbCommand = new ClimbCommand(m_climbSubsystem, m_operatorController);
 
-  public static JoystickButton intakeFlip, intakeRun, intakeReverse, climbAngle, holdIntake, launchCatapult;
+  public static JoystickButton intakeFlip, intakeRun, intakeReverse, climbAngle, intakeHold, launchCatapult, moveServo;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() 
   {
     // Configure the button bindings
     configureButtonBindings();
     m_driveSubsystem.setDefaultCommand(m_driveCommand);
-
+    m_climbSubsystem.setDefaultCommand(m_climbCommand);
     m_driveSubsystem.resetIMU();
   }
 
@@ -65,9 +67,17 @@ public class RobotContainer
    */
   private void configureButtonBindings() 
   {
-    intakeFlip = new JoystickButton(m_driverController , HIDConstants.kA);
-    intakeRun = new JoystickButton(m_driverController , HIDConstants.kLB);
-    intakeReverse = new JoystickButton(m_driverController, HIDConstants.kStart);
+    intakeFlip = new JoystickButton(m_operatorController , HIDConstants.kStart);
+    intakeRun = new JoystickButton(m_operatorController , HIDConstants.kRB);
+    intakeReverse = new JoystickButton(m_operatorController, HIDConstants.kX);
+    intakeHold = new JoystickButton(m_operatorController, HIDConstants.kLB);
+
+    launchCatapult = new JoystickButton(m_driverController, HIDConstants.kA);
+
+    climbAngle = new JoystickButton(m_driverController, HIDConstants.kLB);
+    moveServo = new JoystickButton(m_operatorController, HIDConstants.kY);
+
+    
   
     intakeFlip.toggleWhenPressed(new StartEndCommand(m_intakeSubsystem::retractIntake, m_intakeSubsystem::extendIntake, m_intakeSubsystem));
     intakeRun.whileHeld(m_intakeRunCommand);
@@ -77,7 +87,7 @@ public class RobotContainer
   }
 
   /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
+   * Use this to pass the autonomous command to the main {@link Robot} class
    *
    * @return the command to run in autonomous
    */
