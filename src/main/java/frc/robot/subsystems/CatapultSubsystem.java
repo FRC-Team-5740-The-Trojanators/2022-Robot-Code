@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.PneumaticsConstants;
 import frc.robot.Constants.RioInputs;
@@ -27,7 +28,8 @@ public class CatapultSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-  m_analogInput.getVoltage();
+    m_analogInput.getValue(); 
+    SmartDashboard.putNumber("Pressure Sensor", m_analogInput.getValue());
   }
 
   public void shootCatapult()
