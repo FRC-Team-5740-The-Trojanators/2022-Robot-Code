@@ -31,13 +31,12 @@ public class AutonomousDrive extends CommandBase {
     m_driveSubsystem = driveSubsystem;
 
     SendableChooser<String> auto = new SendableChooser<String>();
-     // auto.addOption("default taxi 0", "default taxi 0");
-     // auto.addOption("Position 1", "Position 1");
-     // auto.addOption("Position 2", "Position 2");
-     // auto.addOption("Position 3", "Position 3");
-     // auto.addOption("Position 4", "Position 4");
-     auto.addOption("New Path", "New Path");
-     auto.addOption("Straight Line", "Straight Line");
+     auto.addOption("Default taxi", "Default taxi");
+     auto.addOption("Position 1", "Position 1");
+     auto.addOption("Position 2", "Position 2");
+     auto.addOption("Position 3", "Position 3");
+     auto.addOption("Position 4", "Position 4");
+
 
 
     Shuffleboard.getTab("user tab").add(auto);
