@@ -93,6 +93,10 @@ public class DriveSubsystem extends SubsystemBase
       {
           SwerveModule module = modules[i];
           module.setDesiredState(m_states[i]);
+          SmartDashboard.putNumber(String.valueOf(i) + " Drive Velocity", module.getDriveVelocity());
+          SmartDashboard.putNumber(String.valueOf(i) + " Drive Setpoind", module.getState().speedMetersPerSecond);
+          SmartDashboard.putNumber(String.valueOf(i) + " Steer rot", module.getRotationDegrees());
+
       } 
   }
     
@@ -115,6 +119,12 @@ public class DriveSubsystem extends SubsystemBase
     // This method will be called once per scheduler run
     var gyroAngle = Rotation2d.fromDegrees(m_imu.getYaw());
     m_robotPose = m_odometry.update(gyroAngle, modules[0].getState(), modules[1].getState(), modules[2].getState(), modules[3].getState());
+  
+    modules[0].adjustPIDValues();
+    modules[1].adjustPIDValues();
+    modules[2].adjustPIDValues();
+    modules[3].adjustPIDValues();
+
   }
 
   public SwerveDriveOdometry getOdometry()

@@ -3,10 +3,9 @@
 // the WPILib BSD license file in the root directory of this project.
 package frc.robot.subsystems;
 
-import java.nio.charset.CharsetEncoder;
-
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.trajectory.Trajectory.State;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.DriveModulePIDValues;
 import frc.robot.Constants.SteerModulePIDValues;
@@ -140,6 +139,61 @@ public class SwerveModule
     public SwerveModuleState getState()
     {
         return new SwerveModuleState(m_driveMotor.getSelectedSensorVelocity(), Rotation2d.fromDegrees(m_moduleSteeringEncoder.getPosition()));
+    }
+
+    public double getDriveVelocity()
+    {
+        return m_driveMotor.getMotorOutputPercent() * SwerveDriveModuleConstants.k_MaxTeleSpeed;
+    }
+
+    public double getRotationDegrees()
+    {
+        return m_moduleSteeringEncoder.getPosition();
+    }
+
+    public void adjustPIDValues()
+    {
+        TalonFXConfiguration drivePIDTalonConfig = new TalonFXConfiguration();
+
+        SmartDashboard.putNumber("Drive P", DriveModulePIDValues.k_driveP);
+        SmartDashboard.putNumber("Drive I", DriveModulePIDValues.k_driveI);
+        SmartDashboard.putNumber("Drive D", DriveModulePIDValues.k_driveD);
+        SmartDashboard.putNumber("Drive FF", DriveModulePIDValues.k_driveFF);
+    
+        SmartDashboard.putNumber("Steer P", SteerModulePIDValues.k_steerP);
+        SmartDashboard.putNumber("Steer I", SteerModulePIDValues.k_steerI);
+        SmartDashboard.putNumber("Steer D", SteerModulePIDValues.k_steerD);
+
+
+        double p = SmartDashboard.getNumber("P Gain", DriveModulePIDValues.k_driveP);
+        double i = SmartDashboard.getNumber("I Gain", DriveModulePIDValues.k_driveI);
+        double d = SmartDashboard.getNumber("D Gain", DriveModulePIDValues.k_driveD);
+        double ff = SmartDashboard.getNumber("FF Gain", DriveModulePIDValues.k_driveFF);
+    
+        if((p != DriveModulePIDValues.k_driveP)) { drivePIDTalonConfig.slot0.kP = p; DriveModulePIDValues.k_driveP = p; }
+        if((i != DriveModulePIDValues.k_driveI)) { drivePIDTalonConfig.slot0.kI = i; DriveModulePIDValues.k_driveI = i; }
+        if((d != DriveModulePIDValues.k_driveD)) { drivePIDTalonConfig.slot0.kD = d; DriveModulePIDValues.k_driveD = d; }
+        if((ff != DriveModulePIDValues.k_driveFF)) { drivePIDTalonConfig.slot0.kF = ff; DriveModulePIDValues.k_driveFF = ff; }
+
+        if((p != DriveModulePIDValues.k_driveP) || (i != DriveModulePIDValues.k_driveI) || (d != DriveModulePIDValues.k_driveD) || (ff != DriveModulePIDValues.k_driveFF))
+        {
+            m_driveMotor.configAllSettings(drivePIDTalonConfig);
+        }
+
+        TalonFXConfiguration steerPIDTalonConfig = new TalonFXConfiguration();
+
+        double pS = SmartDashboard.getNumber("P Gain", SteerModulePIDValues.k_steerP);
+        double iS = SmartDashboard.getNumber("I Gain", SteerModulePIDValues.k_steerI);
+        double dS = SmartDashboard.getNumber("D Gain", SteerModulePIDValues.k_steerD);
+    
+        if((pS != SteerModulePIDValues.k_steerP)) { steerPIDTalonConfig.slot0.kP = p; SteerModulePIDValues.k_steerP = p; }
+        if((iS != SteerModulePIDValues.k_steerI)) { steerPIDTalonConfig.slot0.kI = i; SteerModulePIDValues.k_steerI = i; }
+        if((dS != SteerModulePIDValues.k_steerD)) { steerPIDTalonConfig.slot0.kD = d; SteerModulePIDValues.k_steerD = d; }
+
+        if((p != SteerModulePIDValues.k_steerP) || (i != SteerModulePIDValues.k_steerI) || (d != SteerModulePIDValues.k_steerD))
+        {
+            m_driveMotor.configAllSettings(drivePIDTalonConfig);
+        }
     }
 
 }
