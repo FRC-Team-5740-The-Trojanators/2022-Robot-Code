@@ -71,7 +71,7 @@ public final class Constants
         public static final double k_MaxAcceleration = Units.feetToMeters(.0000000000001); //m/s/s
         
         public static final double k_XYjoystickCoefficient = .5;
-        public static final double k_MaxAngularSpeed = .0000000000001;
+        public static final double k_MaxAngularSpeed = 628; //rad/s TODO confirm
         public static final double k_RotCoefficient = .25;
 
         public static final double k_driveEncoderTicksPerRotation = 2048; 
@@ -135,10 +135,10 @@ public final class Constants
     public static final class SteerModulePIDValues
     {
         //TODO Set actual PID values
-        public static double k_steerP = 0.028; 
+        public static double k_steerP = .4; 
         public static double k_steerI = 0.0;
-        public static double k_steerD = 0.025;
-        public static double k_steerFF = 0.0;
+        public static double k_steerD = 0.0005;
+        public static double k_steerFF = 0.0; //1 / 628; //628 is the max angular speed
 
         public static final double k_steerDeadband = 0.02; // Deadband on the motor controller
         public static final double k_ToleranceInDegrees = .1; //TODO Figure out real value
