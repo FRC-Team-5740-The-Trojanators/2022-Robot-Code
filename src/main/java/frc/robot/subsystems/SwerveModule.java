@@ -67,7 +67,6 @@ public class SwerveModule
         angleTalonConfig.slot0.kP = SteerModulePIDValues.k_steerP;
         angleTalonConfig.slot0.kI = SteerModulePIDValues.k_steerI;
         angleTalonConfig.slot0.kD = SteerModulePIDValues.k_steerD;
-        angleTalonConfig.slot0.kF = SteerModulePIDValues.k_steerFF;
 
         m_angleMotor.configAllSettings(angleTalonConfig);
 
@@ -86,6 +85,10 @@ public class SwerveModule
         driveTalonConfig.slot0.kF = DriveModulePIDValues.k_driveFF;
       
         m_driveMotor.configAllSettings(driveTalonConfig);
+
+        SmartDashboard.putNumber("Steer P", SteerModulePIDValues.k_steerP);
+        SmartDashboard.putNumber("Steer D", SteerModulePIDValues.k_steerD);
+
     }
 
     public void setDesiredState(SwerveModuleState desiredState)
@@ -138,7 +141,9 @@ public class SwerveModule
 
     public SwerveModuleState getState()
     {
-        return new SwerveModuleState(m_driveMotor.getSelectedSensorVelocity(), Rotation2d.fromDegrees(m_moduleSteeringEncoder.getPosition()));
+        double driveSpeed = (m_driveMotor.getSelectedSensorVelocity() * (10.0 / 2048) * Math.PI * SwerveDriveModuleConstants.k_wheelDiameter) / SwerveDriveModuleConstants.k_gearRatio;
+        SmartDashboard.putNumber("Sensor Drive Vel", m_driveMotor.getSelectedSensorVelocity());
+        return new SwerveModuleState(driveSpeed , Rotation2d.fromDegrees(m_moduleSteeringEncoder.getPosition()));
     }
 
     public double getDriveVelocity()
@@ -151,34 +156,39 @@ public class SwerveModule
         return m_moduleSteeringEncoder.getPosition();
     }
 
+    public double getAbsoluteDegrees()
+    {
+        return m_moduleSteeringEncoder.getAbsolutePosition();
+    }
+
     public void adjustPIDValues()
     {
-        TalonFXConfiguration drivePIDTalonConfig = new TalonFXConfiguration();
+      // TalonFXConfiguration drivePIDTalonConfig = new TalonFXConfiguration();
 
-        SmartDashboard.putNumber("Drive P", DriveModulePIDValues.k_driveP);
-        SmartDashboard.putNumber("Drive I", DriveModulePIDValues.k_driveI);
-        SmartDashboard.putNumber("Drive D", DriveModulePIDValues.k_driveD);
-        SmartDashboard.putNumber("Drive FF", DriveModulePIDValues.k_driveFF);
+        //SmartDashboard.putNumber("Drive P", DriveModulePIDValues.k_driveP);
+       // SmartDashboard.putNumber("Drive I", DriveModulePIDValues.k_driveI);
+        //SmartDashboard.putNumber("Drive D", DriveModulePIDValues.k_driveD);
+        //SmartDashboard.putNumber("Drive FF", DriveModulePIDValues.k_driveFF);
     
-        SmartDashboard.putNumber("Steer P", SteerModulePIDValues.k_steerP);
-        SmartDashboard.putNumber("Steer I", SteerModulePIDValues.k_steerI);
-        SmartDashboard.putNumber("Steer D", SteerModulePIDValues.k_steerD);
+       // SmartDashboard.putNumber("Steer P", SteerModulePIDValues.k_steerP);
+        //SmartDashboard.putNumber("Steer I", SteerModulePIDValues.k_steerI);
+       // SmartDashboard.putNumber("Steer D", SteerModulePIDValues.k_steerD);
 
 
-        double p = SmartDashboard.getNumber("P Gain", DriveModulePIDValues.k_driveP);
-        double i = SmartDashboard.getNumber("I Gain", DriveModulePIDValues.k_driveI);
-        double d = SmartDashboard.getNumber("D Gain", DriveModulePIDValues.k_driveD);
-        double ff = SmartDashboard.getNumber("FF Gain", DriveModulePIDValues.k_driveFF);
+        //double p = SmartDashboard.getNumber("P Gain", DriveModulePIDValues.k_driveP);
+       // double i = SmartDashboard.getNumber("I Gain", DriveModulePIDValues.k_driveI);
+        //double d = SmartDashboard.getNumber("D Gain", DriveModulePIDValues.k_driveD);
+        //double ff = SmartDashboard.getNumber("FF Gain", DriveModulePIDValues.k_driveFF);
     
-        if((p != DriveModulePIDValues.k_driveP)) { drivePIDTalonConfig.slot0.kP = p; DriveModulePIDValues.k_driveP = p; }
-        if((i != DriveModulePIDValues.k_driveI)) { drivePIDTalonConfig.slot0.kI = i; DriveModulePIDValues.k_driveI = i; }
-        if((d != DriveModulePIDValues.k_driveD)) { drivePIDTalonConfig.slot0.kD = d; DriveModulePIDValues.k_driveD = d; }
-        if((ff != DriveModulePIDValues.k_driveFF)) { drivePIDTalonConfig.slot0.kF = ff; DriveModulePIDValues.k_driveFF = ff; }
+        //if((p != DriveModulePIDValues.k_driveP)) { drivePIDTalonConfig.slot0.kP = p; DriveModulePIDValues.k_driveP = p; }
+       // if((i != DriveModulePIDValues.k_driveI)) { drivePIDTalonConfig.slot0.kI = i; DriveModulePIDValues.k_driveI = i; }
+        //if((d != DriveModulePIDValues.k_driveD)) { drivePIDTalonConfig.slot0.kD = d; DriveModulePIDValues.k_driveD = d; }
+        //if((ff != DriveModulePIDValues.k_driveFF)) { drivePIDTalonConfig.slot0.kF = ff; DriveModulePIDValues.k_driveFF = ff; }
 
-        if((p != DriveModulePIDValues.k_driveP) || (i != DriveModulePIDValues.k_driveI) || (d != DriveModulePIDValues.k_driveD) || (ff != DriveModulePIDValues.k_driveFF))
-        {
-            m_driveMotor.configAllSettings(drivePIDTalonConfig);
-        }
+        //if((p != DriveModulePIDValues.k_driveP) || /*(i != DriveModulePIDValues.k_driveI) || */ (d != DriveModulePIDValues.k_driveD) || (ff != DriveModulePIDValues.k_driveFF))
+        //{
+        //    m_driveMotor.configAllSettings(drivePIDTalonConfig);
+        //}
 
         TalonFXConfiguration steerPIDTalonConfig = new TalonFXConfiguration();
 
@@ -186,13 +196,13 @@ public class SwerveModule
         double iS = SmartDashboard.getNumber("I Gain", SteerModulePIDValues.k_steerI);
         double dS = SmartDashboard.getNumber("D Gain", SteerModulePIDValues.k_steerD);
     
-        if((pS != SteerModulePIDValues.k_steerP)) { steerPIDTalonConfig.slot0.kP = p; SteerModulePIDValues.k_steerP = p; }
-        if((iS != SteerModulePIDValues.k_steerI)) { steerPIDTalonConfig.slot0.kI = i; SteerModulePIDValues.k_steerI = i; }
-        if((dS != SteerModulePIDValues.k_steerD)) { steerPIDTalonConfig.slot0.kD = d; SteerModulePIDValues.k_steerD = d; }
+        if((pS != SteerModulePIDValues.k_steerP)) { steerPIDTalonConfig.slot0.kP = pS;}
+       // if((iS != SteerModulePIDValues.k_steerI)) { steerPIDTalonConfig.slot0.kI = i; SteerModulePIDValues.k_steerI = i; }
+        if((dS != SteerModulePIDValues.k_steerD)) { steerPIDTalonConfig.slot0.kD = dS;}
 
-        if((p != SteerModulePIDValues.k_steerP) || (i != SteerModulePIDValues.k_steerI) || (d != SteerModulePIDValues.k_steerD))
+        if((pS != SteerModulePIDValues.k_steerP) || /*(i != SteerModulePIDValues.k_steerI) || */ (dS != SteerModulePIDValues.k_steerD))
         {
-            m_driveMotor.configAllSettings(drivePIDTalonConfig);
+            m_driveMotor.configAllSettings(steerPIDTalonConfig);
         }
     }
 

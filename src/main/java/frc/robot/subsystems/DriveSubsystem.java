@@ -93,9 +93,11 @@ public class DriveSubsystem extends SubsystemBase
       {
           SwerveModule module = modules[i];
           module.setDesiredState(m_states[i]);
-          SmartDashboard.putNumber(String.valueOf(i) + " Drive Velocity", module.getDriveVelocity());
-          SmartDashboard.putNumber(String.valueOf(i) + " Drive Setpoind", module.getState().speedMetersPerSecond);
+          //SmartDashboard.putNumber(String.valueOf(i) + " Drive Velocity", module.getDriveVelocity());
+         // SmartDashboard.putNumber(String.valueOf(i) + " Drive Setpoind", module.getState().speedMetersPerSecond);
           SmartDashboard.putNumber(String.valueOf(i) + " Steer rot", module.getRotationDegrees());
+          SmartDashboard.putNumber(String.valueOf(i) + " Absolute rot", module.getAbsoluteDegrees());
+
 
       } 
   }
@@ -124,7 +126,6 @@ public class DriveSubsystem extends SubsystemBase
     modules[1].adjustPIDValues();
     modules[2].adjustPIDValues();
     modules[3].adjustPIDValues();
-
   }
 
   public SwerveDriveOdometry getOdometry()
