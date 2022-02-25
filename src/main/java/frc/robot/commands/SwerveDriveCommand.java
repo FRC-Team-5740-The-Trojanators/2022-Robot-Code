@@ -71,7 +71,7 @@ public class SwerveDriveCommand extends CommandBase {
         * SwerveDriveModuleConstants.k_MaxAngularSpeed * SwerveDriveModuleConstants.k_RotCoefficient);
 
         SmartDashboard.putNumber("rot from Command", rot);
-      drivetrain.teleDrive(xSpeed, ySpeed, rot, true);
+      drivetrain.teleDrive(xSpeed, ySpeed, rot, false);
   }
 
   // Called once the command ends or is interrupted.

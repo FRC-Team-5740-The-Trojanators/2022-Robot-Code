@@ -19,7 +19,9 @@ public class CatapultSubsystem extends SubsystemBase {
   private final Solenoid m_Right1 = new Solenoid(PneumaticsModuleType.CTREPCM, PneumaticsConstants.k_right1ID);
   private final Solenoid m_Right2 = new Solenoid(PneumaticsModuleType.CTREPCM, PneumaticsConstants.k_right2ID);
 
-  private final AnalogInput m_analogInput = new AnalogInput(RioInputs.k_analogInputID);
+  private final AnalogInput m_analogInputHigh = new AnalogInput(RioInputs.k_analogInputHighID);
+  private final AnalogInput m_analogInputLow = new AnalogInput(RioInputs.k_analogInputLowID);
+
 
   //(250*(averageVolts/5.0))-25; - this is the equation for analong pressure reading
 
@@ -28,8 +30,11 @@ public class CatapultSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    m_analogInput.getValue(); 
-    SmartDashboard.putNumber("Pressure Sensor", m_analogInput.getValue());
+    double averageVolts = m_analogInputHigh.getVoltage(); 
+    SmartDashboard.putNumber("High Pressure", (250*(averageVolts/5.0))-25);
+
+    averageVolts = m_analogInputLow.getVoltage(); 
+    SmartDashboard.putNumber("Low Pressure", (250*(averageVolts/5.0))-25);
   }
 
   public void shootCatapult()

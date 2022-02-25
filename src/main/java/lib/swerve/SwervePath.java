@@ -69,7 +69,8 @@ public class SwervePath {
      */
     public static SwervePath fromCSV(String filename) {
         SwervePath traj = new SwervePath();
-
+   //C:\Users\robotics\Documents\GitHub\2022-Robot-Code\src\main\deploy\pathplanner\generatedCSV
+   //TODO Fix file path
         try (BufferedReader br = new BufferedReader(new FileReader(new File(Filesystem.getDeployDirectory(), "pathplanner/generatedCSV/" + filename + ".csv")))) {
             String line = "";
             while ((line = br.readLine()) != null) {

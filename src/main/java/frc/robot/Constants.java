@@ -80,17 +80,17 @@ public final class Constants
         //public static double fieldCalibration = 0;
 
         //Angle offsets
-        public static double leftFrontOffset = .0000000000001;
-        public static double rightFrontOffset = .0000000000001;
-        public static double leftRearOffset = .0000000000001;
-        public static double rightRearOffset = .0000000000001;
+        public static double leftFrontOffset = 13.535 + 180;
+        public static double rightFrontOffset = 61.611;
+        public static double leftRearOffset = 220.684 - 180;
+        public static double rightRearOffset = 283.799;
     
         public static final SwerveDriveKinematics kinematics =
         new SwerveDriveKinematics(
-            new Translation2d(k_WheelBase / 2, k_WheelBase / 2),    // Left Front
-            new Translation2d(k_WheelBase / 2, -k_WheelBase / 2),   // Right Front
-            new Translation2d(-k_WheelBase / 2, k_WheelBase / 2),   // Left Rear
-            new Translation2d(-k_WheelBase / 2, -k_WheelBase / 2)); // Right Rear
+            new Translation2d(k_WheelBase / 2, -k_WheelBase / 2),    // Left Front
+            new Translation2d(k_WheelBase / 2, k_WheelBase / 2),   // Right Front
+            new Translation2d(-k_WheelBase / 2, -k_WheelBase / 2),   // Left Rear
+            new Translation2d(-k_WheelBase / 2, k_WheelBase / 2)); // Right Rear
 
     }
 
@@ -98,7 +98,7 @@ public final class Constants
      * The CAN Bus device IDs for devices used with the Swerve Drive: motor controllers and encoders
     */
     public static final class CANBusIDs
-    { //TODO Change IDs
+    { 
         public static final int k_LeftFront_DriveMotor = 1; 
         public static final int leftFrontCANCoderId = 9; 
         public static final int k_LeftFront_SteeringMotor = 2;
@@ -125,22 +125,21 @@ public final class Constants
     public static class DriveModulePIDValues
     {
         //TODO Set actual PID values
-        public static double k_driveP = 0.0; // 0.028; 
+        public static double k_driveP = 0.028; 
         public static double k_driveI = 0.0;
-        public static double k_driveD = 0.0; //0.025;
+        public static double k_driveD = 0.025;
         public static double k_driveFF = 1/Units.feetToMeters(16.3);
         public static final int k_ToleranceInTicks = 15; //TODO Figure out real value
     }
 
     public static class SteerModulePIDValues
     {
-        //TODO Set actual PID values
-        public static double k_steerP = 0.8; 
+        public static double k_steerP = 5.0;
         public static double k_steerI = 0.0;
-        public static double k_steerD = 0.000;
+        public static double k_steerD = 0.50;
 
         public static final double k_steerDeadband = 0.02; // Deadband on the motor controller
-        public static final double k_ToleranceInDegrees = 5.0; //TODO Figure out real value
+        public static final int k_ToleranceInDegrees = 1;
     }
     
     public static final class PneumaticsConstants 
@@ -159,9 +158,12 @@ public final class Constants
     
     public static final class RioInputs
     {
-        public static int k_analogInputID = 0; //Analog Input
+        public static int k_analogInputHighID = 0; //Analog Input
+        public static int k_analogInputLowID = 1; //Analog Input
+
         public static int k_topLimitSwitchID = 0; //Digital Input
         public static int k_bottomLimitSwitchID = 1; //Digital Input
+
         public static int k_servoMotor = 0; //PWM output 
     }
 
