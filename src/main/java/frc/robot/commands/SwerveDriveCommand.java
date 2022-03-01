@@ -49,6 +49,7 @@ public class SwerveDriveCommand extends CommandBase {
           return 0;
       }
   } 
+  
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
@@ -70,8 +71,9 @@ public class SwerveDriveCommand extends CommandBase {
         -rotLimiter.calculate(getJoystickWithDeadBand(controller.getRightX())
         * SwerveDriveModuleConstants.k_MaxAngularSpeed * SwerveDriveModuleConstants.k_RotCoefficient);
 
-        SmartDashboard.putNumber("rot from Command", rot);
+        // SmartDashboard.putNumber("rot from Command", rot);
       drivetrain.teleDrive(xSpeed, ySpeed, rot, false);
+     
   }
 
   // Called once the command ends or is interrupted.

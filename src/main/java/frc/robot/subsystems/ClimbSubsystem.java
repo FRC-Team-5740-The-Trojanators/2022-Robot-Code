@@ -27,8 +27,6 @@ public class ClimbSubsystem extends SubsystemBase {
   private final TalonFX m_climbMotor = new TalonFX(CANBusIDs.k_climbMotor);
  
   private final Servo m_servoMotor = new Servo(RioInputs.k_servoMotor);
-  private final DigitalInput topLimitSwitch = new DigitalInput(RioInputs.k_topLimitSwitchID);
-  private final DigitalInput bottomLimitSwitch = new DigitalInput(RioInputs.k_bottomLimitSwitchID);
 
   public ClimbSubsystem() 
   {
@@ -50,16 +48,6 @@ public class ClimbSubsystem extends SubsystemBase {
   public void setPower(double power)
   {
     m_climbMotor.set(ControlMode.PercentOutput, power);
-  }
-
-  public boolean topLimitSwitchBoolean()
-  {
-    return topLimitSwitch.get();  //true means the limit switch has been tripped
-  }
-
-  public boolean bottomLimitSwitchBoolean()
-  {
-    return bottomLimitSwitch.get();  //true means the limit switch has been tripped
   }
 
   public double getJoystickWithDeadBand(double stickValue)

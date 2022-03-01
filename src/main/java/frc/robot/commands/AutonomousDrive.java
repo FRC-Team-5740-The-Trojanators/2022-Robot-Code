@@ -30,18 +30,18 @@ public class AutonomousDrive extends CommandBase {
     addRequirements(driveSubsystem);
     m_driveSubsystem = driveSubsystem;
 
-    // SendableChooser<String> auto = new SendableChooser<String>();
-    //  auto.addOption("Default taxi", "Default taxi");
-    //  auto.addOption("Position 1", "Position 1");
-    //  auto.addOption("Position 2", "Position 2");
-    //  auto.addOption("Position 3", "Position 3");
-    //  auto.addOption("Position 4", "Position 4");
+    SendableChooser<String> auto = new SendableChooser<String>();
+     auto.addOption("Default taxi", "Default taxi");
+     auto.addOption("Position 1", "Position 1");
+     auto.addOption("Position 2", "Position 2");
+     auto.addOption("Position 3", "Position 3");
+     auto.addOption("Position 4", "Position 4");
 
-    // Shuffleboard.getTab("user tab").add(auto);
+    Shuffleboard.getTab("user tab").add(auto);
 
     this.timer = new Timer();
-    //this.path = SwervePath.fromCSV(auto.getSelected());  
-    this.path = SwervePath.fromCSV("Default Taxi");    
+    this.path = SwervePath.fromCSV(auto.getSelected());  
+   // this.path = SwervePath.fromCSV("Default taxi");    
   
     this.ignoreHeading = false;
   }

@@ -123,6 +123,7 @@ public class DriveSubsystem extends SubsystemBase
     var gyroAngle = Rotation2d.fromDegrees(m_imu.getYaw());
     m_robotPose = m_odometry.update(gyroAngle, modules[0].getState(), modules[1].getState(), modules[2].getState(), modules[3].getState());
     SmartDashboard.putNumber("Pigeon IMU", m_imu.getYaw());
+    //checkTemperature();
   }
 
   public SwerveDriveOdometry getOdometry()
@@ -144,5 +145,23 @@ public class DriveSubsystem extends SubsystemBase
   {
     return m_odometry.getPoseMeters();
   }
+  // public boolean checkTemperature()
+  // {
+  //   boolean temperature = false;
+  //   for (int i = 0; i < 4; i++) 
+  //   {
+  //     if (modules[i].getTemperature()) 
+  //     {
+  //       temperature = true;
+  //       teleDrive(0, 0, 0, false);
+  //       SmartDashboard.putBoolean("Temperature Good", false);
+  //     } else 
+  //      {
+  //       SmartDashboard.putBoolean("Temperature Good", true);
 
+  //      }
+  //   }
+  //   return temperature;
+  // }
+  
 }

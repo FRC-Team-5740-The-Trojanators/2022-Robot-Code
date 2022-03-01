@@ -41,40 +41,33 @@ public class ClimbCommand extends CommandBase {
   public void execute() 
   {
 
-    final var ySpeed = -yspeedLimiter.calculate(m_climb.getJoystickWithDeadBand(m_controller.getLeftY()));
-    
-    if (m_climb.topLimitSwitchBoolean() != true && m_climb.bottomLimitSwitchBoolean() != true) 
-    {
-      m_climb.setPower(ySpeed);
-    } 
-    else 
-    {
-      m_climb.setPower(power);
-      m_isFinished = true;
-    }
+    //final var ySpeed = -yspeedLimiter.calculate(m_climb.getJoystickWithDeadBand(m_controller.getLeftY()));
 
-    if(m_climb.getClimbAngle())
-    {
-      m_climb.setServoMotor(ClimbSubsystemConstants.k_servoAngledPosition);
-    }
-    else
-    {
-      m_climb.setServoMotor(ClimbSubsystemConstants.k_servoStraightPosition);
-    }
+    // if(m_climb.getClimbAngle())
+    // {
+    //   m_climb.setServoMotor(ClimbSubsystemConstants.k_servoAngledPosition);
+    // }
+    // else
+    // {
+    //   m_climb.setServoMotor(ClimbSubsystemConstants.k_servoStraightPosition);
+    // }
+
+    m_climb.setPower(-m_controller.getLeftY() * .25);
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) 
   {
-    m_climb.setPower(power);
+   // m_climb.setPower(power);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() 
   {
-    m_climb.setPower(power);
+   // m_climb.setPower(power);
     return m_isFinished;
   }
 }

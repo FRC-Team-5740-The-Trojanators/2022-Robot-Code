@@ -76,14 +76,15 @@ public final class Constants
 
         public static final double k_driveEncoderTicksPerRotation = 2048; 
         public static final double k_gearRatio = 6.75;
+        public static final double k_temperatureLimit = 110.00;
 
         //public static double fieldCalibration = 0;
 
         //Angle offsets
-        public static double leftFrontOffset = 13.535 + 180;
-        public static double rightFrontOffset = 61.611;
-        public static double leftRearOffset = 220.684 - 180;
-        public static double rightRearOffset = 283.799;
+        public static double leftFrontOffset =  16.35;
+        public static double rightFrontOffset = 239.59;
+        public static double leftRearOffset = 239.06 - 180;
+        public static double rightRearOffset = 103.01;
     
         public static final SwerveDriveKinematics kinematics =
         new SwerveDriveKinematics(
@@ -144,15 +145,15 @@ public final class Constants
     
     public static final class PneumaticsConstants 
     {
-        public static int k_left1ID = 0; 
-        public static int k_left2ID = 1;
-        public static int k_right1ID = 2;
-        public static int k_right2ID = 3;
+        public static int k_left1ID = 4; 
+        public static int k_left2ID = 2;
+        public static int k_right1ID = 1;
+        public static int k_right2ID = 6;
 
-        public static int k_intakeForwardID = 4;
-        public static int k_intakeReverseID = 5;
+        public static int k_intakeForwardID = 5; 
+        public static int k_intakeReverseID = 0;
         
-        public static int k_climbForwardID = 6;
+        public static int k_climbForwardID = 3;
         public static int k_climbReverseID = 7;
     }
     
@@ -161,19 +162,16 @@ public final class Constants
         public static int k_analogInputHighID = 0; //Analog Input
         public static int k_analogInputLowID = 1; //Analog Input
 
-        public static int k_topLimitSwitchID = 0; //Digital Input
-        public static int k_bottomLimitSwitchID = 1; //Digital Input
-
         public static int k_servoMotor = 0; //PWM output 
     }
 
     public static final class IntakeSubsystemConstants
     {
-        public static final double k_intakeMotorSpeed = -0.6;
-        public static final double k_intakeReverseMotorSpeed = 0.6;
+        public static final double k_intakeMotorSpeed = 0.6;
+        public static final double k_intakeReverseMotorSpeed = -0.6;
         public static final double k_intakeStopMotorSpeed = 0.0;
         
-        public static final double k_holdMotorSpeed = -0.6;
+        public static final double k_holdMotorSpeed = -1.0;
         public static final double k_holdReverseMotorSpeed = 0.6;
         public static final double k_holdStopMotorSpeed = 0.0;
     }
@@ -182,6 +180,13 @@ public final class Constants
     {
         public static final double k_servoAngledPosition = .5;
         public static final double k_servoStraightPosition = 0;
+
+        /*
+        Limit Switch Assignment: 
+        Blue and Yellow is up
+        Red/Purple and Black is down 
+        */
     }
+
 
 }

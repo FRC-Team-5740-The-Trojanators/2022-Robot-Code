@@ -84,9 +84,12 @@ public class RobotContainer
     intakeFlip.toggleWhenPressed(new StartEndCommand(m_intakeSubsystem::retractIntake, m_intakeSubsystem::extendIntake, m_intakeSubsystem));
     intakeRun.whileHeld(m_intakeRunCommand);
     intakeReverse.whileHeld(m_intakeReverseCommand);
+    intakeHold.whileHeld(m_holdIntakeCommand);
 
     climbAngle.toggleWhenPressed(new StartEndCommand(m_climbSubsystem::straightClimb, m_climbSubsystem::angleClimb, m_climbSubsystem));
     moveServo.toggleWhenPressed(m_moveServoCommand);
+
+    launchCatapult.whileHeld(m_catapultCommand);
   }
 
   /**

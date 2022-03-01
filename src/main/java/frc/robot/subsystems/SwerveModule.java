@@ -11,6 +11,7 @@ import frc.robot.Constants.DriveModulePIDValues;
 import frc.robot.Constants.SteerModulePIDValues;
 import frc.robot.Constants.SwerveDriveModuleConstants;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
@@ -103,11 +104,9 @@ public class SwerveModule
         double deltaTicks = calculateDeltaTicks(rotationDelta);
         double currentTicks = calculateCurrentTicks();
         double desiredTicks = currentTicks + deltaTicks;
-        //double setAngle = m_steeringPIDController.calculate(currentTicks, desiredTicks);
 
         m_angleMotor.set(TalonFXControlMode.Position, filterAngleMotorDeadband(desiredTicks));;
         
-        //m_driverPIDController.setReference(state.speedMetersPerSecond, ControlType.kVelocity);
         m_driveMotor.set(TalonFXControlMode.PercentOutput, state.speedMetersPerSecond / SwerveDriveModuleConstants.k_MaxTeleSpeed);
     }
 
@@ -163,4 +162,14 @@ public class SwerveModule
         return m_moduleSteeringEncoder.getAbsolutePosition();
     }
 
-}
+    // public boolean getTemperature()
+    // {
+    //     boolean temperature = false;
+    //     if (m_driveMotor.getTemperature() > SwerveDriveModuleConstants.k_temperatureLimit)
+    //     {
+    //       temperature = true;
+    //     }
+    //     return temperature; 
+    // }
+ }
+
