@@ -27,7 +27,7 @@ public class MoveServoCommand extends CommandBase {
   @Override
   public void execute() 
   {
-    m_climb.setServoMotor(0.25);
+    m_climb.setServoMotor(0.9);
   }
 
   // Called once the command ends or is interrupted.

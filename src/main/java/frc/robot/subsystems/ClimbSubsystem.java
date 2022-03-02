@@ -86,7 +86,8 @@ public class ClimbSubsystem extends SubsystemBase {
 
   public void setServoMotor(double servoPower)
   {
-    m_servoMotor.set(servoPower);
+   // m_servoMotor.set(servoPower);
+    m_servoMotor.setPosition(servoPower);
   }
 
   public boolean getClimbAngle()

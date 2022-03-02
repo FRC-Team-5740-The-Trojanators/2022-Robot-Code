@@ -64,6 +64,8 @@ public class DriveSubsystem extends SubsystemBase
     {
        modules[i].resetDriveEncoder();
     }
+
+    m_UsbCamera.setResolution(320, 240);
   }
 
   public void autoDrive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) 
