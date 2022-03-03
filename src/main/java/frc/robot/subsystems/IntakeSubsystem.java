@@ -26,7 +26,7 @@ public class IntakeSubsystem extends SubsystemBase {
   {
     m_intakeMotor = new VictorSPX(CANBusIDs.k_intakeMotors);
     m_holdMotor = new VictorSPX(CANBusIDs.k_holdMotor);
-    m_intakeSolenoid.set(Value.kOff);
+  //m_intakeSolenoid.set(Value.kOff);
   }
 
   @Override

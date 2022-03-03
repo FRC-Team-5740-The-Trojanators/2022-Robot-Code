@@ -117,8 +117,8 @@ public final class Constants
         public static final int k_RightRear_SteeringMotor = 8; 
 
         public static final int k_pigeonID = 13;
-        public static final int k_intakeMotors = 14;
-        public static final int k_holdMotor = 15;
+        public static final int k_intakeMotors = 15;
+        public static final int k_holdMotor = 14;
         
         public static final int k_climbMotor = 16;
     }
@@ -171,7 +171,7 @@ public final class Constants
         public static final double k_intakeReverseMotorSpeed = -0.6;
         public static final double k_intakeStopMotorSpeed = 0.0;
         
-        public static final double k_holdMotorSpeed = -1.0;
+        public static final double k_holdMotorSpeed = -.75;
         public static final double k_holdReverseMotorSpeed = 0.6;
         public static final double k_holdStopMotorSpeed = 0.0;
     }

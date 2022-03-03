@@ -78,15 +78,13 @@ public class RobotContainer
 
     climbAngle = new JoystickButton(m_driverController, HIDConstants.kLB);
     moveServo = new JoystickButton(m_operatorController, HIDConstants.kY);
-
-    
   
-    intakeFlip.toggleWhenPressed(new StartEndCommand(m_intakeSubsystem::retractIntake, m_intakeSubsystem::extendIntake, m_intakeSubsystem));
+    intakeFlip.toggleWhenPressed(new StartEndCommand(m_intakeSubsystem::extendIntake, m_intakeSubsystem::retractIntake, m_intakeSubsystem));
     intakeRun.whileHeld(m_intakeRunCommand);
     intakeReverse.whileHeld(m_intakeReverseCommand);
     intakeHold.whileHeld(m_holdIntakeCommand);
 
-    climbAngle.toggleWhenPressed(new StartEndCommand(m_climbSubsystem::straightClimb, m_climbSubsystem::angleClimb, m_climbSubsystem));
+    climbAngle.toggleWhenPressed(new StartEndCommand(m_climbSubsystem::angleClimb, m_climbSubsystem::straightClimb, m_climbSubsystem));
     moveServo.toggleWhenPressed(m_moveServoCommand);
 
     launchCatapult.whileHeld(m_catapultCommand);
