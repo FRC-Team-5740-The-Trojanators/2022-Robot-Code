@@ -7,12 +7,12 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class HoldIntakeCommand extends CommandBase {
+public class ReverseIntakeCommand extends CommandBase {
   /** Creates a new HoldIntakeCommand. */
   private final IntakeSubsystem m_intake;
   private boolean m_isFinished = false;
 
-  public HoldIntakeCommand(IntakeSubsystem intake) 
+  public ReverseIntakeCommand(IntakeSubsystem intake) 
   {
     // Use addRequirements() here to declare subsystem dependencies.
     m_intake = intake;
@@ -23,7 +23,8 @@ public class HoldIntakeCommand extends CommandBase {
   @Override
   public void initialize() 
   {
-    m_intake.startHoldMotor();
+    m_intake.reverseHoldMotor();
+    m_intake.reverseIntakeMotors();
     m_isFinished = false;
   }
 
@@ -31,7 +32,9 @@ public class HoldIntakeCommand extends CommandBase {
   @Override
   public void execute() 
   {
-    m_intake.startHoldMotor();
+    m_intake.reverseHoldMotor();
+    m_intake.reverseIntakeMotors();
+
   }
 
   // Called once the command ends or is interrupted.
@@ -39,6 +42,8 @@ public class HoldIntakeCommand extends CommandBase {
   public void end(boolean interrupted) 
   {
     m_intake.stopHoldMotor();
+    m_intake.stopIntakeMotors();
+
     m_isFinished = true;
   }
 

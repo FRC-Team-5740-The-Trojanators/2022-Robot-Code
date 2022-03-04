@@ -43,6 +43,7 @@ public final class Constants
         public static final int kY = 4;
         public static final int kLB = 5;
         public static final int kRB = 6;
+        public static final int kBack = 7;
         public static final int kStart = 8;
         public static final int kDL = 270;
         public static final int kDR = 90;
@@ -171,8 +172,8 @@ public final class Constants
         public static final double k_intakeReverseMotorSpeed = -0.6;
         public static final double k_intakeStopMotorSpeed = 0.0;
         
-        public static final double k_holdMotorSpeed = -.75;
-        public static final double k_holdReverseMotorSpeed = 0.6;
+        public static final double k_holdMotorSpeed = -.5;
+        public static final double k_holdReverseMotorSpeed = 0.75;
         public static final double k_holdStopMotorSpeed = 0.0;
     }
 

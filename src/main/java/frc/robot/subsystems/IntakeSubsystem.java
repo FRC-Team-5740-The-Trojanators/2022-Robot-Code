@@ -47,15 +47,15 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void extendIntake()
   {
-      m_intakeSolenoid.set(Value.kForward);
+      m_intakeSolenoid.set(Value.kReverse);
   }
 
   public void retractIntake()
   {
-    m_intakeSolenoid.set(Value.kReverse);
+    m_intakeSolenoid.set(Value.kForward);
   }
 
-  public void startIntakeMotors()
+  public void forwardIntakeMotors()
   {
     m_intakeMotor.set(VictorSPXControlMode.PercentOutput, IntakeSubsystemConstants.k_intakeMotorSpeed);
   }
@@ -70,7 +70,7 @@ public class IntakeSubsystem extends SubsystemBase {
     m_intakeMotor.set(VictorSPXControlMode.PercentOutput, IntakeSubsystemConstants.k_intakeStopMotorSpeed);
   }
 
-  public void startHoldMotor()
+  public void forwardHoldMotor()
   {
     m_holdMotor.set(VictorSPXControlMode.PercentOutput, IntakeSubsystemConstants.k_holdMotorSpeed);
   }
