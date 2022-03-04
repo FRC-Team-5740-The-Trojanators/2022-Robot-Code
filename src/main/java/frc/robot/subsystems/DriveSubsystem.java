@@ -18,15 +18,18 @@ import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.ADIS16448_IMU;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CANBusIDs;
+import frc.robot.Constants.RioInputs;
 import frc.robot.Constants.SteerModulePIDValues;
 import frc.robot.Constants.SwerveDriveModuleConstants;
 
 public class DriveSubsystem extends SubsystemBase
 {
   public PigeonIMU m_imu = new PigeonIMU(CANBusIDs.k_pigeonID);
+ // public ADIS16448_IMU m_imu = new ADIS16448_IMU(RioInputs.k_gyroID);
   private Pose2d m_robotPose = new Pose2d();
 
   private UsbCamera m_UsbCamera = CameraServer.startAutomaticCapture();
@@ -95,13 +98,6 @@ public class DriveSubsystem extends SubsystemBase
       {
           SwerveModule module = modules[i];
           module.setDesiredState(m_states[i]);
-
-          // SmartDashboard.putNumber(String.valueOf(i) + " Drive Velocity", module.getDriveVelocity());
-          // SmartDashboard.putNumber(String.valueOf(i) + " Drive Setpoind", module.getState().speedMetersPerSecond);
-          // SmartDashboard.putNumber(String.valueOf(i) + " Steer rot", module.getRotationDegrees());
-          // SmartDashboard.putNumber(String.valueOf(i) + " Absolute rot", module.getAbsoluteDegrees());
-
-
       } 
   }
     
@@ -124,7 +120,7 @@ public class DriveSubsystem extends SubsystemBase
     // This method will be called once per scheduler run
     var gyroAngle = Rotation2d.fromDegrees(m_imu.getYaw());
     m_robotPose = m_odometry.update(gyroAngle, modules[0].getState(), modules[1].getState(), modules[2].getState(), modules[3].getState());
-    SmartDashboard.putNumber("Pigeon IMU", m_imu.getYaw());
+   // SmartDashboard.putNumber("Pigeon IMU", m_imu.getYaw());
     //checkTemperature();
   }
 

@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import edu.wpi.first.hal.CANAPIJNI;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -15,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CANBusIDs;
 import frc.robot.Constants.IntakeSubsystemConstants;
 import frc.robot.Constants.PneumaticsConstants;
+import frc.robot.Constants.RioInputs;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
@@ -26,11 +28,11 @@ public class IntakeSubsystem extends SubsystemBase {
   {
     m_intakeMotor = new VictorSPX(CANBusIDs.k_intakeMotors);
     m_holdMotor = new VictorSPX(CANBusIDs.k_holdMotor);
-  //m_intakeSolenoid.set(Value.kOff);
   }
 
   @Override
-  public void periodic() {
+  public void periodic()
+  {
     // This method will be called once per scheduler run
   }
 

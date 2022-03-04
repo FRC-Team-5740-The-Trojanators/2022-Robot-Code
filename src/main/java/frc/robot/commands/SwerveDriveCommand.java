@@ -71,7 +71,6 @@ public class SwerveDriveCommand extends CommandBase {
         -rotLimiter.calculate(getJoystickWithDeadBand(controller.getRightX())
         * SwerveDriveModuleConstants.k_MaxAngularSpeed * SwerveDriveModuleConstants.k_RotCoefficient);
 
-        // SmartDashboard.putNumber("rot from Command", rot);
       drivetrain.teleDrive(xSpeed, ySpeed, rot, false);
      
   }

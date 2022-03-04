@@ -66,6 +66,7 @@ public class SwerveModule
         angleTalonConfig.remoteFilter0.remoteSensorDeviceID = m_moduleSteeringEncoder.getDeviceID();
         angleTalonConfig.remoteFilter0.remoteSensorSource = RemoteSensorSource.CANCoder;
         angleTalonConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.RemoteSensor0;
+        //angleTalonConfig.slot0.closedLoopPeriod = 20;
         
         angleTalonConfig.slot0.kP = SteerModulePIDValues.k_steerP;
         angleTalonConfig.slot0.kI = SteerModulePIDValues.k_steerI;
@@ -86,11 +87,10 @@ public class SwerveModule
         driveTalonConfig.slot0.kI = DriveModulePIDValues.k_driveI;
         driveTalonConfig.slot0.kD = DriveModulePIDValues.k_driveD;
         driveTalonConfig.slot0.kF = DriveModulePIDValues.k_driveFF;
+        //driveTalonConfig.slot0.closedLoopPeriod = 20;
+
       
         m_driveMotor.configAllSettings(driveTalonConfig);
-
-        // SmartDashboard.putNumber("Steer P", SteerModulePIDValues.k_steerP);
-        // SmartDashboard.putNumber("Steer D", SteerModulePIDValues.k_steerD);
 
     }
 
@@ -143,7 +143,6 @@ public class SwerveModule
     public SwerveModuleState getState()
     {
         double driveSpeed = (m_driveMotor.getSelectedSensorVelocity() * (10.0 / 2048) * Math.PI * SwerveDriveModuleConstants.k_wheelDiameter) / SwerveDriveModuleConstants.k_gearRatio;
-       // SmartDashboard.putNumber("Sensor Drive Vel", m_driveMotor.getSelectedSensorVelocity());
         return new SwerveModuleState(driveSpeed , Rotation2d.fromDegrees(m_moduleSteeringEncoder.getPosition()));
     }
 
