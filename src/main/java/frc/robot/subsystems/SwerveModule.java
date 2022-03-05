@@ -58,7 +58,7 @@ public class SwerveModule
         canCoderConfiguration.sensorDirection = true;
         //canCoderConfiguration.sensorCoefficient = 1;
         canCoder.configAllSettings(canCoderConfiguration);
-        canCoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData, 20);
+        canCoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData, 100);
 
         m_angleMotor.configFactoryDefault();
         m_angleMotor.setNeutralMode(NeutralMode.Brake);
