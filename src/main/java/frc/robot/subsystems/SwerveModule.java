@@ -15,11 +15,13 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
+import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.CANCoderConfiguration;
+import com.ctre.phoenix.sensors.CANCoderStatusFrame;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 
 /**
@@ -56,6 +58,7 @@ public class SwerveModule
         canCoderConfiguration.sensorDirection = true;
         //canCoderConfiguration.sensorCoefficient = 1;
         canCoder.configAllSettings(canCoderConfiguration);
+        //canCoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData, 20);
 
         m_angleMotor.configFactoryDefault();
         m_angleMotor.setNeutralMode(NeutralMode.Brake);
@@ -66,13 +69,14 @@ public class SwerveModule
         angleTalonConfig.remoteFilter0.remoteSensorDeviceID = m_moduleSteeringEncoder.getDeviceID();
         angleTalonConfig.remoteFilter0.remoteSensorSource = RemoteSensorSource.CANCoder;
         angleTalonConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.RemoteSensor0;
-        //angleTalonConfig.slot0.closedLoopPeriod = 20;
         
         angleTalonConfig.slot0.kP = SteerModulePIDValues.k_steerP;
         angleTalonConfig.slot0.kI = SteerModulePIDValues.k_steerI;
         angleTalonConfig.slot0.kD = SteerModulePIDValues.k_steerD;
 
         m_angleMotor.configAllSettings(angleTalonConfig);
+       // m_angleMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20);
+
 
         
         m_driveMotor.configFactoryDefault();
@@ -89,8 +93,9 @@ public class SwerveModule
         driveTalonConfig.slot0.kF = DriveModulePIDValues.k_driveFF;
         //driveTalonConfig.slot0.closedLoopPeriod = 20;
 
-      
         m_driveMotor.configAllSettings(driveTalonConfig);
+        //m_driveMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20);
+
 
     }
 

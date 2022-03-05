@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -32,6 +33,7 @@ public class ClimbSubsystem extends SubsystemBase {
   {
     m_climbMotor.configFactoryDefault();
     m_climbMotor.setNeutralMode(NeutralMode.Brake);
+   // m_climbMotor.setStatusFramePeriod(StatusFrame.Status_1_General, 40);
   }
 
   @Override
@@ -40,34 +42,10 @@ public class ClimbSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public double getClimbDistance() 
-  {
-		return m_climbMotor.getSelectedSensorPosition();
-  }
-
   public void setPower(double power)
   {
     m_climbMotor.set(ControlMode.PercentOutput, power);
   }
-
-  public double getJoystickWithDeadBand(double stickValue)
-  {
-      if(stickValue > HIDConstants.kDeadBand || stickValue < -HIDConstants.kDeadBand)
-      {
-          if(stickValue < 0)
-          {
-              return stickValue = -Math.pow(stickValue, 2);
-          }
-          else
-          {
-              return stickValue = Math.pow(stickValue, 2);
-          }
-      } 
-      else 
-      {
-          return 0;
-      }
-  } 
 
   public void angleClimb()
   {

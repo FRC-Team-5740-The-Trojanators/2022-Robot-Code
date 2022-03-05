@@ -7,14 +7,17 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.HIDConstants;
+import frc.robot.commands.AngleClimbCommand;
 import frc.robot.commands.AutonomousDrive;
 import frc.robot.commands.CatapultCommand;
-import frc.robot.commands.ClimbCommand;
+import frc.robot.commands.ClimbDownCommand;
+import frc.robot.commands.ClimbUpCommand;
 import frc.robot.commands.ExtendIntakeCommand;
 import frc.robot.commands.RetractIntakeCommand;
 import frc.robot.commands.ReverseIntakeCommand;
 import frc.robot.commands.LoadCatapultCommand;
 import frc.robot.commands.RunIntakeCommand;
+import frc.robot.commands.StraightenClimbCommand;
 import frc.robot.commands.MoveServoCommand;
 import frc.robot.commands.SwerveDriveCommand;
 import frc.robot.subsystems.CatapultSubsystem;
@@ -49,20 +52,22 @@ public class RobotContainer
   private final LoadCatapultCommand m_loadCatapultCommand = new LoadCatapultCommand(m_intakeSubsystem);
   private final ReverseIntakeCommand m_reverseIntakeCommand = new ReverseIntakeCommand(m_intakeSubsystem);
   private final CatapultCommand m_catapultCommand = new CatapultCommand(m_catapultSubsystem);
-  private final ClimbCommand m_climbCommand = new ClimbCommand(m_climbSubsystem, m_operatorController);
+  private final ClimbUpCommand m_climbUpCommand = new ClimbUpCommand(m_climbSubsystem);
+  private final ClimbDownCommand m_climbDownCommand = new ClimbDownCommand(m_climbSubsystem);
   private final MoveServoCommand m_moveServoCommand = new MoveServoCommand(m_climbSubsystem);
   private final RetractIntakeCommand m_retractIntakeCommand = new RetractIntakeCommand(m_intakeSubsystem);
   private final ExtendIntakeCommand m_extendIntakeCommand = new ExtendIntakeCommand(m_intakeSubsystem);
+  private final AngleClimbCommand m_angleClimbCommand = new AngleClimbCommand(m_climbSubsystem);
+  private final StraightenClimbCommand m_straightenClimbCommand = new StraightenClimbCommand(m_climbSubsystem);
 
 
-  public static JoystickButton intakeExtend, intakeRetract, intakeRun, intakeReverse, climbAngle, loadCatapult, launchCatapult, moveServo;
+  public static JoystickButton intakeExtend, intakeRetract, intakeRun, intakeReverse, climbAngle, loadCatapult, launchCatapult, moveServo, moveClimbUp, moveClimbDown, climbStraight;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() 
   {
     // Configure the button bindings
     configureButtonBindings();
     m_driveSubsystem.setDefaultCommand(m_driveCommand);
-    m_climbSubsystem.setDefaultCommand(m_climbCommand);
     m_driveSubsystem.resetIMU();
   }
 
@@ -74,26 +79,34 @@ public class RobotContainer
    */
   private void configureButtonBindings() 
   {
-    intakeExtend = new JoystickButton(m_operatorController , HIDConstants.kStart);
-    intakeRetract = new JoystickButton(m_operatorController , HIDConstants.kBack);
-    intakeRun = new JoystickButton(m_operatorController , HIDConstants.kRB);
+    intakeExtend = new JoystickButton(m_operatorController, HIDConstants.kStart);
+    intakeRetract = new JoystickButton(m_operatorController, HIDConstants.kBack);
+    intakeRun = new JoystickButton(m_operatorController, HIDConstants.kRB);
     intakeReverse = new JoystickButton(m_operatorController, HIDConstants.kX);
     loadCatapult = new JoystickButton(m_operatorController, HIDConstants.kLB);
 
-    launchCatapult = new JoystickButton(m_driverController, HIDConstants.kA);
+    launchCatapult = new JoystickButton(m_operatorController, HIDConstants.kA);
 
     climbAngle = new JoystickButton(m_driverController, HIDConstants.kLB);
-    moveServo = new JoystickButton(m_operatorController, HIDConstants.kY);
+    climbStraight = new JoystickButton(m_driverController, HIDConstants.kRB);
+    moveServo = new JoystickButton(m_driverController, HIDConstants.kB);
+    moveClimbUp = new JoystickButton(m_driverController, HIDConstants.kY);
+    moveClimbDown = new JoystickButton(m_driverController, HIDConstants.kA);
+
   
-    //intakeFlip.toggleWhenPressed(new StartEndCommand(m_intakeSubsystem::extendIntake, m_intakeSubsystem::retractIntake, m_intakeSubsystem));
     intakeExtend.whenPressed(m_extendIntakeCommand);
     intakeRetract.whenPressed(m_retractIntakeCommand);
     intakeRun.whileHeld(m_runIntakeCommand);
     intakeReverse.whileHeld(m_reverseIntakeCommand);
     loadCatapult.whileHeld(m_loadCatapultCommand);
 
-    climbAngle.toggleWhenPressed(new StartEndCommand(m_climbSubsystem::angleClimb, m_climbSubsystem::straightClimb, m_climbSubsystem));
     moveServo.toggleWhenPressed(m_moveServoCommand);
+    moveClimbUp.whileHeld(m_climbUpCommand);
+    
+    moveClimbDown.whileHeld(m_climbDownCommand);
+    climbStraight.whenPressed(m_straightenClimbCommand);
+    climbAngle.whenPressed(m_angleClimbCommand);
+
 
     launchCatapult.whileHeld(m_catapultCommand);
   }

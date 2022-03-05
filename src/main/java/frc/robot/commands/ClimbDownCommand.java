@@ -11,20 +11,17 @@ import frc.robot.Constants.ClimbSubsystemConstants;
 import frc.robot.Constants.SwerveDriveModuleConstants;
 import frc.robot.subsystems.ClimbSubsystem;
 
-public class ClimbCommand extends CommandBase {
+public class ClimbDownCommand extends CommandBase {
   /** Creates a new ClimbCommand. */
 
   private final ClimbSubsystem m_climb;
-  private double power = 0;
-  private final XboxController m_controller;
+  private double power = -.5;
   private boolean m_isFinished = false; 
-  private final SlewRateLimiter yspeedLimiter = new SlewRateLimiter(20);//SlewRateLimiter(6);
 
 
-  public ClimbCommand(ClimbSubsystem climb, XboxController controller)
+  public ClimbDownCommand(ClimbSubsystem climb)
   {
     m_climb = climb;
-    m_controller = controller;
     addRequirements(climb);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -41,18 +38,7 @@ public class ClimbCommand extends CommandBase {
   public void execute() 
   {
 
-    //final var ySpeed = -yspeedLimiter.calculate(m_climb.getJoystickWithDeadBand(m_controller.getLeftY()));
-
-    // if(m_climb.getClimbAngle())
-    // {
-    //   m_climb.setServoMotor(ClimbSubsystemConstants.k_servoAngledPosition);
-    // }
-    // else
-    // {
-    //   m_climb.setServoMotor(ClimbSubsystemConstants.k_servoStraightPosition);
-    // }
-
-    m_climb.setPower(-m_controller.getLeftY() * .25);
+    m_climb.setPower(power);
 
   }
 
@@ -60,14 +46,13 @@ public class ClimbCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) 
   {
-   // m_climb.setPower(power);
+    m_climb.setPower(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() 
   {
-   // m_climb.setPower(power);
     return m_isFinished;
   }
 }

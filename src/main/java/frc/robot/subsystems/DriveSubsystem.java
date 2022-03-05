@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.PigeonIMU;
+import com.ctre.phoenix.sensors.PigeonIMU_StatusFrame;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
@@ -69,6 +70,8 @@ public class DriveSubsystem extends SubsystemBase
     }
 
     m_UsbCamera.setResolution(320, 240);
+
+    m_imu.setStatusFramePeriod(PigeonIMU_StatusFrame.CondStatus_1_General, 20);
   }
 
   public void autoDrive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) 

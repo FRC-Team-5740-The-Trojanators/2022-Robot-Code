@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
@@ -28,6 +29,10 @@ public class IntakeSubsystem extends SubsystemBase {
   {
     m_intakeMotor = new VictorSPX(CANBusIDs.k_intakeMotors);
     m_holdMotor = new VictorSPX(CANBusIDs.k_holdMotor);
+
+  //  m_intakeMotor.setStatusFramePeriod(StatusFrame.Status_1_General, 40);
+   // m_holdMotor.setStatusFramePeriod(StatusFrame.Status_1_General, 40);
+
   }
 
   @Override
