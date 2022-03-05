@@ -4,11 +4,11 @@
 
 package frc.robot.subsystems;
 
+import lib.LazyVictorSPX;
+
 import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.hal.CANAPIJNI;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -22,16 +22,17 @@ import frc.robot.Constants.RioInputs;
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
   private final DoubleSolenoid m_intakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, PneumaticsConstants.k_intakeForwardID, PneumaticsConstants.k_intakeReverseID);
-  private final VictorSPX m_intakeMotor;
-  private final VictorSPX m_holdMotor;
+  private final LazyVictorSPX m_intakeMotor = new LazyVictorSPX(CANBusIDs.k_intakeMotors);
+  private final LazyVictorSPX m_holdMotor = new LazyVictorSPX(CANBusIDs.k_holdMotor);
+
 
   public IntakeSubsystem() 
   {
-    m_intakeMotor = new VictorSPX(CANBusIDs.k_intakeMotors);
-    m_holdMotor = new VictorSPX(CANBusIDs.k_holdMotor);
+   // m_intakeMotor 
+    //m_holdMotor = 
 
-  //  m_intakeMotor.setStatusFramePeriod(StatusFrame.Status_1_General, 40);
-   // m_holdMotor.setStatusFramePeriod(StatusFrame.Status_1_General, 40);
+    m_intakeMotor.setStatusFramePeriod(StatusFrame.Status_1_General, 40);
+    m_holdMotor.setStatusFramePeriod(StatusFrame.Status_1_General, 40);
 
   }
 

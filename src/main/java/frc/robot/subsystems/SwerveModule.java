@@ -11,13 +11,13 @@ import frc.robot.Constants.DriveModulePIDValues;
 import frc.robot.Constants.SteerModulePIDValues;
 import frc.robot.Constants.SwerveDriveModuleConstants;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
+import lib.LazyTalonFX;
+
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.CANCoderConfiguration;
@@ -33,8 +33,8 @@ import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 public class SwerveModule 
 {
 
-    private TalonFX m_driveMotor;
-    private TalonFX m_angleMotor;
+    private LazyTalonFX m_driveMotor;
+    private LazyTalonFX m_angleMotor;
     private Rotation2d m_offset;
 
     private CANCoder m_moduleSteeringEncoder;
@@ -45,7 +45,7 @@ public class SwerveModule
      * @param driveMotorChannel ID for the drive motor.
      * @param steeringMotorChannel ID for the turning motor.
      */
-    public SwerveModule(TalonFX driveMotor, TalonFX angleMotor, CANCoder canCoder, Rotation2d offset)
+    public SwerveModule(LazyTalonFX driveMotor, LazyTalonFX angleMotor, CANCoder canCoder, Rotation2d offset)
     {
         m_driveMotor = driveMotor;
         m_angleMotor = angleMotor;
@@ -58,7 +58,7 @@ public class SwerveModule
         canCoderConfiguration.sensorDirection = true;
         //canCoderConfiguration.sensorCoefficient = 1;
         canCoder.configAllSettings(canCoderConfiguration);
-        //canCoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData, 20);
+        canCoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData, 20);
 
         m_angleMotor.configFactoryDefault();
         m_angleMotor.setNeutralMode(NeutralMode.Brake);
@@ -110,7 +110,7 @@ public class SwerveModule
         double currentTicks = calculateCurrentTicks();
         double desiredTicks = currentTicks + deltaTicks;
 
-        m_angleMotor.set(TalonFXControlMode.Position, filterAngleMotorDeadband(desiredTicks));;
+        m_angleMotor.set(TalonFXControlMode.Position, filterAngleMotorDeadband(desiredTicks));
         
         m_driveMotor.set(TalonFXControlMode.PercentOutput, state.speedMetersPerSecond / SwerveDriveModuleConstants.k_MaxTeleSpeed);
     }
