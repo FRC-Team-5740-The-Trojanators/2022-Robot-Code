@@ -68,6 +68,16 @@ public class ClimbSubsystem extends SubsystemBase {
     m_servoMotor.setPosition(servoPower);
   }
 
+  public int getFwdLimitSwitch()
+  {
+    return m_climbMotor.isFwdLimitSwitchClosed();
+  }
+
+  public int getRevLimitSwitch()
+  {
+    return m_climbMotor.isRevLimitSwitchClosed();
+  }
+
   public boolean getClimbAngle()
   {
     if( m_climbSolenoid.get() == Value.kForward)

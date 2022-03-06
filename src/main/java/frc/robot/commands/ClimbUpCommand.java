@@ -5,24 +5,29 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.ClimbSubsystemConstants;
 import frc.robot.Constants.SwerveDriveModuleConstants;
 import frc.robot.subsystems.ClimbSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
 public class ClimbUpCommand extends CommandBase {
   /** Creates a new ClimbCommand. */
 
   private final ClimbSubsystem m_climb;
+  private final IntakeSubsystem m_intake;
   private double power = .5;
   private boolean m_isFinished = false; 
+  private Timer m_timer;
 
-
-  public ClimbUpCommand(ClimbSubsystem climb)
+  public ClimbUpCommand(ClimbSubsystem climb, IntakeSubsystem intake)
   {
     m_climb = climb;
-    addRequirements(climb);
+    m_intake = intake;
+    this.m_timer = new Timer();
+    addRequirements(climb, intake);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -31,6 +36,7 @@ public class ClimbUpCommand extends CommandBase {
   public void initialize() 
   {
     m_isFinished = false;
+    m_timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -39,6 +45,11 @@ public class ClimbUpCommand extends CommandBase {
   {
 
     m_climb.setPower(power);
+
+    if( m_climb.getFwdLimitSwitch() == 1)
+    {
+      m_intake.retractIntake();
+    }
 
   }
 

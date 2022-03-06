@@ -52,8 +52,8 @@ public class RobotContainer
   private final LoadCatapultCommand m_loadCatapultCommand = new LoadCatapultCommand(m_intakeSubsystem);
   private final ReverseIntakeCommand m_reverseIntakeCommand = new ReverseIntakeCommand(m_intakeSubsystem);
   private final CatapultCommand m_catapultCommand = new CatapultCommand(m_catapultSubsystem);
-  private final ClimbUpCommand m_climbUpCommand = new ClimbUpCommand(m_climbSubsystem);
-  private final ClimbDownCommand m_climbDownCommand = new ClimbDownCommand(m_climbSubsystem);
+  private final ClimbUpCommand m_climbUpCommand = new ClimbUpCommand(m_climbSubsystem, m_intakeSubsystem);
+  private final ClimbDownCommand m_climbDownCommand = new ClimbDownCommand(m_climbSubsystem, m_intakeSubsystem);
   private final MoveServoCommand m_moveServoCommand = new MoveServoCommand(m_climbSubsystem);
   private final RetractIntakeCommand m_retractIntakeCommand = new RetractIntakeCommand(m_intakeSubsystem);
   private final ExtendIntakeCommand m_extendIntakeCommand = new ExtendIntakeCommand(m_intakeSubsystem);
@@ -101,8 +101,8 @@ public class RobotContainer
     loadCatapult.whileHeld(m_loadCatapultCommand);
 
     moveServo.toggleWhenPressed(m_moveServoCommand);
-    moveClimbUp.whileHeld(m_climbUpCommand);
     
+    moveClimbUp.whileHeld(m_climbUpCommand);
     moveClimbDown.whileHeld(m_climbDownCommand);
     climbStraight.whenPressed(m_straightenClimbCommand);
     climbAngle.whenPressed(m_angleClimbCommand);
