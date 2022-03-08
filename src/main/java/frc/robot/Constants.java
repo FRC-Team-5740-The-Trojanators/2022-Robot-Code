@@ -79,6 +79,8 @@ public final class Constants
         public static final double k_gearRatio = 6.75;
         public static final double k_temperatureLimit = 110.00;
 
+        public static final double k_steerFeedbackCoefficient = 0.087890625;
+
         //public static double fieldCalibration = 0;
 
         //Angle offsets

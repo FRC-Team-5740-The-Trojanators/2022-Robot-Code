@@ -75,7 +75,7 @@ public class SwerveModule
         angleTalonConfig.slot0.kD = SteerModulePIDValues.k_steerD;
 
         m_angleMotor.configAllSettings(angleTalonConfig);
-       // m_angleMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20);
+        m_angleMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20);
 
 
         
@@ -94,8 +94,9 @@ public class SwerveModule
         //driveTalonConfig.slot0.closedLoopPeriod = 20;
 
         m_driveMotor.configAllSettings(driveTalonConfig);
-        //m_driveMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20);
+        m_driveMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20);
 
+        //SmartDashboard.putNumber("feedbackcoef", m_moduleSteeringEncoder.configGetFeedbackCoefficient());
 
     }
 
@@ -126,7 +127,7 @@ public class SwerveModule
     }
 
     public double calculateCurrentTicks() {
-        double currentTicks = m_moduleSteeringEncoder.getPosition() / m_moduleSteeringEncoder.configGetFeedbackCoefficient();
+        double currentTicks = m_moduleSteeringEncoder.getPosition() / SwerveDriveModuleConstants.k_steerFeedbackCoefficient; /*m_moduleSteeringEncoder.configGetFeedbackCoefficient()*/;
         return currentTicks;
     }
 
