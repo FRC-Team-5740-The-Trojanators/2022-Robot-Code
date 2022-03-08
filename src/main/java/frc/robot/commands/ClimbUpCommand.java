@@ -46,10 +46,10 @@ public class ClimbUpCommand extends CommandBase {
 
     m_climb.setPower(power);
 
-    if( m_climb.getFwdLimitSwitch() == 1)
-    {
-      m_intake.retractIntake();
-    }
+    // if( m_climb.getFwdLimitSwitch() == 1)
+    // {
+    //   m_intake.retractIntake();
+    // }
 
   }
 

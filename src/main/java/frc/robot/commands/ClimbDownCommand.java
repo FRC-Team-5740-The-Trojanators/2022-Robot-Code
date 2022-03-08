@@ -46,10 +46,10 @@ public class ClimbDownCommand extends CommandBase {
 
     m_climb.setPower(power);
 
-    if( m_climb.getRevLimitSwitch() == 1)
-    {
-      m_intake.extendIntake();
-    }
+    // if( m_climb.getRevLimitSwitch() == 1)
+    // {
+    //   m_intake.extendIntake();
+    // }
   }
 
   // Called once the command ends or is interrupted.

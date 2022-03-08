@@ -126,7 +126,7 @@ public class SwerveModule
     }
 
     public double calculateCurrentTicks() {
-        double currentTicks = m_moduleSteeringEncoder.getPosition() / m_moduleSteeringEncoder.configGetFeedbackCoefficient();
+        double currentTicks = m_moduleSteeringEncoder.getPosition() / m_moduleSteeringEncoder.configGetFeedbackCoefficient(); //TODO put contant in for feedbackcoefficient
         return currentTicks;
     }
 
