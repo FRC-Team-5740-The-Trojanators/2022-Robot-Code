@@ -58,7 +58,7 @@ public class SwerveModule
         canCoderConfiguration.sensorDirection = true;
         //canCoderConfiguration.sensorCoefficient = 1;
         canCoder.configAllSettings(canCoderConfiguration);
-        //canCoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData, 20);
+        canCoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData, 20);
 
         m_angleMotor.configFactoryDefault();
         m_angleMotor.setNeutralMode(NeutralMode.Brake);
@@ -75,7 +75,7 @@ public class SwerveModule
         angleTalonConfig.slot0.kD = SteerModulePIDValues.k_steerD;
 
         m_angleMotor.configAllSettings(angleTalonConfig);
-       // m_angleMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20);
+       m_angleMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20);
 
 
         
@@ -94,7 +94,7 @@ public class SwerveModule
         //driveTalonConfig.slot0.closedLoopPeriod = 20;
 
         m_driveMotor.configAllSettings(driveTalonConfig);
-        //m_driveMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20);
+        m_driveMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20);
 
 
     }

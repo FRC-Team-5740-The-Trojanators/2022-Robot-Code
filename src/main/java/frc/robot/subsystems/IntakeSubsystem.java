@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
+import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CANBusIDs;
 import frc.robot.Constants.IntakeSubsystemConstants;
@@ -22,13 +23,13 @@ import frc.robot.Constants.RioInputs;
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
   private final DoubleSolenoid m_intakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, PneumaticsConstants.k_intakeForwardID, PneumaticsConstants.k_intakeReverseID);
-  private final VictorSPX m_intakeMotor;
-  private final VictorSPX m_holdMotor;
+  private final PWMVictorSPX m_intakeMotor;
+  private final PWMVictorSPX m_holdMotor;
 
   public IntakeSubsystem() 
   {
-    m_intakeMotor = new VictorSPX(CANBusIDs.k_intakeMotors);
-    m_holdMotor = new VictorSPX(CANBusIDs.k_holdMotor);
+    m_intakeMotor = new PWMVictorSPX(RioInputs.k_intakeMotors);
+    m_holdMotor = new PWMVictorSPX(RioInputs.k_holdMotor);
 
   //  m_intakeMotor.setStatusFramePeriod(StatusFrame.Status_1_General, 40);
    // m_holdMotor.setStatusFramePeriod(StatusFrame.Status_1_General, 40);
@@ -64,31 +65,31 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void forwardIntakeMotors()
   {
-    m_intakeMotor.set(VictorSPXControlMode.PercentOutput, IntakeSubsystemConstants.k_intakeMotorSpeed);
+    m_intakeMotor.set(IntakeSubsystemConstants.k_intakeMotorSpeed);
   }
 
   public void reverseIntakeMotors()
   {
-    m_intakeMotor.set(VictorSPXControlMode.PercentOutput, IntakeSubsystemConstants.k_intakeReverseMotorSpeed);
+    m_intakeMotor.set( IntakeSubsystemConstants.k_intakeReverseMotorSpeed);
   }
 
   public void stopIntakeMotors()
   {
-    m_intakeMotor.set(VictorSPXControlMode.PercentOutput, IntakeSubsystemConstants.k_intakeStopMotorSpeed);
+    m_intakeMotor.set( IntakeSubsystemConstants.k_intakeStopMotorSpeed);
   }
 
   public void forwardHoldMotor()
   {
-    m_holdMotor.set(VictorSPXControlMode.PercentOutput, IntakeSubsystemConstants.k_holdMotorSpeed);
+    m_holdMotor.set( IntakeSubsystemConstants.k_holdMotorSpeed);
   }
   
   public void reverseHoldMotor()
   {
-    m_holdMotor.set(VictorSPXControlMode.PercentOutput, IntakeSubsystemConstants.k_holdReverseMotorSpeed);
+    m_holdMotor.set( IntakeSubsystemConstants.k_holdReverseMotorSpeed);
   }
   
   public void stopHoldMotor()
   {
-    m_holdMotor.set(VictorSPXControlMode.PercentOutput, IntakeSubsystemConstants.k_holdStopMotorSpeed);
+    m_holdMotor.set( IntakeSubsystemConstants.k_holdStopMotorSpeed);
   }
 }

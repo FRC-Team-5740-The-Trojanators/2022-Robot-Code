@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.motorcontrol.PWMTalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CANBusIDs;
 import frc.robot.Constants.HIDConstants;
@@ -25,14 +26,14 @@ import frc.robot.Constants.RioInputs;
 public class ClimbSubsystem extends SubsystemBase {
   /** Creates a new Climb. */
   private final DoubleSolenoid m_climbSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, PneumaticsConstants.k_climbForwardID, PneumaticsConstants.k_climbReverseID);
-  private final TalonFX m_climbMotor = new TalonFX(CANBusIDs.k_climbMotor);
+  private final PWMTalonFX m_climbMotor = new PWMTalonFX(RioInputs.k_climbMotor);
  
   private final Servo m_servoMotor = new Servo(RioInputs.k_servoMotor);
 
   public ClimbSubsystem() 
   {
-    m_climbMotor.configFactoryDefault();
-    m_climbMotor.setNeutralMode(NeutralMode.Brake);
+   // m_climbMotor.configFactoryDefault();
+   // m_climbMotor.setNeutralMode(NeutralMode.Brake);
    // m_climbMotor.setStatusFramePeriod(StatusFrame.Status_1_General, 40);
   }
 
@@ -44,7 +45,7 @@ public class ClimbSubsystem extends SubsystemBase {
 
   public void setPower(double power)
   {
-    m_climbMotor.set(ControlMode.PercentOutput, power);
+    m_climbMotor.set( power);
   }
 
   public void angleClimb()
@@ -68,15 +69,15 @@ public class ClimbSubsystem extends SubsystemBase {
     m_servoMotor.setPosition(servoPower);
   }
 
-  public int getFwdLimitSwitch()
-  {
-    return m_climbMotor.isFwdLimitSwitchClosed();
-  }
+  // public int getFwdLimitSwitch()
+  // {
+  //   return m_climbMotor.isFwdLimitSwitchClosed();
+  // }
 
-  public int getRevLimitSwitch()
-  {
-    return m_climbMotor.isRevLimitSwitchClosed();
-  }
+  // public int getRevLimitSwitch()
+  // {
+  //   return m_climbMotor.isRevLimitSwitchClosed();
+  // }
 
   public boolean getClimbAngle()
   {
