@@ -41,7 +41,7 @@ public class IntakeSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public boolean isIntakeOut()
+  public boolean getIntakeState()
   {
     if(m_intakeSolenoid.get() == Value.kForward)
     {

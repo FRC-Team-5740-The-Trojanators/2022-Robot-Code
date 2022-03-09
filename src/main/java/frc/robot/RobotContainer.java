@@ -51,7 +51,7 @@ public class RobotContainer
   private final RunIntakeCommand m_runIntakeCommand = new RunIntakeCommand(m_intakeSubsystem);
   private final LoadCatapultCommand m_loadCatapultCommand = new LoadCatapultCommand(m_intakeSubsystem);
   private final ReverseIntakeCommand m_reverseIntakeCommand = new ReverseIntakeCommand(m_intakeSubsystem);
-  private final CatapultCommand m_catapultCommand = new CatapultCommand(m_catapultSubsystem);
+  private final CatapultCommand m_catapultCommand = new CatapultCommand(m_catapultSubsystem, m_intakeSubsystem);
   private final ClimbUpCommand m_climbUpCommand = new ClimbUpCommand(m_climbSubsystem, m_intakeSubsystem);
   private final ClimbDownCommand m_climbDownCommand = new ClimbDownCommand(m_climbSubsystem, m_intakeSubsystem);
   private final MoveServoCommand m_moveServoCommand = new MoveServoCommand(m_climbSubsystem);
