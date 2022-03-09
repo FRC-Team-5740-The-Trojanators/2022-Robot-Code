@@ -79,6 +79,8 @@ public final class Constants
         public static final double k_gearRatio = 6.75;
         public static final double k_temperatureLimit = 110.00;
 
+        public static final double k_steerFeedbackCoefficient = 0.087890625;
+
         //public static double fieldCalibration = 0;
 
         //Angle offsets
@@ -118,11 +120,11 @@ public final class Constants
         public static final int k_RightRear_SteeringMotor = 8; 
 
         public static final int k_pigeonID = 13;
-       // public static final int k_intakeMotors = 15;
-    //     public static final int k_holdMotor = 14;
+        // public static final int k_intakeMotors = 15;
+        // public static final int k_holdMotor = 14;
         
-    //     public static final int k_climbMotor = 16;
-     }
+        // public static final int k_climbMotor = 16;
+    }
 
     public static class DriveModulePIDValues
     {

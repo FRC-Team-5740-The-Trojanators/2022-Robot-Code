@@ -4,14 +4,12 @@
 
 package frc.robot.subsystems;
 
+import lib.LazyTalonFX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Servo;
@@ -26,6 +24,7 @@ import frc.robot.Constants.RioInputs;
 public class ClimbSubsystem extends SubsystemBase {
   /** Creates a new Climb. */
   private final DoubleSolenoid m_climbSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, PneumaticsConstants.k_climbForwardID, PneumaticsConstants.k_climbReverseID);
+  //private final LazyTalonFX m_climbMotor = new LazyTalonFX(CANBusIDs.k_climbMotor);
   private final PWMTalonFX m_climbMotor = new PWMTalonFX(RioInputs.k_climbMotor);
  
   private final Servo m_servoMotor = new Servo(RioInputs.k_servoMotor);
@@ -45,7 +44,7 @@ public class ClimbSubsystem extends SubsystemBase {
 
   public void setPower(double power)
   {
-    m_climbMotor.set( power);
+    m_climbMotor.set(power);
   }
 
   public void angleClimb()

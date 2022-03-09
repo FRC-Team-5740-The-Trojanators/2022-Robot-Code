@@ -26,6 +26,7 @@ import frc.robot.Constants.CANBusIDs;
 import frc.robot.Constants.RioInputs;
 import frc.robot.Constants.SteerModulePIDValues;
 import frc.robot.Constants.SwerveDriveModuleConstants;
+import lib.LazyTalonFX;
 
 public class DriveSubsystem extends SubsystemBase
 {
@@ -33,10 +34,10 @@ public class DriveSubsystem extends SubsystemBase
  // public ADIS16448_IMU m_imu = new ADIS16448_IMU(RioInputs.k_gyroID);
   private Pose2d m_robotPose = new Pose2d();
 
-  private UsbCamera m_UsbCamera = CameraServer.startAutomaticCapture();
-  NetworkTableEntry cameraEntry = NetworkTableInstance.getDefault().getTable("").getEntry("Camera");
-  NetworkTableEntry limelight = NetworkTableInstance.getDefault().getTable("").getEntry("limelight"); 
-  boolean cam = NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(1);
+  //private UsbCamera m_UsbCamera = CameraServer.startAutomaticCapture();
+  //NetworkTableEntry cameraEntry = NetworkTableInstance.getDefault().getTable("").getEntry("Camera");
+  //NetworkTableEntry limelight = NetworkTableInstance.getDefault().getTable("").getEntry("limelight"); 
+  //boolean cam = NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(1);
 
   private SwerveModuleState[] m_states = new SwerveModuleState[]
   {
@@ -51,10 +52,10 @@ public class DriveSubsystem extends SubsystemBase
 
   public SwerveModule[] modules = new SwerveModule[]
   {
-      new SwerveModule(new TalonFX(CANBusIDs.k_LeftFront_DriveMotor), new TalonFX(CANBusIDs.k_LeftFront_SteeringMotor), new CANCoder(CANBusIDs.leftFrontCANCoderId), Rotation2d.fromDegrees(SwerveDriveModuleConstants.leftFrontOffset)), // Left Front
-      new SwerveModule(new TalonFX(CANBusIDs.k_RightFront_DriveMotor), new TalonFX(CANBusIDs.k_RightFront_SteeringMotor), new CANCoder(CANBusIDs.rightFrontCANCoderId), Rotation2d.fromDegrees(SwerveDriveModuleConstants.rightFrontOffset)), // Right Front
-      new SwerveModule(new TalonFX(CANBusIDs.k_LeftRear_DriveMotor), new TalonFX(CANBusIDs.k_LeftRear_SteeringMotor), new CANCoder(CANBusIDs.leftRearCANCoderId), Rotation2d.fromDegrees(SwerveDriveModuleConstants.leftRearOffset)), // Left Rear
-      new SwerveModule(new TalonFX(CANBusIDs.k_RightRear_DriveMotor), new TalonFX(CANBusIDs.k_RightRear_SteeringMotor), new CANCoder(CANBusIDs.rightRearCANCoderId), Rotation2d.fromDegrees(SwerveDriveModuleConstants.rightRearOffset)), // Right Rear
+      new SwerveModule(new LazyTalonFX(CANBusIDs.k_LeftFront_DriveMotor), new LazyTalonFX(CANBusIDs.k_LeftFront_SteeringMotor), new CANCoder(CANBusIDs.leftFrontCANCoderId), Rotation2d.fromDegrees(SwerveDriveModuleConstants.leftFrontOffset)), // Left Front
+      new SwerveModule(new LazyTalonFX(CANBusIDs.k_RightFront_DriveMotor), new LazyTalonFX(CANBusIDs.k_RightFront_SteeringMotor), new CANCoder(CANBusIDs.rightFrontCANCoderId), Rotation2d.fromDegrees(SwerveDriveModuleConstants.rightFrontOffset)), // Right Front
+      new SwerveModule(new LazyTalonFX(CANBusIDs.k_LeftRear_DriveMotor), new LazyTalonFX(CANBusIDs.k_LeftRear_SteeringMotor), new CANCoder(CANBusIDs.leftRearCANCoderId), Rotation2d.fromDegrees(SwerveDriveModuleConstants.leftRearOffset)), // Left Rear
+      new SwerveModule(new LazyTalonFX(CANBusIDs.k_RightRear_DriveMotor), new LazyTalonFX(CANBusIDs.k_RightRear_SteeringMotor), new CANCoder(CANBusIDs.rightRearCANCoderId), Rotation2d.fromDegrees(SwerveDriveModuleConstants.rightRearOffset)), // Right Rear
   };
    
  public DriveSubsystem(boolean calibrateGyro) 
@@ -69,7 +70,7 @@ public class DriveSubsystem extends SubsystemBase
        modules[i].resetDriveEncoder();
     }
 
-    m_UsbCamera.setResolution(320, 240);
+   // m_UsbCamera.setResolution(320, 240);
 
     m_imu.setStatusFramePeriod(PigeonIMU_StatusFrame.CondStatus_1_General, 20);
   }
@@ -121,8 +122,8 @@ public class DriveSubsystem extends SubsystemBase
   public void periodic() 
   {
     // This method will be called once per scheduler run
-    var gyroAngle = Rotation2d.fromDegrees(m_imu.getYaw());
-    m_robotPose = m_odometry.update(gyroAngle, modules[0].getState(), modules[1].getState(), modules[2].getState(), modules[3].getState());
+    //var gyroAngle = Rotation2d.fromDegrees(m_imu.getYaw());
+   // m_robotPose = m_odometry.update(gyroAngle, modules[0].getState(), modules[1].getState(), modules[2].getState(), modules[3].getState());
    // SmartDashboard.putNumber("Pigeon IMU", m_imu.getYaw());
     //checkTemperature();
   }

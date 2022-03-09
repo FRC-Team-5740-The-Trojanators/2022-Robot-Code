@@ -12,6 +12,7 @@ import frc.robot.commands.AutonomousDrive;
 import frc.robot.commands.CatapultCommand;
 import frc.robot.commands.ClimbDownCommand;
 import frc.robot.commands.ClimbUpCommand;
+import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ExtendIntakeCommand;
 import frc.robot.commands.RetractIntakeCommand;
 import frc.robot.commands.ReverseIntakeCommand;
@@ -38,22 +39,23 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer 
 {
   // The robot's subsystems and commands are defined here...
-  private final DriveSubsystem m_driveSubsystem = new DriveSubsystem(false);
-  private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
-  private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
-  private final CatapultSubsystem m_catapultSubsystem = new CatapultSubsystem();
+ private final DriveSubsystem m_driveSubsystem = new DriveSubsystem(false);
+ private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
+ private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
+ private final CatapultSubsystem m_catapultSubsystem = new CatapultSubsystem();
 
   XboxController m_driverController = new XboxController(HIDConstants.k_DriverControllerPort);
   XboxController m_operatorController = new XboxController(HIDConstants.k_OperatorControllerPort);
 
+  private final ExampleCommand m_exampleCommand = new ExampleCommand();
   private final SwerveDriveCommand m_driveCommand = new SwerveDriveCommand(m_driveSubsystem, m_driverController);
   private final AutonomousDrive m_autonomousDrive = new AutonomousDrive(m_driveSubsystem);
   private final RunIntakeCommand m_runIntakeCommand = new RunIntakeCommand(m_intakeSubsystem);
   private final LoadCatapultCommand m_loadCatapultCommand = new LoadCatapultCommand(m_intakeSubsystem);
   private final ReverseIntakeCommand m_reverseIntakeCommand = new ReverseIntakeCommand(m_intakeSubsystem);
   private final CatapultCommand m_catapultCommand = new CatapultCommand(m_catapultSubsystem, m_intakeSubsystem);
-  private final ClimbUpCommand m_climbUpCommand = new ClimbUpCommand(m_climbSubsystem, m_intakeSubsystem);
-  private final ClimbDownCommand m_climbDownCommand = new ClimbDownCommand(m_climbSubsystem, m_intakeSubsystem);
+  private final ClimbUpCommand m_climbUpCommand = new ClimbUpCommand(m_climbSubsystem);
+  private final ClimbDownCommand m_climbDownCommand = new ClimbDownCommand(m_climbSubsystem);
   private final MoveServoCommand m_moveServoCommand = new MoveServoCommand(m_climbSubsystem);
   private final RetractIntakeCommand m_retractIntakeCommand = new RetractIntakeCommand(m_intakeSubsystem);
   private final ExtendIntakeCommand m_extendIntakeCommand = new ExtendIntakeCommand(m_intakeSubsystem);
@@ -67,8 +69,8 @@ public class RobotContainer
   {
     // Configure the button bindings
     configureButtonBindings();
-    m_driveSubsystem.setDefaultCommand(m_driveCommand);
-    m_driveSubsystem.resetIMU();
+    // m_driveSubsystem.setDefaultCommand(m_driveCommand);
+    // m_driveSubsystem.resetIMU();
   }
 
   /**
@@ -108,7 +110,7 @@ public class RobotContainer
     climbAngle.whenPressed(m_angleClimbCommand);
 
 
-    launchCatapult.whileHeld(m_catapultCommand);
+   launchCatapult.whileHeld(m_catapultCommand);
   }
 
   /**
@@ -119,6 +121,6 @@ public class RobotContainer
   public Command getAutonomousCommand() 
   {
     // An ExampleCommand will run in autonomous
-    return m_autonomousDrive;
+    return m_exampleCommand;
   }
 }
