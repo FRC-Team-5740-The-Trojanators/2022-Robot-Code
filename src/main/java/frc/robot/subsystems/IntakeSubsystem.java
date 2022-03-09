@@ -31,7 +31,7 @@ public class IntakeSubsystem extends SubsystemBase {
     m_intakeMotor = new PWMVictorSPX(RioInputs.k_intakeMotors);
     m_holdMotor = new PWMVictorSPX(RioInputs.k_holdMotor);
 
-  //  m_intakeMotor.setStatusFramePeriod(StatusFrame.Status_1_General, 40);
+   // m_intakeMotor.setStatusFramePeriod(StatusFrame.Status_1_General, 40);
    // m_holdMotor.setStatusFramePeriod(StatusFrame.Status_1_General, 40);
 
   }

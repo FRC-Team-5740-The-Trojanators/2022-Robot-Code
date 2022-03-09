@@ -20,6 +20,7 @@ import frc.robot.commands.LoadCatapultCommand;
 import frc.robot.commands.RunIntakeCommand;
 import frc.robot.commands.StraightenClimbCommand;
 import frc.robot.commands.MoveServoCommand;
+import frc.robot.commands.MoveServoDownCommand;
 import frc.robot.commands.SwerveDriveCommand;
 import frc.robot.subsystems.CatapultSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
@@ -29,6 +30,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -57,20 +59,23 @@ public class RobotContainer
   private final ClimbUpCommand m_climbUpCommand = new ClimbUpCommand(m_climbSubsystem);
   private final ClimbDownCommand m_climbDownCommand = new ClimbDownCommand(m_climbSubsystem);
   private final MoveServoCommand m_moveServoCommand = new MoveServoCommand(m_climbSubsystem);
+  private final MoveServoDownCommand m_moveServoDownCommand = new MoveServoDownCommand(m_climbSubsystem);
   private final RetractIntakeCommand m_retractIntakeCommand = new RetractIntakeCommand(m_intakeSubsystem);
   private final ExtendIntakeCommand m_extendIntakeCommand = new ExtendIntakeCommand(m_intakeSubsystem);
   private final AngleClimbCommand m_angleClimbCommand = new AngleClimbCommand(m_climbSubsystem);
   private final StraightenClimbCommand m_straightenClimbCommand = new StraightenClimbCommand(m_climbSubsystem);
+  
 
 
-  public static JoystickButton intakeExtend, intakeRetract, intakeRun, intakeReverse, climbAngle, loadCatapult, launchCatapult, moveServo, moveClimbUp, moveClimbDown, climbStraight;
+  public static JoystickButton intakeExtend, intakeRetract, intakeRun, intakeReverse, climbAngle, loadCatapult, launchCatapult, moveClimbUp, moveClimbDown, climbStraight;
+  public static POVButton  moveServo, moveServoDown;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() 
   {
     // Configure the button bindings
     configureButtonBindings();
-    // m_driveSubsystem.setDefaultCommand(m_driveCommand);
-    // m_driveSubsystem.resetIMU();
+    m_driveSubsystem.setDefaultCommand(m_driveCommand);
+    m_driveSubsystem.resetIMU();
   }
 
   /**
@@ -91,7 +96,8 @@ public class RobotContainer
 
     climbAngle = new JoystickButton(m_driverController, HIDConstants.kLB);
     climbStraight = new JoystickButton(m_driverController, HIDConstants.kRB);
-    moveServo = new JoystickButton(m_driverController, HIDConstants.kB);
+    moveServo = new POVButton(m_driverController, HIDConstants.kDU);
+    moveServoDown = new POVButton(m_driverController, HIDConstants.kDD);
     moveClimbUp = new JoystickButton(m_driverController, HIDConstants.kY);
     moveClimbDown = new JoystickButton(m_driverController, HIDConstants.kA);
 
@@ -102,7 +108,8 @@ public class RobotContainer
     intakeReverse.whileHeld(m_reverseIntakeCommand);
     loadCatapult.whileHeld(m_loadCatapultCommand);
 
-    moveServo.toggleWhenPressed(m_moveServoCommand);
+    moveServo.whenPressed(m_moveServoCommand);
+    moveServoDown.whenPressed(m_moveServoDownCommand);
     
     moveClimbUp.whileHeld(m_climbUpCommand);
     moveClimbDown.whileHeld(m_climbDownCommand);
@@ -121,6 +128,6 @@ public class RobotContainer
   public Command getAutonomousCommand() 
   {
     // An ExampleCommand will run in autonomous
-    return m_exampleCommand;
+    return m_autonomousDrive;
   }
 }

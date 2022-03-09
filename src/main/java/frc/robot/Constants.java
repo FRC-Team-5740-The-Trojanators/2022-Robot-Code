@@ -47,6 +47,8 @@ public final class Constants
         public static final int kStart = 8;
         public static final int kDL = 270;
         public static final int kDR = 90;
+        public static final int kDD = 180;
+        public static final int kDU = 0;
     }
 
     public static final class SwerveDriveModuleConstants

@@ -34,10 +34,10 @@ public class DriveSubsystem extends SubsystemBase
  // public ADIS16448_IMU m_imu = new ADIS16448_IMU(RioInputs.k_gyroID);
   private Pose2d m_robotPose = new Pose2d();
 
-  //private UsbCamera m_UsbCamera = CameraServer.startAutomaticCapture();
-  //NetworkTableEntry cameraEntry = NetworkTableInstance.getDefault().getTable("").getEntry("Camera");
-  //NetworkTableEntry limelight = NetworkTableInstance.getDefault().getTable("").getEntry("limelight"); 
-  //boolean cam = NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(1);
+  private UsbCamera m_UsbCamera = CameraServer.startAutomaticCapture();
+  NetworkTableEntry cameraEntry = NetworkTableInstance.getDefault().getTable("").getEntry("Camera");
+  NetworkTableEntry limelight = NetworkTableInstance.getDefault().getTable("").getEntry("limelight"); 
+  boolean cam = NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(1);
 
   private SwerveModuleState[] m_states = new SwerveModuleState[]
   {

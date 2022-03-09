@@ -14,17 +14,13 @@ public class ClimbUpCommand extends CommandBase {
   /** Creates a new ClimbCommand. */
 
   private final ClimbSubsystem m_climb;
-  private final IntakeSubsystem m_intake;
   private double power = .5;
   private boolean m_isFinished = false; 
-  private Timer m_timer;
 
-  public ClimbUpCommand(ClimbSubsystem climb, IntakeSubsystem intake)
+  public ClimbUpCommand(ClimbSubsystem climb)
   {
     m_climb = climb;
-    m_intake = intake;
-    this.m_timer = new Timer();
-    addRequirements(climb, intake);
+    addRequirements(climb);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -33,21 +29,13 @@ public class ClimbUpCommand extends CommandBase {
   public void initialize() 
   {
     m_isFinished = false;
-    m_timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() 
   {
-
     m_climb.setPower(power);
-
-    // if( m_climb.getFwdLimitSwitch() == 1)
-    // {
-    //   m_intake.retractIntake();
-    // }
-
   }
 
   // Called once the command ends or is interrupted.
