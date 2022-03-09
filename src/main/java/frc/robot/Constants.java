@@ -120,10 +120,10 @@ public final class Constants
         public static final int k_RightRear_SteeringMotor = 8; 
 
         public static final int k_pigeonID = 13;
-        public static final int k_intakeMotors = 15;
-        public static final int k_holdMotor = 14;
+        // public static final int k_intakeMotors = 15;
+        // public static final int k_holdMotor = 14;
         
-        public static final int k_climbMotor = 16;
+        // public static final int k_climbMotor = 16;
     }
 
     public static class DriveModulePIDValues
@@ -166,9 +166,9 @@ public final class Constants
         public static int k_analogInputLowID = 1; //Analog Input
 
         public static int k_servoMotor = 0; //PWM output 
-        // public static final int k_intakeMotors = 1; //PWM output 
-        // public static final int k_holdMotor = 2; //PWM output 
-        // public static final int k_climbMotor = 3; //PWM output 
+        public static final int k_intakeMotors = 1; //PWM output 
+        public static final int k_holdMotor = 2; //PWM output 
+        public static final int k_climbMotor = 3; //PWM output 
     }
 
     public static final class IntakeSubsystemConstants

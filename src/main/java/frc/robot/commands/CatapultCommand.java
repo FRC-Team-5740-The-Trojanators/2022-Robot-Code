@@ -6,14 +6,17 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.CatapultSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
 public class CatapultCommand extends CommandBase {
   /** Creates a new CatapultCommand. */
   private final CatapultSubsystem m_catapult;
-  public CatapultCommand(CatapultSubsystem catapult) {
+  private final IntakeSubsystem m_intake;
+  public CatapultCommand(CatapultSubsystem catapult, IntakeSubsystem intake) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_catapult = catapult;
-    addRequirements(catapult);
+    m_intake = intake;
+    addRequirements(catapult, intake);
   }
 
   // Called when the command is initially scheduled.
@@ -24,7 +27,10 @@ public class CatapultCommand extends CommandBase {
   @Override
   public void execute() 
   {
-    m_catapult.shootCatapult();
+    if(m_intake.getIntakeState() == false)
+    {
+      m_catapult.shootCatapult();
+    }
   }
 
   // Called once the command ends or is interrupted.

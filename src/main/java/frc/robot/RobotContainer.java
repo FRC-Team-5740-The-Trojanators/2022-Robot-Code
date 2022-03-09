@@ -39,28 +39,28 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer 
 {
   // The robot's subsystems and commands are defined here...
- //private final DriveSubsystem m_driveSubsystem = new DriveSubsystem(false);
-//  private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
-//  private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
-//  private final CatapultSubsystem m_catapultSubsystem = new CatapultSubsystem();
+ private final DriveSubsystem m_driveSubsystem = new DriveSubsystem(false);
+ private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
+ private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
+ private final CatapultSubsystem m_catapultSubsystem = new CatapultSubsystem();
 
   XboxController m_driverController = new XboxController(HIDConstants.k_DriverControllerPort);
   XboxController m_operatorController = new XboxController(HIDConstants.k_OperatorControllerPort);
 
   private final ExampleCommand m_exampleCommand = new ExampleCommand();
-  // private final SwerveDriveCommand m_driveCommand = new SwerveDriveCommand(m_driveSubsystem, m_driverController);
-  // private final AutonomousDrive m_autonomousDrive = new AutonomousDrive(m_driveSubsystem);
-  // private final RunIntakeCommand m_runIntakeCommand = new RunIntakeCommand(m_intakeSubsystem);
-  // private final LoadCatapultCommand m_loadCatapultCommand = new LoadCatapultCommand(m_intakeSubsystem);
-  // private final ReverseIntakeCommand m_reverseIntakeCommand = new ReverseIntakeCommand(m_intakeSubsystem);
-  // private final CatapultCommand m_catapultCommand = new CatapultCommand(m_catapultSubsystem);
-  // private final ClimbUpCommand m_climbUpCommand = new ClimbUpCommand(m_climbSubsystem);
-  // private final ClimbDownCommand m_climbDownCommand = new ClimbDownCommand(m_climbSubsystem);
-  // private final MoveServoCommand m_moveServoCommand = new MoveServoCommand(m_climbSubsystem);
-  // private final RetractIntakeCommand m_retractIntakeCommand = new RetractIntakeCommand(m_intakeSubsystem);
-  // private final ExtendIntakeCommand m_extendIntakeCommand = new ExtendIntakeCommand(m_intakeSubsystem);
-  // private final AngleClimbCommand m_angleClimbCommand = new AngleClimbCommand(m_climbSubsystem);
-  // private final StraightenClimbCommand m_straightenClimbCommand = new StraightenClimbCommand(m_climbSubsystem);
+  private final SwerveDriveCommand m_driveCommand = new SwerveDriveCommand(m_driveSubsystem, m_driverController);
+  private final AutonomousDrive m_autonomousDrive = new AutonomousDrive(m_driveSubsystem);
+  private final RunIntakeCommand m_runIntakeCommand = new RunIntakeCommand(m_intakeSubsystem);
+  private final LoadCatapultCommand m_loadCatapultCommand = new LoadCatapultCommand(m_intakeSubsystem);
+  private final ReverseIntakeCommand m_reverseIntakeCommand = new ReverseIntakeCommand(m_intakeSubsystem);
+  private final CatapultCommand m_catapultCommand = new CatapultCommand(m_catapultSubsystem, m_intakeSubsystem);
+  private final ClimbUpCommand m_climbUpCommand = new ClimbUpCommand(m_climbSubsystem);
+  private final ClimbDownCommand m_climbDownCommand = new ClimbDownCommand(m_climbSubsystem);
+  private final MoveServoCommand m_moveServoCommand = new MoveServoCommand(m_climbSubsystem);
+  private final RetractIntakeCommand m_retractIntakeCommand = new RetractIntakeCommand(m_intakeSubsystem);
+  private final ExtendIntakeCommand m_extendIntakeCommand = new ExtendIntakeCommand(m_intakeSubsystem);
+  private final AngleClimbCommand m_angleClimbCommand = new AngleClimbCommand(m_climbSubsystem);
+  private final StraightenClimbCommand m_straightenClimbCommand = new StraightenClimbCommand(m_climbSubsystem);
 
 
   public static JoystickButton intakeExtend, intakeRetract, intakeRun, intakeReverse, climbAngle, loadCatapult, launchCatapult, moveServo, moveClimbUp, moveClimbDown, climbStraight;
@@ -96,21 +96,21 @@ public class RobotContainer
     moveClimbDown = new JoystickButton(m_driverController, HIDConstants.kA);
 
   
-  //   intakeExtend.whenPressed(m_extendIntakeCommand);
-  //   intakeRetract.whenPressed(m_retractIntakeCommand);
-  //   intakeRun.whileHeld(m_runIntakeCommand);
-  //   intakeReverse.whileHeld(m_reverseIntakeCommand);
-  //   loadCatapult.whileHeld(m_loadCatapultCommand);
+    intakeExtend.whenPressed(m_extendIntakeCommand);
+    intakeRetract.whenPressed(m_retractIntakeCommand);
+    intakeRun.whileHeld(m_runIntakeCommand);
+    intakeReverse.whileHeld(m_reverseIntakeCommand);
+    loadCatapult.whileHeld(m_loadCatapultCommand);
 
-  //   moveServo.toggleWhenPressed(m_moveServoCommand);
-  //   moveClimbUp.whileHeld(m_climbUpCommand);
+    moveServo.toggleWhenPressed(m_moveServoCommand);
+    moveClimbUp.whileHeld(m_climbUpCommand);
     
-  //   moveClimbDown.whileHeld(m_climbDownCommand);
-  //   climbStraight.whenPressed(m_straightenClimbCommand);
-  //   climbAngle.whenPressed(m_angleClimbCommand);
+    moveClimbDown.whileHeld(m_climbDownCommand);
+    climbStraight.whenPressed(m_straightenClimbCommand);
+    climbAngle.whenPressed(m_angleClimbCommand);
 
 
-  //  launchCatapult.whileHeld(m_catapultCommand);
+   launchCatapult.whileHeld(m_catapultCommand);
   }
 
   /**
