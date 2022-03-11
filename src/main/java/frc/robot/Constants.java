@@ -186,7 +186,7 @@ public final class Constants
 
     public static final class ClimbSubsystemConstants
     {
-        public static final double k_servoAngledPosition = .5;
+        public static final double k_servoAngledPosition = .9;
         public static final double k_servoStraightPosition = 0;
 
         /*

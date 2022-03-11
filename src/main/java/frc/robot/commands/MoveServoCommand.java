@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.ClimbSubsystemConstants;
 import frc.robot.subsystems.ClimbSubsystem;
 
 public class MoveServoCommand extends CommandBase {
@@ -27,7 +28,7 @@ public class MoveServoCommand extends CommandBase {
   @Override
   public void execute() 
   {
-    m_climb.setServoMotor(0.9);
+    m_climb.setServoMotor(ClimbSubsystemConstants.k_servoAngledPosition);
   }
 
   // Called once the command ends or is interrupted.
