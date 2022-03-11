@@ -54,7 +54,7 @@
           },
           "3,0": {
             "size": [
-              4,
+              3,
               3
             ],
             "content": {
@@ -80,6 +80,39 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/limelight_PipelineName",
               "_title": "limelight_PipelineName"
+            }
+          },
+          "6,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/limelight_Interface",
+              "_title": "limelight_Interface"
+            }
+          },
+          "6,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Auto Value",
+              "_title": "Auto Value"
+            }
+          },
+          "6,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/SendableChooser[0]",
+              "_title": "SendableChooser[0]"
             }
           }
         }
@@ -211,6 +244,42 @@
               "_title": "Ungrouped/Solenoid[0,6]/Value",
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "3,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Motor Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PWMTalonFX[3]",
+              "_title": "Ungrouped/PWMTalonFX[3]",
+              "Visuals/Orientation": "HORIZONTAL"
+            }
+          },
+          "5,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Motor Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PWMVictorSPX[2]",
+              "_title": "Ungrouped/PWMVictorSPX[2]",
+              "Visuals/Orientation": "HORIZONTAL"
+            }
+          },
+          "0,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Motor Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PWMVictorSPX[1]",
+              "_title": "Ungrouped/PWMVictorSPX[1]",
+              "Visuals/Orientation": "HORIZONTAL"
             }
           }
         }

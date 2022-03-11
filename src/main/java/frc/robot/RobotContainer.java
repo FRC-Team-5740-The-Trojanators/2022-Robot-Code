@@ -6,6 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.HIDConstants;
 import frc.robot.commands.AngleClimbCommand;
 import frc.robot.commands.AutonomousDrive;
@@ -22,6 +24,7 @@ import frc.robot.commands.StraightenClimbCommand;
 import frc.robot.commands.MoveServoCommand;
 import frc.robot.commands.MoveServoDownCommand;
 import frc.robot.commands.SwerveDriveCommand;
+import frc.robot.subsystems.AutoChooserSubsystem;
 import frc.robot.subsystems.CatapultSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -45,13 +48,14 @@ public class RobotContainer
  private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
  private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
  private final CatapultSubsystem m_catapultSubsystem = new CatapultSubsystem();
+ private final AutoChooserSubsystem m_autoChooserSubsystem = new AutoChooserSubsystem();
 
   XboxController m_driverController = new XboxController(HIDConstants.k_DriverControllerPort);
   XboxController m_operatorController = new XboxController(HIDConstants.k_OperatorControllerPort);
 
   private final ExampleCommand m_exampleCommand = new ExampleCommand();
   private final SwerveDriveCommand m_driveCommand = new SwerveDriveCommand(m_driveSubsystem, m_driverController);
-  private final AutonomousDrive m_autonomousDrive = new AutonomousDrive(m_driveSubsystem);
+  private final AutonomousDrive m_autonomousDrive = new AutonomousDrive(m_driveSubsystem, m_autoChooserSubsystem);
   private final RunIntakeCommand m_runIntakeCommand = new RunIntakeCommand(m_intakeSubsystem);
   private final LoadCatapultCommand m_loadCatapultCommand = new LoadCatapultCommand(m_intakeSubsystem);
   private final ReverseIntakeCommand m_reverseIntakeCommand = new ReverseIntakeCommand(m_intakeSubsystem);
@@ -65,8 +69,6 @@ public class RobotContainer
   private final AngleClimbCommand m_angleClimbCommand = new AngleClimbCommand(m_climbSubsystem);
   private final StraightenClimbCommand m_straightenClimbCommand = new StraightenClimbCommand(m_climbSubsystem);
   
-
-
   public static JoystickButton intakeExtend, intakeRetract, intakeRun, intakeReverse, climbAngle, loadCatapult, launchCatapult, moveClimbUp, moveClimbDown, climbStraight;
   public static POVButton  moveServo, moveServoDown;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -119,6 +121,8 @@ public class RobotContainer
 
    launchCatapult.whileHeld(m_catapultCommand);
   }
+
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class
