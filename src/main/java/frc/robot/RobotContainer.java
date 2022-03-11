@@ -14,11 +14,15 @@ import frc.robot.commands.AutonomousDrive;
 import frc.robot.commands.CatapultCommand;
 import frc.robot.commands.ClimbDownCommand;
 import frc.robot.commands.ClimbUpCommand;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ExtendIntakeCommand;
+import frc.robot.commands.LoadCatapultCommand;
+// import frc.robot.commands.ClimbDownCommand;
+// import frc.robot.commands.ClimbUpCommand;
+// import frc.robot.commands.ExampleCommand;
+// import frc.robot.commands.ExtendIntakeCommand;
 import frc.robot.commands.RetractIntakeCommand;
 import frc.robot.commands.ReverseIntakeCommand;
-import frc.robot.commands.LoadCatapultCommand;
+// import frc.robot.commands.LoadCatapultCommand;
 import frc.robot.commands.RunIntakeCommand;
 import frc.robot.commands.StraightenClimbCommand;
 import frc.robot.commands.MoveServoCommand;
@@ -53,7 +57,7 @@ public class RobotContainer
   XboxController m_driverController = new XboxController(HIDConstants.k_DriverControllerPort);
   XboxController m_operatorController = new XboxController(HIDConstants.k_OperatorControllerPort);
 
-  private final ExampleCommand m_exampleCommand = new ExampleCommand();
+ // private final ExampleCommand m_exampleCommand = new ExampleCommand();
   private final SwerveDriveCommand m_driveCommand = new SwerveDriveCommand(m_driveSubsystem, m_driverController);
   private final AutonomousDrive m_autonomousDrive = new AutonomousDrive(m_driveSubsystem, m_autoChooserSubsystem);
   private final RunIntakeCommand m_runIntakeCommand = new RunIntakeCommand(m_intakeSubsystem);
