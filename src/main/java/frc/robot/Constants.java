@@ -179,7 +179,7 @@ public final class Constants
         public static final double k_intakeReverseMotorSpeed = -0.6;
         public static final double k_intakeStopMotorSpeed = 0.0;
         
-        public static final double k_holdMotorSpeed = -.5;
+        public static final double k_holdMotorSpeed = -0.5;
         public static final double k_holdReverseMotorSpeed = 0.75;
         public static final double k_holdStopMotorSpeed = 0.0;
     }

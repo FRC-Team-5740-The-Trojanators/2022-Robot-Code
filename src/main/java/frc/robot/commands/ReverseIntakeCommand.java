@@ -23,7 +23,7 @@ public class ReverseIntakeCommand extends CommandBase {
   @Override
   public void initialize() 
   {
-    m_intake.reverseHoldMotor();
+    m_intake.forwardHoldMotor();
     m_intake.reverseIntakeMotors();
     m_isFinished = false;
   }
@@ -32,7 +32,7 @@ public class ReverseIntakeCommand extends CommandBase {
   @Override
   public void execute() 
   {
-    m_intake.reverseHoldMotor();
+    m_intake.forwardHoldMotor();
     m_intake.reverseIntakeMotors();
 
   }
