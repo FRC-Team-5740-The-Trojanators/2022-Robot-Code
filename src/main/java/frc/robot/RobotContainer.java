@@ -10,30 +10,26 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.HIDConstants;
 import frc.robot.commands.AngleClimbCommand;
+import frc.robot.commands.AutoPath1;
 import frc.robot.commands.AutonomousDrive;
 import frc.robot.commands.CatapultCommand;
 import frc.robot.commands.ClimbDownCommand;
 import frc.robot.commands.ClimbUpCommand;
 import frc.robot.commands.ExtendIntakeCommand;
 import frc.robot.commands.LoadCatapultCommand;
-// import frc.robot.commands.ClimbDownCommand;
-// import frc.robot.commands.ClimbUpCommand;
-// import frc.robot.commands.ExampleCommand;
-// import frc.robot.commands.ExtendIntakeCommand;
 import frc.robot.commands.RetractIntakeCommand;
 import frc.robot.commands.ReverseIntakeCommand;
-// import frc.robot.commands.LoadCatapultCommand;
 import frc.robot.commands.RunIntakeCommand;
 import frc.robot.commands.StraightenClimbCommand;
 import frc.robot.commands.MoveServoCommand;
 import frc.robot.commands.MoveServoDownCommand;
 import frc.robot.commands.SwerveDriveCommand;
-import frc.robot.subsystems.AutoChooserSubsystem;
 import frc.robot.subsystems.CatapultSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -52,14 +48,14 @@ public class RobotContainer
  private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
  private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
  private final CatapultSubsystem m_catapultSubsystem = new CatapultSubsystem();
- private final AutoChooserSubsystem m_autoChooserSubsystem = new AutoChooserSubsystem();
 
   XboxController m_driverController = new XboxController(HIDConstants.k_DriverControllerPort);
   XboxController m_operatorController = new XboxController(HIDConstants.k_OperatorControllerPort);
 
  // private final ExampleCommand m_exampleCommand = new ExampleCommand();
   private final SwerveDriveCommand m_driveCommand = new SwerveDriveCommand(m_driveSubsystem, m_driverController);
-  private final AutonomousDrive m_autonomousDrive = new AutonomousDrive(m_driveSubsystem, m_autoChooserSubsystem);
+  private final AutonomousDrive m_autonomousDrive = new AutonomousDrive(m_driveSubsystem);
+  private final AutoPath1 m_autoPath1 = new AutoPath1(m_driveSubsystem);
   private final RunIntakeCommand m_runIntakeCommand = new RunIntakeCommand(m_intakeSubsystem);
   private final LoadCatapultCommand m_loadCatapultCommand = new LoadCatapultCommand(m_intakeSubsystem);
   private final ReverseIntakeCommand m_reverseIntakeCommand = new ReverseIntakeCommand(m_intakeSubsystem);
@@ -75,15 +71,28 @@ public class RobotContainer
   
   public static JoystickButton intakeExtend, intakeRetract, intakeRun, intakeReverse, climbAngle, loadCatapult, launchCatapult, moveClimbUp, moveClimbDown, climbStraight;
   public static POVButton  moveServo, moveServoDown;
+  SendableChooser<CommandBase> auto = new SendableChooser<CommandBase>();
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() 
   {
     // Configure the button bindings
     configureButtonBindings();
+    configChooser();
     m_driveSubsystem.setDefaultCommand(m_driveCommand);
     m_driveSubsystem.resetIMU();
+
   }
 
+  private void configChooser()
+  {
+    //configure the auto command chooser
+    auto.addOption("Position 1", m_autoPath1);
+    auto.setDefaultOption("Default taxi", m_autonomousDrive);
+
+    SmartDashboard.putData(auto);
+
+  }
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
@@ -107,7 +116,6 @@ public class RobotContainer
     moveClimbUp = new JoystickButton(m_driverController, HIDConstants.kY);
     moveClimbDown = new JoystickButton(m_driverController, HIDConstants.kA);
 
-  
     intakeExtend.whenPressed(m_extendIntakeCommand);
     intakeRetract.whenPressed(m_retractIntakeCommand);
     intakeRun.whileHeld(m_runIntakeCommand);
@@ -122,11 +130,8 @@ public class RobotContainer
     climbStraight.whenPressed(m_straightenClimbCommand);
     climbAngle.whenPressed(m_angleClimbCommand);
 
-
-   launchCatapult.whileHeld(m_catapultCommand);
+    launchCatapult.whileHeld(m_catapultCommand);
   }
-
-
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class
@@ -136,6 +141,6 @@ public class RobotContainer
   public Command getAutonomousCommand() 
   {
     // An ExampleCommand will run in autonomous
-    return m_autonomousDrive;
+    return auto.getSelected();
   }
 }
