@@ -30,6 +30,8 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -55,7 +57,8 @@ public class RobotContainer
  // private final ExampleCommand m_exampleCommand = new ExampleCommand();
   private final SwerveDriveCommand m_driveCommand = new SwerveDriveCommand(m_driveSubsystem, m_driverController);
   private final AutonomousDrive m_autonomousDrive = new AutonomousDrive(m_driveSubsystem);
-  private final AutoPath1 m_autoPath1 = new AutoPath1(m_driveSubsystem);
+  private final AutoPath1 m_autoPath1A = new AutoPath1(m_driveSubsystem);
+  private final AutoPath1 m_autoPath1B = new AutoPath1(m_driveSubsystem);
   private final RunIntakeCommand m_runIntakeCommand = new RunIntakeCommand(m_intakeSubsystem);
   private final LoadCatapultCommand m_loadCatapultCommand = new LoadCatapultCommand(m_intakeSubsystem);
   private final ReverseIntakeCommand m_reverseIntakeCommand = new ReverseIntakeCommand(m_intakeSubsystem);
@@ -66,9 +69,11 @@ public class RobotContainer
   private final MoveServoDownCommand m_moveServoDownCommand = new MoveServoDownCommand(m_climbSubsystem);
   private final RetractIntakeCommand m_retractIntakeCommand = new RetractIntakeCommand(m_intakeSubsystem);
   private final ExtendIntakeCommand m_extendIntakeCommand = new ExtendIntakeCommand(m_intakeSubsystem);
+  private final ExtendIntakeCommand m_extendIntakeAuto = new ExtendIntakeCommand(m_intakeSubsystem);
   private final AngleClimbCommand m_angleClimbCommand = new AngleClimbCommand(m_climbSubsystem);
   private final StraightenClimbCommand m_straightenClimbCommand = new StraightenClimbCommand(m_climbSubsystem);
-  
+  private final SequentialCommandGroup m_pathWithIntake = new SequentialCommandGroup(m_extendIntakeAuto, m_autoPath1A);
+
   public static JoystickButton intakeExtend, intakeRetract, intakeRun, intakeReverse, climbAngle, loadCatapult, launchCatapult, moveClimbUp, moveClimbDown, climbStraight;
   public static POVButton  moveServo, moveServoDown;
   SendableChooser<CommandBase> auto = new SendableChooser<CommandBase>();
@@ -87,7 +92,8 @@ public class RobotContainer
   private void configChooser()
   {
     //configure the auto command chooser
-    auto.addOption("Position 1", m_autoPath1);
+    auto.addOption("Intakey", m_pathWithIntake);
+    auto.addOption("Position 1", m_autoPath1B);
     auto.setDefaultOption("Default taxi", m_autonomousDrive);
 
     SmartDashboard.putData(auto);
@@ -116,7 +122,7 @@ public class RobotContainer
     moveClimbUp = new JoystickButton(m_driverController, HIDConstants.kY);
     moveClimbDown = new JoystickButton(m_driverController, HIDConstants.kA);
 
-    intakeExtend.whenPressed(m_extendIntakeCommand);
+    intakeExtend.whenActive(m_extendIntakeCommand);
     intakeRetract.whenPressed(m_retractIntakeCommand);
     intakeRun.whileHeld(m_runIntakeCommand);
     intakeReverse.whileHeld(m_reverseIntakeCommand);

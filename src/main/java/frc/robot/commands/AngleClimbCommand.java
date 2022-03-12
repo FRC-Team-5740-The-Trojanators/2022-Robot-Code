@@ -24,7 +24,6 @@ public class AngleClimbCommand extends CommandBase {
   public void initialize() 
   {
     m_climb.angleClimb();
-    m_isFinished = false; 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -38,12 +37,13 @@ public class AngleClimbCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) 
   {
-    
+    m_climb.stopClimb();
+    m_isFinished = true;
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_isFinished;
   }
 }

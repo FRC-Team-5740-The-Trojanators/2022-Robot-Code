@@ -63,6 +63,11 @@ public class IntakeSubsystem extends SubsystemBase {
     m_intakeSolenoid.set(Value.kForward);
   }
 
+  public void stopIntakeSolenoid()
+  {
+    m_intakeSolenoid.set(Value.kOff);
+  }
+
   public void forwardIntakeMotors()
   {
     m_intakeMotor.set(IntakeSubsystemConstants.k_intakeMotorSpeed);
