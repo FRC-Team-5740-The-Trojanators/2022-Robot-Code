@@ -36,7 +36,7 @@ public class RetractIntakeCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) 
   {
-    m_intake.stopIntakeSolenoid();
+    //m_intake.stopIntakeSolenoid();
     m_isFinished = true;
   }
 

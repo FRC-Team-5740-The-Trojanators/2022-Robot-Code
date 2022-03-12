@@ -66,7 +66,7 @@ public final class Constants
 
         public static final double k_RobotRadius = Units.inchesToMeters(34.295) / 2; 
 
-        public static final double k_wheelDiameter = Units.inchesToMeters(3.625); //meters
+        public static final double k_wheelDiameter = Units.inchesToMeters(4); //meters
 
         /*TODO for all of these change when robot is characterized*/
         public static final double k_MaxTeleSpeed = Units.feetToMeters(16.3); //m/s 
@@ -86,7 +86,7 @@ public final class Constants
         //public static double fieldCalibration = 0;
 
         //Angle offsets
-        public static double leftFrontOffset =  16.35;
+        public static double leftFrontOffset =  14.85;
         public static double rightFrontOffset = 239.59;
         public static double leftRearOffset = 239.06 - 180;
         public static double rightRearOffset = 103.01;

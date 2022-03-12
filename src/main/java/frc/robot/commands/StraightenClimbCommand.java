@@ -39,7 +39,7 @@ public class StraightenClimbCommand extends CommandBase
   @Override
   public void end(boolean interrupted) 
   {
-    m_climb.stopClimb();
+    //m_climb.stopClimb();
     m_isFinished = true;
   }
 
