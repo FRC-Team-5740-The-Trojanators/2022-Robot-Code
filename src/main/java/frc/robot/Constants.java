@@ -69,9 +69,9 @@ public final class Constants
         public static final double k_wheelDiameter = Units.inchesToMeters(4); //meters
 
         /*TODO for all of these change when robot is characterized*/
-        public static final double k_MaxTeleSpeed = Units.feetToMeters(16.3); //m/s 
-        public static final double k_MaxAutoSpeed = Units.feetToMeters(16.3); //m/s
-        public static final double k_MaxAcceleration = Units.feetToMeters(5); //m/s/s //TODO get real acceleration
+        public static final double k_MaxTeleSpeed = Units.feetToMeters(16.3); //m/s checked :)
+        public static final double k_MaxAutoSpeed = Units.feetToMeters(13); //m/s
+        public static final double k_MaxAcceleration = Units.feetToMeters(5); //m/s/s 
         
         public static final double k_XYjoystickCoefficient = 1; //speed limiter
         public static final double k_MaxAngularSpeed = Units.feetToMeters(16.3) / k_RobotRadius; // 628; //rad/s TODO confirm
@@ -131,10 +131,10 @@ public final class Constants
     public static class DriveModulePIDValues
     {
         //TODO Set actual PID values
-        public static double k_driveP = 0.028; 
+        public static double k_driveP = 2.0; // 0.028; 
         public static double k_driveI = 0.0;
-        public static double k_driveD = 0.025;
-        public static double k_driveFF = 1/Units.feetToMeters(16.3);
+        public static double k_driveD = 0.0; //0.025;
+        public static double k_driveFF = 1 / SwerveDriveModuleConstants.k_MaxTeleSpeed;
         public static final int k_ToleranceInTicks = 15; //TODO Figure out real value
     }
 

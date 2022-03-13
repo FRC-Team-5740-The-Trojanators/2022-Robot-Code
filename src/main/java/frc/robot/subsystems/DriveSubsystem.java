@@ -126,6 +126,9 @@ public class DriveSubsystem extends SubsystemBase
    // m_robotPose = m_odometry.update(gyroAngle, modules[0].getState(), modules[1].getState(), modules[2].getState(), modules[3].getState());
    // SmartDashboard.putNumber("Pigeon IMU", m_imu.getYaw());
     //checkTemperature();
+
+    SmartDashboard.putNumber("D1",modules[0].getDriveVelocity());
+
   }
 
   public SwerveDriveOdometry getOdometry()

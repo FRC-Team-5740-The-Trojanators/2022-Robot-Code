@@ -10,8 +10,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.HIDConstants;
 import frc.robot.commands.AngleClimbCommand;
-import frc.robot.commands.AutoPath1;
-import frc.robot.commands.AutonomousDrive;
+import frc.robot.commands.AutoPosition1;
+import frc.robot.commands.AutoPosition2;
+import frc.robot.commands.AutoPosition3;
+import frc.robot.commands.AutoPosition4;
+import frc.robot.commands.AutoDefaultTaxi;
 import frc.robot.commands.CatapultCommand;
 import frc.robot.commands.ClimbDownCommand;
 import frc.robot.commands.ClimbUpCommand;
@@ -19,6 +22,7 @@ import frc.robot.commands.ExtendIntakeCommand;
 import frc.robot.commands.LoadCatapultCommand;
 import frc.robot.commands.RetractIntakeCommand;
 import frc.robot.commands.ReverseIntakeCommand;
+import frc.robot.commands.AutoRunIntakeCommand;
 import frc.robot.commands.RunIntakeCommand;
 import frc.robot.commands.StraightenClimbCommand;
 import frc.robot.commands.MoveServoCommand;
@@ -56,9 +60,6 @@ public class RobotContainer
 
  // private final ExampleCommand m_exampleCommand = new ExampleCommand();
   private final SwerveDriveCommand m_driveCommand = new SwerveDriveCommand(m_driveSubsystem, m_driverController);
-  private final AutonomousDrive m_autonomousDrive = new AutonomousDrive(m_driveSubsystem);
-  private final AutoPath1 m_autoPath1A = new AutoPath1(m_driveSubsystem);
-  private final AutoPath1 m_autoPath1B = new AutoPath1(m_driveSubsystem);
   private final RunIntakeCommand m_runIntakeCommand = new RunIntakeCommand(m_intakeSubsystem);
   private final LoadCatapultCommand m_loadCatapultCommand = new LoadCatapultCommand(m_intakeSubsystem);
   private final ReverseIntakeCommand m_reverseIntakeCommand = new ReverseIntakeCommand(m_intakeSubsystem);
@@ -69,10 +70,32 @@ public class RobotContainer
   private final MoveServoDownCommand m_moveServoDownCommand = new MoveServoDownCommand(m_climbSubsystem);
   private final RetractIntakeCommand m_retractIntakeCommand = new RetractIntakeCommand(m_intakeSubsystem);
   private final ExtendIntakeCommand m_extendIntakeCommand = new ExtendIntakeCommand(m_intakeSubsystem);
-  private final ExtendIntakeCommand m_extendIntakeAuto = new ExtendIntakeCommand(m_intakeSubsystem);
   private final AngleClimbCommand m_angleClimbCommand = new AngleClimbCommand(m_climbSubsystem);
   private final StraightenClimbCommand m_straightenClimbCommand = new StraightenClimbCommand(m_climbSubsystem);
-  private final SequentialCommandGroup m_pathWithIntake = new SequentialCommandGroup(m_extendIntakeAuto, m_autoPath1A);
+ 
+  private final AutoDefaultTaxi m_autoDefaultTaxi = new AutoDefaultTaxi(m_driveSubsystem);
+  private final AutoPosition1 m_autoPath1 = new AutoPosition1(m_driveSubsystem);
+  private final AutoPosition2 m_autoPath2 = new AutoPosition2(m_driveSubsystem);
+  private final AutoPosition3 m_autoPath3 = new AutoPosition3(m_driveSubsystem);
+  private final AutoPosition4 m_autoPath4 = new AutoPosition4(m_driveSubsystem);
+
+  private final ExtendIntakeCommand m_extendIntakeAuto = new ExtendIntakeCommand(m_intakeSubsystem);
+  private final RetractIntakeCommand m_retractIntakeAuto = new RetractIntakeCommand(m_intakeSubsystem);
+  private final AutoRunIntakeCommand m_runIntakeAuto = new AutoRunIntakeCommand(m_intakeSubsystem);
+  private final LoadCatapultCommand m_loadCatapultAuto = new LoadCatapultCommand(m_intakeSubsystem);
+  private final CatapultCommand m_catapultAuto = new CatapultCommand(m_catapultSubsystem, m_intakeSubsystem);
+ 
+  private final SequentialCommandGroup m_pathWithIntake = new SequentialCommandGroup(m_extendIntakeAuto, m_autoPath1);
+  
+  private final ParallelCommandGroup m_position1Parallel = new ParallelCommandGroup(m_runIntakeAuto, m_autoPath1);
+  private final ParallelCommandGroup m_position2Parallel = new ParallelCommandGroup(m_runIntakeAuto, m_autoPath1);
+  private final ParallelCommandGroup m_position3Parallel = new ParallelCommandGroup(m_runIntakeAuto, m_autoPath1);
+  private final ParallelCommandGroup m_position4Parallel = new ParallelCommandGroup(m_runIntakeAuto, m_autoPath1);
+
+  private final SequentialCommandGroup m_position1Sequential = new SequentialCommandGroup(m_extendIntakeAuto, m_position1Parallel, m_retractIntakeAuto, m_loadCatapultAuto, m_extendIntakeAuto, m_catapultAuto);
+  private final SequentialCommandGroup m_position2Sequential = new SequentialCommandGroup(m_extendIntakeAuto, m_position1Parallel, m_retractIntakeAuto, m_loadCatapultAuto, m_extendIntakeAuto, m_catapultAuto);
+  private final SequentialCommandGroup m_position3Sequential = new SequentialCommandGroup(m_extendIntakeAuto, m_position1Parallel, m_retractIntakeAuto, m_loadCatapultAuto, m_extendIntakeAuto, m_catapultAuto);
+  private final SequentialCommandGroup m_position4Sequential = new SequentialCommandGroup(m_extendIntakeAuto, m_position1Parallel, m_retractIntakeAuto, m_loadCatapultAuto, m_extendIntakeAuto, m_catapultAuto);
 
   public static JoystickButton intakeExtend, intakeRetract, intakeRun, intakeReverse, climbAngle, loadCatapult, launchCatapult, moveClimbUp, moveClimbDown, climbStraight;
   public static POVButton  moveServo, moveServoDown;
@@ -92,12 +115,14 @@ public class RobotContainer
   private void configChooser()
   {
     //configure the auto command chooser
-    auto.addOption("Intakey", m_pathWithIntake);
-    auto.addOption("Position 1", m_autoPath1B);
-    auto.setDefaultOption("Default taxi", m_autonomousDrive);
+    auto.addOption("Position 1", m_autoPath1);
+    auto.addOption("Position 2", m_autoPath2);
+    auto.addOption("Position 3", m_autoPath3);
+    auto.addOption("Position 4", m_autoPath4);
+
+    auto.setDefaultOption("Default taxi", m_autoDefaultTaxi);
 
     SmartDashboard.putData(auto);
-
   }
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -148,5 +173,6 @@ public class RobotContainer
   {
     // An ExampleCommand will run in autonomous
     return auto.getSelected();
+    //return m_autoDefaultTaxi;
   }
 }

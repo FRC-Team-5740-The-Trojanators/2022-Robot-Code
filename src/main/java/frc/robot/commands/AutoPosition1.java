@@ -12,7 +12,7 @@ import frc.robot.subsystems.DriveSubsystem;
 import lib.swerve.SwervePath;
 import lib.swerve.SwervePathController;
 
-public class AutoPath1 extends CommandBase {
+public class AutoPosition1 extends CommandBase {
 
   private final DriveSubsystem m_driveSubsystem;
 
@@ -23,7 +23,7 @@ public class AutoPath1 extends CommandBase {
   boolean ignoreHeading;
 
   /** Creates a new AutoPath1. */
-  public AutoPath1(DriveSubsystem driveSubsystem)
+  public AutoPosition1(DriveSubsystem driveSubsystem)
   {
     // Use addRequirements() here to declare subsystem dependencies.
     m_driveSubsystem = driveSubsystem;

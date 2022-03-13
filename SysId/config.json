@@ -5,7 +5,7 @@
   "gearing denominator": 1.0,
   "gearing numerator": 6.75,
   "gyro": "Pigeon",
-  "gyro ctor": "1",
+  "gyro ctor": "13",
   "is drivetrain": true,
   "motor controllers": [
     "TalonFX",
