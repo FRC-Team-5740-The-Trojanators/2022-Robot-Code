@@ -80,22 +80,50 @@ public class RobotContainer
   private final AutoPosition4 m_autoPath4 = new AutoPosition4(m_driveSubsystem);
 
   private final ExtendIntakeCommand m_extendIntakeAuto = new ExtendIntakeCommand(m_intakeSubsystem);
+  private final ExtendIntakeCommand m_extendIntakeAuto2 = new ExtendIntakeCommand(m_intakeSubsystem);
+  private final ExtendIntakeCommand m_extendIntakeAuto3 = new ExtendIntakeCommand(m_intakeSubsystem);
+  private final ExtendIntakeCommand m_extendIntakeAuto4 = new ExtendIntakeCommand(m_intakeSubsystem);
+  private final ExtendIntakeCommand m_extendIntakeAuto5 = new ExtendIntakeCommand(m_intakeSubsystem);
+  private final ExtendIntakeCommand m_extendIntakeAuto6 = new ExtendIntakeCommand(m_intakeSubsystem);
+  private final ExtendIntakeCommand m_extendIntakeAuto7 = new ExtendIntakeCommand(m_intakeSubsystem);
+  private final ExtendIntakeCommand m_extendIntakeAuto8 = new ExtendIntakeCommand(m_intakeSubsystem);
+
+
   private final RetractIntakeCommand m_retractIntakeAuto = new RetractIntakeCommand(m_intakeSubsystem);
+  private final RetractIntakeCommand m_retractIntakeAuto2 = new RetractIntakeCommand(m_intakeSubsystem);
+  private final RetractIntakeCommand m_retractIntakeAuto3 = new RetractIntakeCommand(m_intakeSubsystem);
+  private final RetractIntakeCommand m_retractIntakeAuto4 = new RetractIntakeCommand(m_intakeSubsystem);
+
+
   private final AutoRunIntakeCommand m_runIntakeAuto = new AutoRunIntakeCommand(m_intakeSubsystem);
+  private final AutoRunIntakeCommand m_runIntakeAuto2 = new AutoRunIntakeCommand(m_intakeSubsystem);
+  private final AutoRunIntakeCommand m_runIntakeAuto3 = new AutoRunIntakeCommand(m_intakeSubsystem);
+  private final AutoRunIntakeCommand m_runIntakeAuto4 = new AutoRunIntakeCommand(m_intakeSubsystem);
+
+
   private final LoadCatapultCommand m_loadCatapultAuto = new LoadCatapultCommand(m_intakeSubsystem);
+  private final LoadCatapultCommand m_loadCatapultAuto2 = new LoadCatapultCommand(m_intakeSubsystem);
+  private final LoadCatapultCommand m_loadCatapultAuto3 = new LoadCatapultCommand(m_intakeSubsystem);
+  private final LoadCatapultCommand m_loadCatapultAuto4 = new LoadCatapultCommand(m_intakeSubsystem);
+
+
   private final CatapultCommand m_catapultAuto = new CatapultCommand(m_catapultSubsystem, m_intakeSubsystem);
+  private final CatapultCommand m_catapultAuto2 = new CatapultCommand(m_catapultSubsystem, m_intakeSubsystem);
+  private final CatapultCommand m_catapultAuto3 = new CatapultCommand(m_catapultSubsystem, m_intakeSubsystem);
+  private final CatapultCommand m_catapultAuto4 = new CatapultCommand(m_catapultSubsystem, m_intakeSubsystem);
+
  
-  private final SequentialCommandGroup m_pathWithIntake = new SequentialCommandGroup(m_extendIntakeAuto, m_autoPath1);
+  //private final SequentialCommandGroup m_pathWithIntake = new SequentialCommandGroup(m_extendIntakeAuto, m_autoPath1);
   
   private final ParallelCommandGroup m_position1Parallel = new ParallelCommandGroup(m_runIntakeAuto, m_autoPath1);
-  private final ParallelCommandGroup m_position2Parallel = new ParallelCommandGroup(m_runIntakeAuto, m_autoPath1);
-  private final ParallelCommandGroup m_position3Parallel = new ParallelCommandGroup(m_runIntakeAuto, m_autoPath1);
-  private final ParallelCommandGroup m_position4Parallel = new ParallelCommandGroup(m_runIntakeAuto, m_autoPath1);
+  private final ParallelCommandGroup m_position2Parallel = new ParallelCommandGroup(m_runIntakeAuto2, m_autoPath2);
+  private final ParallelCommandGroup m_position3Parallel = new ParallelCommandGroup(m_runIntakeAuto3, m_autoPath3);
+  private final ParallelCommandGroup m_position4Parallel = new ParallelCommandGroup(m_runIntakeAuto4, m_autoPath4);
 
-  private final SequentialCommandGroup m_position1Sequential = new SequentialCommandGroup(m_extendIntakeAuto, m_position1Parallel, m_retractIntakeAuto, m_loadCatapultAuto, m_extendIntakeAuto, m_catapultAuto);
-  private final SequentialCommandGroup m_position2Sequential = new SequentialCommandGroup(m_extendIntakeAuto, m_position1Parallel, m_retractIntakeAuto, m_loadCatapultAuto, m_extendIntakeAuto, m_catapultAuto);
-  private final SequentialCommandGroup m_position3Sequential = new SequentialCommandGroup(m_extendIntakeAuto, m_position1Parallel, m_retractIntakeAuto, m_loadCatapultAuto, m_extendIntakeAuto, m_catapultAuto);
-  private final SequentialCommandGroup m_position4Sequential = new SequentialCommandGroup(m_extendIntakeAuto, m_position1Parallel, m_retractIntakeAuto, m_loadCatapultAuto, m_extendIntakeAuto, m_catapultAuto);
+  private final SequentialCommandGroup m_position1Sequential = new SequentialCommandGroup(m_extendIntakeAuto, m_position1Parallel, m_retractIntakeAuto, m_loadCatapultAuto, m_extendIntakeAuto2, m_catapultAuto);
+  private final SequentialCommandGroup m_position2Sequential = new SequentialCommandGroup(m_extendIntakeAuto3, m_position2Parallel, m_retractIntakeAuto2, m_loadCatapultAuto2, m_extendIntakeAuto4, m_catapultAuto2);
+  private final SequentialCommandGroup m_position3Sequential = new SequentialCommandGroup(m_extendIntakeAuto5, m_position3Parallel, m_retractIntakeAuto3, m_loadCatapultAuto3, m_extendIntakeAuto6, m_catapultAuto3);
+  private final SequentialCommandGroup m_position4Sequential = new SequentialCommandGroup(m_extendIntakeAuto7, m_position4Parallel, m_retractIntakeAuto4, m_loadCatapultAuto4, m_extendIntakeAuto8, m_catapultAuto4);
 
   public static JoystickButton intakeExtend, intakeRetract, intakeRun, intakeReverse, climbAngle, loadCatapult, launchCatapult, moveClimbUp, moveClimbDown, climbStraight;
   public static POVButton  moveServo, moveServoDown;
@@ -115,10 +143,10 @@ public class RobotContainer
   private void configChooser()
   {
     //configure the auto command chooser
-    auto.addOption("Position 1", m_autoPath1);
-    auto.addOption("Position 2", m_autoPath2);
-    auto.addOption("Position 3", m_autoPath3);
-    auto.addOption("Position 4", m_autoPath4);
+    auto.addOption("Position 1", m_position1Sequential);
+    auto.addOption("Position 2", m_position2Sequential);
+    auto.addOption("Position 3", m_position3Sequential);
+    auto.addOption("Position 4", m_position4Sequential);
 
     auto.setDefaultOption("Default taxi", m_autoDefaultTaxi);
 
