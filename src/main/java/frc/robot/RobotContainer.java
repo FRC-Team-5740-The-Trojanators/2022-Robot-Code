@@ -10,11 +10,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.HIDConstants;
 import frc.robot.commands.AngleClimbCommand;
+import frc.robot.commands.AutoCatapultCommand;
 import frc.robot.commands.AutoPosition1;
 import frc.robot.commands.AutoPosition2;
 import frc.robot.commands.AutoPosition3;
 import frc.robot.commands.AutoPosition4;
 import frc.robot.commands.AutoDefaultTaxi;
+import frc.robot.commands.AutoLoadCatapultCommand;
 import frc.robot.commands.CatapultCommand;
 import frc.robot.commands.ClimbDownCommand;
 import frc.robot.commands.ClimbUpCommand;
@@ -35,6 +37,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -101,16 +104,16 @@ public class RobotContainer
   private final AutoRunIntakeCommand m_runIntakeAuto4 = new AutoRunIntakeCommand(m_intakeSubsystem);
 
 
-  private final LoadCatapultCommand m_loadCatapultAuto = new LoadCatapultCommand(m_intakeSubsystem);
-  private final LoadCatapultCommand m_loadCatapultAuto2 = new LoadCatapultCommand(m_intakeSubsystem);
-  private final LoadCatapultCommand m_loadCatapultAuto3 = new LoadCatapultCommand(m_intakeSubsystem);
-  private final LoadCatapultCommand m_loadCatapultAuto4 = new LoadCatapultCommand(m_intakeSubsystem);
+  private final AutoLoadCatapultCommand m_loadCatapultAuto = new AutoLoadCatapultCommand(m_intakeSubsystem);
+  private final AutoLoadCatapultCommand m_loadCatapultAuto2 = new AutoLoadCatapultCommand(m_intakeSubsystem);
+  private final AutoLoadCatapultCommand m_loadCatapultAuto3 = new AutoLoadCatapultCommand(m_intakeSubsystem);
+  private final AutoLoadCatapultCommand m_loadCatapultAuto4 = new AutoLoadCatapultCommand(m_intakeSubsystem);
 
 
-  private final CatapultCommand m_catapultAuto = new CatapultCommand(m_catapultSubsystem, m_intakeSubsystem);
-  private final CatapultCommand m_catapultAuto2 = new CatapultCommand(m_catapultSubsystem, m_intakeSubsystem);
-  private final CatapultCommand m_catapultAuto3 = new CatapultCommand(m_catapultSubsystem, m_intakeSubsystem);
-  private final CatapultCommand m_catapultAuto4 = new CatapultCommand(m_catapultSubsystem, m_intakeSubsystem);
+  private final AutoCatapultCommand m_catapultAuto = new AutoCatapultCommand(m_catapultSubsystem, m_intakeSubsystem);
+  private final AutoCatapultCommand m_catapultAuto2 = new AutoCatapultCommand(m_catapultSubsystem, m_intakeSubsystem);
+  private final AutoCatapultCommand m_catapultAuto3 = new AutoCatapultCommand(m_catapultSubsystem, m_intakeSubsystem);
+  private final AutoCatapultCommand m_catapultAuto4 = new AutoCatapultCommand(m_catapultSubsystem, m_intakeSubsystem);
 
  
   //private final SequentialCommandGroup m_pathWithIntake = new SequentialCommandGroup(m_extendIntakeAuto, m_autoPath1);
@@ -124,6 +127,8 @@ public class RobotContainer
   private final SequentialCommandGroup m_position2Sequential = new SequentialCommandGroup(m_extendIntakeAuto3, m_position2Parallel, m_retractIntakeAuto2, m_loadCatapultAuto2, m_extendIntakeAuto4, m_catapultAuto2);
   private final SequentialCommandGroup m_position3Sequential = new SequentialCommandGroup(m_extendIntakeAuto5, m_position3Parallel, m_retractIntakeAuto3, m_loadCatapultAuto3, m_extendIntakeAuto6, m_catapultAuto3);
   private final SequentialCommandGroup m_position4Sequential = new SequentialCommandGroup(m_extendIntakeAuto7, m_position4Parallel, m_retractIntakeAuto4, m_loadCatapultAuto4, m_extendIntakeAuto8, m_catapultAuto4);
+
+//private final SequentialCommandGroup m_testIntakeStepSequential = new SequentialCommandGroup(m_loadCatapultAuto, m_extendIntakeAuto, m_catapultAuto);
 
   public static JoystickButton intakeExtend, intakeRetract, intakeRun, intakeReverse, climbAngle, loadCatapult, launchCatapult, moveClimbUp, moveClimbDown, climbStraight;
   public static POVButton  moveServo, moveServoDown;

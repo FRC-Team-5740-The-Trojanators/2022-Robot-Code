@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
 
@@ -11,6 +12,8 @@ public class RetractIntakeCommand extends CommandBase {
   /** Creates a new FlipIntakeCommand. */
   IntakeSubsystem m_intake;
   private boolean m_isFinished = false;
+  Timer m_timer = new Timer();
+
 
   public RetractIntakeCommand(IntakeSubsystem intake) {
     m_intake = intake;
@@ -22,7 +25,9 @@ public class RetractIntakeCommand extends CommandBase {
   @Override
   public void initialize() 
   {
+    m_timer.start();
    m_intake.retractIntake();
+   m_isFinished = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -30,6 +35,8 @@ public class RetractIntakeCommand extends CommandBase {
   public void execute() 
   {
     m_intake.retractIntake();
+    m_isFinished = m_timer.advanceIfElapsed(1.5);
+
   }
 
   // Called once the command ends or is interrupted.

@@ -36,10 +36,11 @@ public class AutoRunIntakeCommand extends CommandBase {
   @Override
   public void execute() 
   {
+    m_timer.start();
     m_intake.forwardIntakeMotors();
     m_intake.forwardHoldMotor();
 
-    if(m_timer.get() == 3)
+    if(m_timer.get() >= 4)
     {
       m_isFinished = true;
     }

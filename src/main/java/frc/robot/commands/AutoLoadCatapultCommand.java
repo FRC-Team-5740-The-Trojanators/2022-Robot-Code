@@ -25,22 +25,24 @@ public class AutoLoadCatapultCommand extends CommandBase {
   @Override
   public void initialize() 
   {
+    m_timer.reset();
+    m_timer.start();
     m_intake.reverseHoldMotor();
     m_intake.forwardIntakeMotors();
     m_isFinished = false;
-    
-    if(m_timer.get() == 3)
-    {
-      m_isFinished = true;
-    }
+  
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() 
   {
+   
     m_intake.reverseHoldMotor();
     m_intake.forwardIntakeMotors();
+  
+ 
+    m_isFinished = m_timer.advanceIfElapsed(.5);
   }
 
   // Called once the command ends or is interrupted.
@@ -49,7 +51,7 @@ public class AutoLoadCatapultCommand extends CommandBase {
   {
     m_intake.stopIntakeMotors();
     m_intake.stopHoldMotor();
-    m_isFinished = true;
+    m_timer.stop();
   }
 
   // Returns true when the command should end.

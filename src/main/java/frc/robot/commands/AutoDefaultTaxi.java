@@ -27,7 +27,7 @@ public class AutoDefaultTaxi extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     m_driveSubsystem = driveSubsystem;
 
-    this.path = SwervePath.fromCSV("PID 2");  
+    this.path = SwervePath.fromCSV("Default taxi");  
    
     addRequirements(driveSubsystem);
     this.timer = new Timer();
