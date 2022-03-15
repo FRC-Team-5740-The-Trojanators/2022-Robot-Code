@@ -102,6 +102,10 @@ public class DriveSubsystem extends SubsystemBase
       {
           SwerveModule module = modules[i];
           module.setDesiredState(m_states[i]);
+          SmartDashboard.putNumber("Drive Expected", module.getState().speedMetersPerSecond);
+          SmartDashboard.putNumber("Drive Actual", module.getDriveVelocity());
+
+
       } 
   }
     
@@ -127,7 +131,8 @@ public class DriveSubsystem extends SubsystemBase
    // SmartDashboard.putNumber("Pigeon IMU", m_imu.getYaw());
     //checkTemperature();
 
-    SmartDashboard.putNumber("D1",modules[0].getDriveVelocity());
+
+    SmartDashboard.putNumber("Drive Actual",modules[0].getDriveVelocity());
 
   }
 

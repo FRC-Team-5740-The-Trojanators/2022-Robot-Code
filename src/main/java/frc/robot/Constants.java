@@ -70,8 +70,8 @@ public final class Constants
 
         /*TODO for all of these change when robot is characterized*/
         public static final double k_MaxTeleSpeed = Units.feetToMeters(16.3); //m/s checked :)
-        public static final double k_MaxAutoSpeed = Units.feetToMeters(13); //m/s
-        public static final double k_MaxAcceleration = Units.feetToMeters(5); //m/s/s 
+        public static final double k_MaxAutoSpeed = Units.feetToMeters(16.3); //m/s
+        public static final double k_MaxAcceleration = 10; //m/s/s 
         
         public static final double k_XYjoystickCoefficient = 1; //speed limiter
         public static final double k_MaxAngularSpeed = Units.feetToMeters(16.3) / k_RobotRadius; // 628; //rad/s TODO confirm
