@@ -80,13 +80,15 @@ public class DriveSubsystem extends SubsystemBase
     m_states =
       SwerveDriveModuleConstants.kinematics.toSwerveModuleStates(
           fieldRelative
-              ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, Rotation2d.fromDegrees(m_imu.getYaw()))
+              ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, Rotation2d.fromDegrees(-m_imu.getYaw()))
               : new ChassisSpeeds(xSpeed, ySpeed, rot));
       SwerveDriveKinematics.desaturateWheelSpeeds(m_states, SwerveDriveModuleConstants.k_MaxAutoSpeed);
       for (int i = 0; i < m_states.length; i++) 
       {
           SwerveModule module = modules[i];
           module.setDesiredState(m_states[i]);
+          SmartDashboard.putNumber("Drive Expected", module.getState().speedMetersPerSecond);
+          SmartDashboard.putNumber("Drive Actual", module.getDriveVelocity());
       } 
   }
 
@@ -95,7 +97,7 @@ public class DriveSubsystem extends SubsystemBase
     m_states =
       SwerveDriveModuleConstants.kinematics.toSwerveModuleStates(
           fieldRelative
-              ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, Rotation2d.fromDegrees(m_imu.getYaw()))
+              ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, Rotation2d.fromDegrees(-m_imu.getYaw()))
               : new ChassisSpeeds(xSpeed, ySpeed, rot));
       SwerveDriveKinematics.desaturateWheelSpeeds(m_states, SwerveDriveModuleConstants.k_MaxTeleSpeed);
       for (int i = 0; i < 4; i++) 
@@ -132,7 +134,7 @@ public class DriveSubsystem extends SubsystemBase
     //checkTemperature();
 
 
-    SmartDashboard.putNumber("Drive Actual",modules[0].getDriveVelocity());
+    // SmartDashboard.putNumber("Drive Actual",modules[0].getDriveVelocity());
 
   }
 
@@ -148,7 +150,7 @@ public class DriveSubsystem extends SubsystemBase
    */
   public void resetOdometry(Pose2d pose)
   {
-      m_odometry.resetPosition(pose, Rotation2d.fromDegrees(m_imu.getYaw()));
+      m_odometry.resetPosition(pose, Rotation2d.fromDegrees(-m_imu.getYaw()));
   }
 
   public Pose2d getPoseMeters() 

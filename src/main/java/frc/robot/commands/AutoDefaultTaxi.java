@@ -27,11 +27,12 @@ public class AutoDefaultTaxi extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     m_driveSubsystem = driveSubsystem;
 
-    this.path = SwervePath.fromCSV("Default taxi");  
+    this.path = SwervePath.fromCSV("Y path");  
+    //this.path = SwervePath.fromCSV("Default taxi");  
    
     addRequirements(driveSubsystem);
     this.timer = new Timer();
-    this.ignoreHeading = false;
+    this.ignoreHeading = true;
   }
 
   // Called when the command is initially scheduled.

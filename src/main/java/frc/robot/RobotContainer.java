@@ -220,7 +220,7 @@ public class RobotContainer
   public Command getAutonomousCommand() 
   {
     // An ExampleCommand will run in autonomous
-    return auto.getSelected();
-    //return m_autoDefaultTaxi;
+    //return auto.getSelected();
+    return m_autoDefaultTaxi;
   }
 }

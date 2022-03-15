@@ -66,7 +66,7 @@ public final class Constants
 
         public static final double k_RobotRadius = Units.inchesToMeters(34.295) / 2; 
 
-        public static final double k_wheelDiameter = Units.inchesToMeters(4); //meters
+        public static final double k_wheelDiameter = Units.inchesToMeters(3.9375); //meters
 
         /*TODO for all of these change when robot is characterized*/
         public static final double k_MaxTeleSpeed = Units.feetToMeters(16.3); //m/s checked :)
@@ -131,7 +131,7 @@ public final class Constants
     public static class DriveModulePIDValues
     {
         //TODO Set actual PID values
-        public static double k_driveP = 2.0; // 0.028; 
+        public static double k_driveP = 3.0; // 0.028; 
         public static double k_driveI = 0.0;
         public static double k_driveD = 0.0; //0.025;
         public static double k_driveFF = 1 / SwerveDriveModuleConstants.k_MaxTeleSpeed;
