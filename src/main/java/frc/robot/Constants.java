@@ -186,8 +186,8 @@ public final class Constants
 
     public static final class ClimbSubsystemConstants
     {
-        public static final double k_servoAngledPosition = .9;
-        public static final double k_servoStraightPosition = 0;
+        public static final double k_servoAngledPosition = .1;
+        public static final double k_servoStraightPosition = 1;
 
         /*
         Limit Switch Assignment: 

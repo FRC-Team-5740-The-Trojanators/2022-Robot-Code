@@ -105,6 +105,7 @@ public class SwerveModule
        //Steering Motor Calc
         Rotation2d currentRotation = getAngle();
         SwerveModuleState state = SwerveModuleState.optimize(desiredState, currentRotation);
+        //SwerveModuleState state = new SwerveModuleState(desiredState.speedMetersPerSecond, desiredState.angle);
         Rotation2d rotationDelta = state.angle.minus(currentRotation); //takes our current rotatation and subtracts the last state rotation
        
         double deltaTicks = calculateDeltaTicks(rotationDelta);

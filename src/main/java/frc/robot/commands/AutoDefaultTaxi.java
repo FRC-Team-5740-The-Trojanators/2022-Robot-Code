@@ -32,7 +32,7 @@ public class AutoDefaultTaxi extends CommandBase {
    
     addRequirements(driveSubsystem);
     this.timer = new Timer();
-    this.ignoreHeading = true;
+    this.ignoreHeading = false;
   }
 
   // Called when the command is initially scheduled.

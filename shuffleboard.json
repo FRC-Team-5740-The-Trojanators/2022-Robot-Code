@@ -93,17 +93,6 @@
               "_title": "limelight_Interface"
             }
           },
-          "6,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Auto Value",
-              "_title": "Auto Value"
-            }
-          },
           "6,2": {
             "size": [
               1,
@@ -113,6 +102,17 @@
               "_type": "ComboBox Chooser",
               "_source0": "network_table:///SmartDashboard/SendableChooser[0]",
               "_title": "SendableChooser[0]"
+            }
+          },
+          "6,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Servo",
+              "_title": "/SmartDashboard/Servo"
             }
           }
         }
