@@ -27,6 +27,7 @@ public class AutoCatapultCommand extends CommandBase {
   @Override
   public void initialize()
    {
+    m_timer.reset();
     m_timer.start();
    }
 
@@ -38,7 +39,7 @@ public class AutoCatapultCommand extends CommandBase {
     {
       m_catapult.shootCatapult();
     }
-    m_isFinished = m_timer.advanceIfElapsed(1);
+    m_isFinished = m_timer.advanceIfElapsed(1.5);
   }
 
   // Called once the command ends or is interrupted.

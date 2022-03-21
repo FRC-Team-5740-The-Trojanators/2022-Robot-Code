@@ -134,7 +134,7 @@ public final class Constants
         public static double k_driveP = 3.0; // 0.028; 
         public static double k_driveI = 0.0;
         public static double k_driveD = 0.0; //0.025;
-        public static double k_driveFF = 1 / SwerveDriveModuleConstants.k_MaxTeleSpeed;
+        public static double k_driveFF = 1 / Units.feetToMeters(10); //1 / SwerveDriveModuleConstants.k_MaxTeleSpeed;
         public static final int k_ToleranceInTicks = 15; //TODO Figure out real value
     }
 
@@ -186,7 +186,7 @@ public final class Constants
 
     public static final class ClimbSubsystemConstants
     {
-        public static final double k_servoAngledPosition = .1;
+        public static final double k_servoAngledPosition = 0;
         public static final double k_servoStraightPosition = 1;
 
         /*

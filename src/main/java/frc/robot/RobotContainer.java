@@ -10,6 +10,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.HIDConstants;
 import frc.robot.commands.AngleClimbCommand;
+import frc.robot.commands.Auto1BallLeft;
+import frc.robot.commands.Auto1BallOut;
+import frc.robot.commands.Auto1BallRight;
 import frc.robot.commands.AutoCatapultCommand;
 import frc.robot.commands.AutoPosition1;
 import frc.robot.commands.AutoPosition2;
@@ -22,9 +25,11 @@ import frc.robot.commands.CatapultCommand;
 import frc.robot.commands.ClimbDownCommand;
 import frc.robot.commands.ClimbUpCommand;
 import frc.robot.commands.ExtendIntakeCommand;
+import frc.robot.commands.RightCatapultCommand;
 import frc.robot.commands.LoadCatapultCommand;
 import frc.robot.commands.RetractIntakeCommand;
 import frc.robot.commands.ReverseIntakeCommand;
+import frc.robot.commands.LeftCatapultCommand;
 import frc.robot.commands.AutoRunIntakeCommand;
 import frc.robot.commands.RunIntakeCommand;
 import frc.robot.commands.StraightenClimbCommand;
@@ -69,6 +74,8 @@ public class RobotContainer
   private final ReverseIntakeCommand m_reverseIntakeCommand = new ReverseIntakeCommand(m_intakeSubsystem);
   private final CatapultCommand m_catapultCommand = new CatapultCommand(m_catapultSubsystem, m_intakeSubsystem);
   private final ClimbUpCommand m_climbUpCommand = new ClimbUpCommand(m_climbSubsystem);
+  private final LeftCatapultCommand m_leftCatapultCommand = new LeftCatapultCommand(m_catapultSubsystem, m_intakeSubsystem);
+  private final RightCatapultCommand m_rightCatapultCommand = new RightCatapultCommand(m_catapultSubsystem, m_intakeSubsystem);
   private final ClimbDownCommand m_climbDownCommand = new ClimbDownCommand(m_climbSubsystem);
   private final MoveServoCommand m_moveServoCommand = new MoveServoCommand(m_climbSubsystem);
   private final MoveServoDownCommand m_moveServoDownCommand = new MoveServoDownCommand(m_climbSubsystem);
@@ -82,6 +89,10 @@ public class RobotContainer
   private final AutoPosition2 m_autoPath2 = new AutoPosition2(m_driveSubsystem);
   private final AutoPosition3 m_autoPath3 = new AutoPosition3(m_driveSubsystem);
   private final AutoPosition4 m_autoPath4 = new AutoPosition4(m_driveSubsystem);
+  private final Auto1BallLeft m_auto1BallL = new Auto1BallLeft(m_driveSubsystem);
+  private final Auto1BallRight m_auto1BallR = new Auto1BallRight(m_driveSubsystem);
+  private final Auto1BallOut m_auto1BallOut = new Auto1BallOut(m_driveSubsystem);
+  private final Auto1BallOut m_auto1BallOut2 = new Auto1BallOut(m_driveSubsystem);
 
   private final AutoPosition4 m_autoPathThreeBall1 = new AutoPosition4(m_driveSubsystem);
   private final AutoPos4Part2 m_autoPathThreeBall2 = new AutoPos4Part2(m_driveSubsystem);
@@ -97,6 +108,8 @@ public class RobotContainer
   private final ExtendIntakeCommand m_extendIntakeAuto9 = new ExtendIntakeCommand(m_intakeSubsystem);
   private final ExtendIntakeCommand m_extendIntakeAuto10 = new ExtendIntakeCommand(m_intakeSubsystem);
   private final ExtendIntakeCommand m_extendIntakeAuto11 = new ExtendIntakeCommand(m_intakeSubsystem);
+  private final ExtendIntakeCommand m_extendIntakeAuto12 = new ExtendIntakeCommand(m_intakeSubsystem);
+  private final ExtendIntakeCommand m_extendIntakeAuto13 = new ExtendIntakeCommand(m_intakeSubsystem);
 
   private final RetractIntakeCommand m_retractIntakeAuto = new RetractIntakeCommand(m_intakeSubsystem);
   private final RetractIntakeCommand m_retractIntakeAuto2 = new RetractIntakeCommand(m_intakeSubsystem);
@@ -118,6 +131,9 @@ public class RobotContainer
   private final AutoLoadCatapultCommand m_loadCatapultAuto4 = new AutoLoadCatapultCommand(m_intakeSubsystem);
   private final AutoLoadCatapultCommand m_loadCatapultAuto5 = new AutoLoadCatapultCommand(m_intakeSubsystem);
   private final AutoLoadCatapultCommand m_loadCatapultAuto6 = new AutoLoadCatapultCommand(m_intakeSubsystem);
+  private final AutoLoadCatapultCommand m_loadCatapultAuto7 = new AutoLoadCatapultCommand(m_intakeSubsystem);
+  private final AutoLoadCatapultCommand m_loadCatapultAuto8 = new AutoLoadCatapultCommand(m_intakeSubsystem);
+
 
   private final AutoCatapultCommand m_catapultAuto = new AutoCatapultCommand(m_catapultSubsystem, m_intakeSubsystem);
   private final AutoCatapultCommand m_catapultAuto2 = new AutoCatapultCommand(m_catapultSubsystem, m_intakeSubsystem);
@@ -125,6 +141,11 @@ public class RobotContainer
   private final AutoCatapultCommand m_catapultAuto4 = new AutoCatapultCommand(m_catapultSubsystem, m_intakeSubsystem);
   private final AutoCatapultCommand m_catapultAuto5 = new AutoCatapultCommand(m_catapultSubsystem, m_intakeSubsystem);
   private final AutoCatapultCommand m_catapultAuto6 = new AutoCatapultCommand(m_catapultSubsystem, m_intakeSubsystem);
+  private final AutoCatapultCommand m_catapultAuto7 = new AutoCatapultCommand(m_catapultSubsystem, m_intakeSubsystem);
+  private final AutoCatapultCommand m_catapultAuto8 = new AutoCatapultCommand(m_catapultSubsystem, m_intakeSubsystem);
+
+  private final RightCatapultCommand m_autoRightCatapult = new RightCatapultCommand(m_catapultSubsystem, m_intakeSubsystem);
+  private final LeftCatapultCommand m_autoLeftCatapult = new LeftCatapultCommand(m_catapultSubsystem, m_intakeSubsystem);
 
   //private final SequentialCommandGroup m_pathWithIntake = new SequentialCommandGroup(m_extendIntakeAuto, m_autoPath1);
   
@@ -134,17 +155,19 @@ public class RobotContainer
   private final ParallelCommandGroup m_position4Parallel = new ParallelCommandGroup(m_runIntakeAuto4, m_autoPath4);
   private final ParallelCommandGroup m_threeBallPart1Parallel = new ParallelCommandGroup(m_runIntakeAuto5, m_autoPathThreeBall1);
   private final ParallelCommandGroup m_threeBallPart2Parallel = new ParallelCommandGroup(m_runIntakeAuto6, m_autoPathThreeBall2);
-
+ 
   private final SequentialCommandGroup m_position1Sequential = new SequentialCommandGroup(m_extendIntakeAuto, m_position1Parallel, m_retractIntakeAuto, m_loadCatapultAuto, m_extendIntakeAuto2, m_catapultAuto);
   private final SequentialCommandGroup m_position2Sequential = new SequentialCommandGroup(m_extendIntakeAuto3, m_position2Parallel, m_retractIntakeAuto2, m_loadCatapultAuto2, m_extendIntakeAuto4, m_catapultAuto2);
   private final SequentialCommandGroup m_position3Sequential = new SequentialCommandGroup(m_extendIntakeAuto5, m_position3Parallel, m_retractIntakeAuto3, m_loadCatapultAuto3, m_extendIntakeAuto6, m_catapultAuto3);
   private final SequentialCommandGroup m_position4Sequential = new SequentialCommandGroup(m_extendIntakeAuto7, m_position4Parallel, m_retractIntakeAuto4, m_loadCatapultAuto4, m_extendIntakeAuto8, m_catapultAuto4);
   private final SequentialCommandGroup m_threeBallPart1 = new SequentialCommandGroup(m_extendIntakeAuto9, m_threeBallPart1Parallel, m_retractIntakeAuto5, m_loadCatapultAuto5, m_extendIntakeAuto10, m_catapultAuto5);
   private final SequentialCommandGroup m_threeBall = new SequentialCommandGroup(m_threeBallPart1, m_threeBallPart2Parallel, m_retractIntakeAuto6, m_loadCatapultAuto6, m_extendIntakeAuto11, m_catapultAuto6);
+  private final SequentialCommandGroup m_auto1BallLeftSeq = new SequentialCommandGroup(m_loadCatapultAuto7, m_auto1BallL, m_extendIntakeAuto12, m_autoRightCatapult, m_auto1BallOut);
+  private final SequentialCommandGroup m_auto1BallRightSeq = new SequentialCommandGroup(m_loadCatapultAuto8, m_auto1BallR, m_extendIntakeAuto13, m_autoLeftCatapult, m_auto1BallOut2);
 
 //private final SequentialCommandGroup m_testIntakeStepSequential = new SequentialCommandGroup(m_loadCatapultAuto, m_extendIntakeAuto, m_catapultAuto);
 
-  public static JoystickButton intakeExtend, intakeRetract, intakeRun, intakeReverse, climbAngle, loadCatapult, launchCatapult, moveClimbUp, moveClimbDown, climbStraight;
+  public static JoystickButton intakeExtend, intakeRetract, intakeRun, intakeReverse, climbAngle, loadCatapult, launchCatapult, moveClimbUp, moveClimbDown, climbStraight, rightCatapult, leftCatapult;
   public static POVButton  moveServo, moveServoDown;
   SendableChooser<CommandBase> auto = new SendableChooser<CommandBase>();
 
@@ -167,6 +190,8 @@ public class RobotContainer
     auto.addOption("Position 3", m_position3Sequential);
     auto.addOption("Position 4", m_position4Sequential);
     auto.addOption("ThreeBall", m_threeBall);
+    auto.addOption("1 Ball Left", m_auto1BallLeftSeq);
+    auto.addOption("1 Ball Right", m_auto1BallRightSeq);
 
     auto.setDefaultOption("Default taxi", m_autoDefaultTaxi);
 
@@ -183,10 +208,12 @@ public class RobotContainer
     intakeExtend = new JoystickButton(m_operatorController, HIDConstants.kStart);
     intakeRetract = new JoystickButton(m_operatorController, HIDConstants.kBack);
     intakeRun = new JoystickButton(m_operatorController, HIDConstants.kRB);
-    intakeReverse = new JoystickButton(m_operatorController, HIDConstants.kX);
+    intakeReverse = new JoystickButton(m_operatorController, HIDConstants.kY);
     loadCatapult = new JoystickButton(m_operatorController, HIDConstants.kLB);
 
     launchCatapult = new JoystickButton(m_operatorController, HIDConstants.kA);
+    rightCatapult = new JoystickButton(m_operatorController, HIDConstants.kB);
+    leftCatapult = new JoystickButton(m_operatorController, HIDConstants.kX);
 
     climbAngle = new JoystickButton(m_driverController, HIDConstants.kLB);
     climbStraight = new JoystickButton(m_driverController, HIDConstants.kRB);
@@ -210,6 +237,10 @@ public class RobotContainer
     climbAngle.whenPressed(m_angleClimbCommand);
 
     launchCatapult.whileHeld(m_catapultCommand);
+    rightCatapult.whileHeld(m_rightCatapultCommand);
+    leftCatapult.whileHeld(m_leftCatapultCommand);
+
+
   }
 
   /**
@@ -220,7 +251,7 @@ public class RobotContainer
   public Command getAutonomousCommand() 
   {
     // An ExampleCommand will run in autonomous
-    //return auto.getSelected();
-    return m_autoDefaultTaxi;
+    return auto.getSelected();
+    //return m_autoDefaultTaxi;
   }
 }

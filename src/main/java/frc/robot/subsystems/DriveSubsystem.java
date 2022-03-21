@@ -36,7 +36,7 @@ public class DriveSubsystem extends SubsystemBase
 
   private UsbCamera m_UsbCamera = CameraServer.startAutomaticCapture();
   NetworkTableEntry cameraEntry = NetworkTableInstance.getDefault().getTable("").getEntry("Camera");
-  NetworkTableEntry limelight = NetworkTableInstance.getDefault().getTable("").getEntry("limelight"); 
+  //NetworkTableEntry limelight = NetworkTableInstance.getDefault().getTable("").getEntry("limelight"); 
   boolean cam = NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(1);
 
   private SwerveModuleState[] m_states = new SwerveModuleState[]
@@ -87,8 +87,8 @@ public class DriveSubsystem extends SubsystemBase
       {
           SwerveModule module = modules[i];
           module.setDesiredState(m_states[i]);
-          SmartDashboard.putNumber("Drive Expected", module.getState().speedMetersPerSecond);
-          SmartDashboard.putNumber("Drive Actual", module.getDriveVelocity());
+          SmartDashboard.putNumber("Drive Actual", module.getState().speedMetersPerSecond);
+          SmartDashboard.putNumber("Drive Expected", module.getDriveVelocity());
       } 
   }
 

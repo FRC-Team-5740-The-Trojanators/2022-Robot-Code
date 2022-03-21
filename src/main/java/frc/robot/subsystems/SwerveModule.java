@@ -69,13 +69,17 @@ public class SwerveModule
         angleTalonConfig.remoteFilter0.remoteSensorDeviceID = m_moduleSteeringEncoder.getDeviceID();
         angleTalonConfig.remoteFilter0.remoteSensorSource = RemoteSensorSource.CANCoder;
         angleTalonConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.RemoteSensor0;
-        
+
+        angleTalonConfig.supplyCurrLimit.enable = true;
+        angleTalonConfig.supplyCurrLimit.triggerThresholdCurrent = 45;
+        angleTalonConfig.supplyCurrLimit.currentLimit = 35;
+
         angleTalonConfig.slot0.kP = SteerModulePIDValues.k_steerP;
         angleTalonConfig.slot0.kI = SteerModulePIDValues.k_steerI;
         angleTalonConfig.slot0.kD = SteerModulePIDValues.k_steerD;
 
         m_angleMotor.configAllSettings(angleTalonConfig);
-       m_angleMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 250);
+        m_angleMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20);
 
 
         
@@ -91,10 +95,17 @@ public class SwerveModule
         driveTalonConfig.slot0.kI = DriveModulePIDValues.k_driveI;
         driveTalonConfig.slot0.kD = DriveModulePIDValues.k_driveD;
         driveTalonConfig.slot0.kF = DriveModulePIDValues.k_driveFF;
+
+        driveTalonConfig.supplyCurrLimit.enable = true;
+        driveTalonConfig.supplyCurrLimit.triggerThresholdCurrent = 45;
+        driveTalonConfig.supplyCurrLimit.currentLimit = 35;
+
+
         //driveTalonConfig.slot0.closedLoopPeriod = 20;
 
         m_driveMotor.configAllSettings(driveTalonConfig);
-        m_driveMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 250);
+        m_driveMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20);
+
 
         //SmartDashboard.putNumber("feedbackcoef", m_moduleSteeringEncoder.configGetFeedbackCoefficient());
 

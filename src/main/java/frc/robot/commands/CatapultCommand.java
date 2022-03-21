@@ -34,7 +34,7 @@ public class CatapultCommand extends CommandBase {
   {
     if(m_intake.getIntakeState() == false)
     {
-      m_catapult.shootCatapult();
+     m_catapult.shootCatapult();
     }
     
    // m_isFinished = true;

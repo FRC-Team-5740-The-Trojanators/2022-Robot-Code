@@ -44,7 +44,19 @@ public class CatapultSubsystem extends SubsystemBase {
       m_Right1.set(true);
       m_Right2.set(true);
   }
-  
+
+  public void shootRight()
+  {
+    m_Right1.set(true);
+    m_Right2.set(true);
+  }
+
+  public void shootLeft()
+  {
+    m_Left1.set(true);
+    m_Left2.set(true);
+  }
+
   public void catapultDown()
   {
       m_Left1.set(false);

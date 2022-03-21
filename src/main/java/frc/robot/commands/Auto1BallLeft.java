@@ -12,8 +12,8 @@ import frc.robot.subsystems.DriveSubsystem;
 import lib.swerve.SwervePath;
 import lib.swerve.SwervePathController;
 
-public class AutoDefaultTaxi extends CommandBase {
-  /** Creates a new AutonomousDrive. */
+public class Auto1BallLeft extends CommandBase {
+
   private final DriveSubsystem m_driveSubsystem;
 
   private Timer timer;
@@ -22,13 +22,13 @@ public class AutoDefaultTaxi extends CommandBase {
   double lastTime;
   boolean ignoreHeading;
 
-  public AutoDefaultTaxi(DriveSubsystem driveSubsystem) 
+  /** Creates a new AutoPath1. */
+  public Auto1BallLeft(DriveSubsystem driveSubsystem)
   {
     // Use addRequirements() here to declare subsystem dependencies.
     m_driveSubsystem = driveSubsystem;
 
-    this.path = SwervePath.fromCSV("Default taxi");  
-    //this.path = SwervePath.fromCSV("Default taxi");  
+    this.path = SwervePath.fromCSV("1 Ball Left");  
    
     addRequirements(driveSubsystem);
     this.timer = new Timer();
@@ -37,8 +37,7 @@ public class AutoDefaultTaxi extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() 
-  {
+  public void initialize() {
     timer = new Timer();
     timer.reset();
     timer.start(); 
@@ -52,8 +51,7 @@ public class AutoDefaultTaxi extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() 
-  {
+  public void execute() {
     double time = timer.get();
     SwervePath.State desiredState = path.sample(time);
 
@@ -66,16 +64,14 @@ public class AutoDefaultTaxi extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) 
-  {
+  public void end(boolean interrupted) {
     timer.stop();
     m_driveSubsystem.autoDrive(0, 0, 0, false);
   }
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() 
-  {
+  public boolean isFinished() {
     return timer.hasElapsed(path.getRuntime());
   }
 }

@@ -71,8 +71,16 @@ public class SwerveDriveCommand extends CommandBase {
         /*rotLimiter.calculate(getJoystickWithDeadBand(controller.getRightX())
         * SwerveDriveModuleConstants.k_MaxAngularSpeed * SwerveDriveModuleConstants.k_RotCoefficient);*/
 
-     drivetrain.teleDrive(xSpeed, ySpeed, rot, false);
     //drivetrain.teleDrive(5.5, 0, 0, false);
+
+    double trigger = .5;
+
+    if(controller.getRightTriggerAxis() >= 0.1)
+    {
+      drivetrain.teleDrive(xSpeed * (trigger), ySpeed * (trigger), rot * (trigger), false);
+    } else {
+      drivetrain.teleDrive(xSpeed, ySpeed, rot, false);
+    }
   }
 
   // Called once the command ends or is interrupted.
