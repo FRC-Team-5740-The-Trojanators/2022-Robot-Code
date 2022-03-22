@@ -12,7 +12,7 @@ import frc.robot.subsystems.DriveSubsystem;
 import lib.swerve.SwervePath;
 import lib.swerve.SwervePathController;
 
-public class AutoPosition4Straight extends CommandBase {
+public class AutoNewStraight extends CommandBase {
 
   private final DriveSubsystem m_driveSubsystem;
 
@@ -23,12 +23,12 @@ public class AutoPosition4Straight extends CommandBase {
   boolean ignoreHeading;
 
   /** Creates a new AutoPath1. */
-  public AutoPosition4Straight(DriveSubsystem driveSubsystem)
+  public AutoNewStraight(DriveSubsystem driveSubsystem)
   {
     // Use addRequirements() here to declare subsystem dependencies.
     m_driveSubsystem = driveSubsystem;
 
-    this.path = SwervePath.fromCSV("Position 4");  
+    this.path = SwervePath.fromCSV("New Straight Position");  
    
     addRequirements(driveSubsystem);
     this.timer = new Timer();
