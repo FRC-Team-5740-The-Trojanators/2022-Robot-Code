@@ -29,6 +29,7 @@ public class AutoRunIntakeCommand extends CommandBase {
     m_intake.forwardIntakeMotors();
     m_intake.forwardHoldMotor();
     m_isFinished = false;
+    m_timer.reset();
     m_timer.start();
   }
 

@@ -25,7 +25,8 @@ public class RetractIntakeCommand extends CommandBase {
   @Override
   public void initialize() 
   {
-    m_timer.start();
+   m_timer.reset();
+   m_timer.start();
    m_intake.retractIntake();
    m_isFinished = false;
   }

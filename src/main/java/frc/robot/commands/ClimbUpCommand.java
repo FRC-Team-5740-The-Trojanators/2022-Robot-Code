@@ -14,7 +14,7 @@ public class ClimbUpCommand extends CommandBase {
   /** Creates a new ClimbCommand. */
 
   private final ClimbSubsystem m_climb;
-  private double power = .5;
+  private double power = .8;
   private boolean m_isFinished = false; 
 
   public ClimbUpCommand(ClimbSubsystem climb)

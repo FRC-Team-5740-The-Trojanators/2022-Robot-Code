@@ -33,6 +33,7 @@ import frc.robot.commands.RetractIntakeCommand;
 import frc.robot.commands.ReverseIntakeCommand;
 import frc.robot.commands.LeftCatapultCommand;
 import frc.robot.commands.AutoRunIntakeCommand;
+import frc.robot.commands.AutoStraightLeft;
 import frc.robot.commands.AutoTESTING;
 import frc.robot.commands.RunIntakeCommand;
 import frc.robot.commands.StraightenClimbCommand;
@@ -180,7 +181,8 @@ public class RobotContainer
   // private final ParallelCommandGroup m_threeBallPart1Parallel = new ParallelCommandGroup(m_runIntakeAuto5, m_autoPathThreeBall1);
   // private final ParallelCommandGroup m_threeBallPart2Parallel = new ParallelCommandGroup(m_runIntakeAuto6, m_autoPathThreeBall2);
   // private final ParallelCommandGroup m_fourBallPart1Parallel = new ParallelCommandGroup(m_runIntakeAuto7, m_autoPathFourBall1);
-  private final ParallelCommandGroup m_twoBallParallel = new ParallelCommandGroup(m_runIntakeAuto8, new AutoNewStraight(m_driveSubsystem));
+  private final ParallelCommandGroup m_twoBallParallel = new ParallelCommandGroup(new AutoRunIntakeCommand(m_intakeSubsystem), new AutoNewStraight(m_driveSubsystem));
+  private final ParallelCommandGroup m_twoBallLeftParallel = new ParallelCommandGroup(new AutoRunIntakeCommand(m_intakeSubsystem), new AutoStraightLeft(m_driveSubsystem));
 
   // private final SequentialCommandGroup m_position1Sequential = new SequentialCommandGroup(m_extendIntakeAuto, m_position1Parallel, m_retractIntakeAuto, m_loadCatapultAuto, m_extendIntakeAuto2, m_catapultAuto);
   // private final SequentialCommandGroup m_position2Sequential = new SequentialCommandGroup(m_extendIntakeAuto3, m_position2Parallel, m_retractIntakeAuto2, m_loadCatapultAuto2, m_extendIntakeAuto4, m_catapultAuto2);
@@ -188,9 +190,11 @@ public class RobotContainer
   // private final SequentialCommandGroup m_position4Sequential = new SequentialCommandGroup(m_extendIntakeAuto7, m_position4Parallel, m_retractIntakeAuto4, m_loadCatapultAuto4, m_extendIntakeAuto8, m_catapultAuto4);
   // private final SequentialCommandGroup m_threeBallPart1 = new SequentialCommandGroup(m_extendIntakeAuto9, m_threeBallPart1Parallel, m_retractIntakeAuto5, m_loadCatapultAuto5, m_extendIntakeAuto10, m_catapultAuto5);
   // private final SequentialCommandGroup m_threeBall = new SequentialCommandGroup(m_threeBallPart1, m_threeBallPart2Parallel, m_retractIntakeAuto6, m_loadCatapultAuto6, m_extendIntakeAuto11, m_catapultAuto6);
-  private final SequentialCommandGroup m_auto1BallLeftSeq = new SequentialCommandGroup(m_loadCatapultAuto7, m_auto1BallL, m_extendIntakeAuto12, m_autoRightCatapult, m_auto1BallOut);
-  private final SequentialCommandGroup m_auto1BallRightSeq = new SequentialCommandGroup(m_loadCatapultAuto8, m_auto1BallR, m_extendIntakeAuto13, m_autoLeftCatapult, m_auto1BallOut2);
-  private final SequentialCommandGroup m_twoBallSeq = new SequentialCommandGroup(m_extendIntakeAuto14, m_twoBallParallel, m_retractIntakeAuto7, m_loadCatapultAuto9, m_extendIntakeAuto15, m_catapultAuto7);
+  private final SequentialCommandGroup m_auto1BallLeftSeq = new SequentialCommandGroup(new AutoLoadCatapultCommand(m_intakeSubsystem), m_auto1BallL, new ExtendIntakeCommand(m_intakeSubsystem), new RightCatapultCommand(m_catapultSubsystem, m_intakeSubsystem), m_auto1BallOut);
+  private final SequentialCommandGroup m_auto1BallRightSeq = new SequentialCommandGroup(new AutoLoadCatapultCommand(m_intakeSubsystem), m_auto1BallR, new ExtendIntakeCommand(m_intakeSubsystem), new LeftCatapultCommand(m_catapultSubsystem, m_intakeSubsystem), m_auto1BallOut2);
+  private final SequentialCommandGroup m_twoBallSeq = new SequentialCommandGroup(new ExtendIntakeCommand(m_intakeSubsystem), m_twoBallParallel, new RetractIntakeCommand(m_intakeSubsystem), new AutoLoadCatapultCommand(m_intakeSubsystem), new ExtendIntakeCommand(m_intakeSubsystem), new AutoCatapultCommand(m_catapultSubsystem, m_intakeSubsystem));
+  private final SequentialCommandGroup m_twoBallLeftSeq = new SequentialCommandGroup(new ExtendIntakeCommand(m_intakeSubsystem), m_twoBallLeftParallel, new RetractIntakeCommand(m_intakeSubsystem), new AutoLoadCatapultCommand(m_intakeSubsystem), new ExtendIntakeCommand(m_intakeSubsystem), new AutoCatapultCommand(m_catapultSubsystem, m_intakeSubsystem));
+
   //private final SequentialCommandGroup m_fourBall = new SequentialCommandGroup(m_fourBallPart1, m_fourBallPart2Parallel, m_retractIntakeAuto8, m_loadCatapultAuto10, m_extendIntakeAuto16, m_catapultAuto8);
 
 //private final SequentialCommandGroup m_testIntakeStepSequential = new SequentialCommandGroup(m_loadCatapultAuto, m_extendIntakeAuto, m_catapultAuto);
@@ -219,7 +223,8 @@ public class RobotContainer
     // auto.addOption("Position 4", m_position4Sequential);
     auto.addOption("1 Ball Left", m_auto1BallLeftSeq);
     auto.addOption("1 Ball Right", m_auto1BallRightSeq);
-    auto.addOption("2 Ball", m_twoBallSeq);
+    auto.addOption("2 Ball R", m_twoBallSeq);
+    auto.addOption("2 Ball L", m_twoBallLeftSeq);
 
     auto.setDefaultOption("Default taxi", m_autoDefaultTaxi);
 

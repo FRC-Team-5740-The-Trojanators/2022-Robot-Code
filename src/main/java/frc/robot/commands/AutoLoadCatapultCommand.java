@@ -41,7 +41,6 @@ public class AutoLoadCatapultCommand extends CommandBase {
     m_intake.reverseHoldMotor();
     m_intake.forwardIntakeMotors();
   
- 
     m_isFinished = m_timer.advanceIfElapsed(.5);
   }
 
