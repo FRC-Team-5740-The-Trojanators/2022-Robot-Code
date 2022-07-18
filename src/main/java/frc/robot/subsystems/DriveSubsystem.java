@@ -70,7 +70,8 @@ public class DriveSubsystem extends SubsystemBase
        modules[i].resetDriveEncoder();
     }
 
-   // m_UsbCamera.setResolution(320, 240);
+    m_UsbCamera.setResolution(320, 240);
+    m_UsbCamera.setFPS(10);
 
     m_imu.setStatusFramePeriod(PigeonIMU_StatusFrame.CondStatus_1_General, 20);
   }
