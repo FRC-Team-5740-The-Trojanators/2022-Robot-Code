@@ -123,6 +123,15 @@ public class SwerveModule
         double currentTicks = calculateCurrentTicks();
         double desiredTicks = currentTicks + deltaTicks;
 
+        if(Math.abs(desiredState.speedMetersPerSecond)  <= SwerveDriveModuleConstants.k_MaxTeleSpeed * 0.05)
+        {
+           desiredTicks = currentTicks;
+        }
+        else
+        {
+            desiredTicks = currentTicks + deltaTicks;
+        }
+
         m_angleMotor.set(TalonFXControlMode.Position, filterAngleMotorDeadband(desiredTicks));
         
         m_driveMotor.set(TalonFXControlMode.PercentOutput, state.speedMetersPerSecond / SwerveDriveModuleConstants.k_MaxTeleSpeed);

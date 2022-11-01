@@ -140,7 +140,7 @@ public final class Constants
 
     public static class SteerModulePIDValues
     {
-        public static double k_steerP = 5.0;
+        public static double k_steerP = 3;
         public static double k_steerI = 0.0;
         public static double k_steerD = 0.50;
 
