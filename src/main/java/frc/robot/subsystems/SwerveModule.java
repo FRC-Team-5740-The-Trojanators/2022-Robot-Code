@@ -4,11 +4,8 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.math.trajectory.Trajectory.State;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.DriveModulePIDValues;
 import frc.robot.Constants.SteerModulePIDValues;
 import frc.robot.Constants.SwerveDriveModuleConstants;
@@ -26,14 +23,13 @@ import com.ctre.phoenix.sensors.CANCoderConfiguration;
 import com.ctre.phoenix.sensors.CANCoderStatusFrame;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 
-public class SwerveModule extends SubsystemBase {
   /** Creates a new SwerveModule. */
-  public SwerveModule() { 
+  public class SwerveModule
+  { 
     
     private LazyTalonFX m_driveMotor;
     private LazyTalonFX m_angleMotor;
     private Rotation2d m_offset;
-
     private CANCoder m_moduleSteeringEncoder;
 
       /**
@@ -76,8 +72,6 @@ public class SwerveModule extends SubsystemBase {
 
         m_angleMotor.configAllSettings(angleTalonConfig);
         m_angleMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20);
-
-
         
         m_driveMotor.configFactoryDefault();
         m_driveMotor.setNeutralMode(NeutralMode.Brake);
@@ -97,8 +91,6 @@ public class SwerveModule extends SubsystemBase {
         driveTalonConfig.supplyCurrLimit.currentLimit = 35;
         m_driveMotor.configAllSettings(driveTalonConfig);
         m_driveMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20);
-        //SmartDashboard.putNumber("feedbackcoef", m_moduleSteeringEncoder.configGetFeedbackCoefficient());
-
     }
 
     public void setDesiredState(SwerveModuleState desiredState)
@@ -172,13 +164,4 @@ public class SwerveModule extends SubsystemBase {
         return m_moduleSteeringEncoder.getPosition();
     }
 
-    public double getAbsoluteDegrees()
-    {
-        return m_moduleSteeringEncoder.getAbsolutePosition();
-    }
-}
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
 }

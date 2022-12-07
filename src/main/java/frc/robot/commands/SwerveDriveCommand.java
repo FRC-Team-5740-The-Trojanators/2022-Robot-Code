@@ -4,21 +4,77 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.Constants.HIDConstants;
+import frc.robot.Constants.SwerveDriveModuleConstants;
 
 public class SwerveDriveCommand extends CommandBase {
   /** Creates a new SwerveDriveCommand. */
-  public SwerveDriveCommand() {
-    // Use addRequirements() here to declare subsystem dependencies.
-  }
+    private final DriveSubsystem drivetrain;
+    private final XboxController controller;
+           
+    private final SlewRateLimiter xspeedLimiter = new SlewRateLimiter(20);//SlewRateLimiter(6);
+    private final SlewRateLimiter yspeedLimiter = new SlewRateLimiter(20);//SlewRateLimiter(6);
 
+  public SwerveDriveCommand(DriveSubsystem drivetrain, XboxController controller)
+  {
+      this.drivetrain = drivetrain;
+      this.controller = controller;
+
+      addRequirements(drivetrain);
+  }
+  
+  private double getJoystickWithDeadBand(double stickValue)
+  {
+      if(stickValue > HIDConstants.kDeadBand || stickValue < -HIDConstants.kDeadBand)
+      {
+          if(stickValue < 0)
+          {
+              return stickValue = -Math.pow(stickValue, 2);
+          }
+          else
+          {
+              return stickValue = Math.pow(stickValue, 2);
+          }
+      } 
+      else 
+      {
+          return 0;
+      }
+  } 
+  
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() 
+  {
+      // Get the x speed.
+      final var xSpeed =
+         -xspeedLimiter.calculate(getJoystickWithDeadBand(controller.getLeftY())
+          * SwerveDriveModuleConstants.k_MaxTeleSpeed * SwerveDriveModuleConstants.k_XYjoystickCoefficient);
+
+      final var ySpeed =
+        yspeedLimiter.calculate(getJoystickWithDeadBand(controller.getLeftX())
+        * SwerveDriveModuleConstants.k_MaxTeleSpeed * SwerveDriveModuleConstants.k_XYjoystickCoefficient);
+     
+      final var rot = getJoystickWithDeadBand(controller.getRightX()) * 
+        SwerveDriveModuleConstants.k_MaxAngularSpeed * SwerveDriveModuleConstants.k_RotCoefficient;
+
+    double trigger = .5;
+
+    if(controller.getRightTriggerAxis() >= 0.1)
+    {
+      drivetrain.teleDrive(xSpeed * (trigger), ySpeed * (trigger), rot * (trigger), true);
+    } else {
+      drivetrain.teleDrive(xSpeed, ySpeed, rot, true);
+    }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
