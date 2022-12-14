@@ -9,6 +9,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import frc.robot.Constants.DriveModulePIDValues;
 import frc.robot.Constants.SteerModulePIDValues;
 import frc.robot.Constants.SwerveDriveModuleConstants;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 
 import lib.LazyTalonFX;
 
@@ -162,6 +163,10 @@ import com.ctre.phoenix.sensors.SensorInitializationStrategy;
     public double getRotationDegrees()
     {
         return m_moduleSteeringEncoder.getPosition();
+    }
+
+    public SwerveModulePosition getPosition() {
+        return new SwerveModulePosition(m_driveEncoder.getDistance(), new Rotation2d(m_turningEncoder.getDistance()));
     }
 
 }
